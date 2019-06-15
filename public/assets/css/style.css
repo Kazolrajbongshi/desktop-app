@@ -1,0 +1,23 @@
+.text-color{
+	color: #19c5bd;
+	font-size: 40px;
+}
+.text-color span{
+	font-size: 60px;
+}
+
+.follower_lists{
+	background: #eeeeee; 
+	padding: 5px;
+}
+.follower_upper{
+	background: #eeeeee;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+.follower_upper p{
+	font-size: 20px;
+}
+.container .row a{
+	text-decoration: none;
+}
