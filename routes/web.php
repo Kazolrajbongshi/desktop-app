@@ -15,3 +15,4 @@
 //     return view('welcome');
 // });
 Route::get('/dashboard','HomePageController@dashboard');
+Route::get('/follower-and-following-list','HomePageController@followerAndFollowingList');

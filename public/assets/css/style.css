@@ -20,4 +20,12 @@
 }
 .container .row a{
 	text-decoration: none;
+	color: #333333;
+}
+
+.container .row .thumbnail{
+	margin-bottom: 0px ;
+}
+.container .row .thumbnail:hover{
+	border: 1px solid #28c8c0;
 }

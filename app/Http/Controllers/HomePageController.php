@@ -17,6 +17,11 @@ class HomePageController extends Controller
         return view('home_page.dashboard');
     }
 
+    public function followerAndFollowingList(){
+
+        return view('home_page.follower_following_list');
+    }
+
     public function index()
     {
         //
