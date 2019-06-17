@@ -22,6 +22,7 @@ class HomePageController extends Controller
 
         return view('home_page.dashboard');
     }
+
     public function search(Request $request){
         $result1 = $this->ig->login('webvision100','instagram123456');
         $search1 =  'icc' ; // $request->searchUser;
@@ -31,6 +32,14 @@ class HomePageController extends Controller
         $searchResult1 = json_decode($searchResult1);
         return view('home_page.dashboard',compact($searchResult1));
     }
+
+
+    public function followerAndFollowingList(){
+
+        return view('home_page.follower_following_list');
+    }
+
+
     public function index()
     {
         //

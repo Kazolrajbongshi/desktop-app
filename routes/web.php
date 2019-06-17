@@ -15,4 +15,8 @@
 //     return view('welcome');
 // });
 Route::get('/dashboard','HomePageController@dashboard');
+
 Route::get('/search','HomePageController@search');
+
+Route::get('/follower-and-following-list','HomePageController@followerAndFollowingList');
+
