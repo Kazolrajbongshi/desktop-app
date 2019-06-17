@@ -15,3 +15,4 @@
 //     return view('welcome');
 // });
 Route::get('/dashboard','HomePageController@dashboard');
+Route::get('/search','HomePageController@search');

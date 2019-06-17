@@ -15,12 +15,17 @@
 <div class="jumbotron text-center">
   <p>Serch User</p>
   <div class="row">
-    <div class="col-sm-4 col-sm-offset-4"> 
-      <input type="text" name="search_user" class="form-control" placeholder="Search user by instagram user name">
+    <div class="col-sm-4 col-sm-offset-4">
+        <form action="{{URL::to('/search')}}" method="post">
+            {{csrf_field()}}
+            <input type="text" name="searchUser" class="form-control" placeholder="Search user by instagram user name">
+            <button type="submit">Search</button>
+        </form>
+
     </div>
   </div>
 </div>
-  
+
 <div class="container">
   <div class="row">
     <div class="col-sm-4">
@@ -153,7 +158,7 @@
     <a href="#">
       <div class="follower_upper">
         <p><i class="fa fa-instagram"></i>&nbsp;Lambarghini</p>
-        <h2 class="text-center text-color"><span>9</span>.25M</h2> 
+        <h2 class="text-center text-color"><span>9</span>.25M</h2>
       </div>
     </a>
       <div class="follower_lists">
@@ -210,7 +215,7 @@
             <p><i class="fa fa-comment"></i> 300 &nbsp;&nbsp;<i class="fa fa-thumbs-up"></i> 250 <span class="pull-right"><i class="fa fa-calendar"></i> 15-06-2019</span></p>
           </div>
         </div>
-      </div>       
+      </div>
     </div>
   </div>
 </div>
