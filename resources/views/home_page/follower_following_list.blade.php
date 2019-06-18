@@ -23,65 +23,127 @@
   
 <div class="container">
   <div class="row">
-    <table class="table table-hover table-bordered">
-      <thead>
-        <tr>
-          <th scope="col">Checkbox</th>
-          <th scope="col">Username</th>
-          <th scope="col">Biography</th>
-          <th scope="col">Follower count</th>
-          <th scope="col">Following count</th>
-          <th scope="col">photo</th>
-          <th scope="col">Post</th>
-          <th scope="col">Is_private</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th scope="row"><input type="checkbox" name="">Select All</th>
-          <td><input type="checkbox" name=""></td>
-          <td><input type="checkbox" name=""></td>
-          <td><input type="checkbox" name=""></td>
-          <td><input type="checkbox" name=""></td>
-          <td><input type="checkbox" name=""></td>
-          <td><input type="checkbox" name=""></td>
-          <td><input type="checkbox" name=""></td>
-        </tr>
-        <tr>
-          <th scope="row"><input type="checkbox" name=""></th>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>@mdo</td>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>@mdo</td>
-          <td>Otto</td>
-        </tr>
-        <tr>
-          <th scope="row"><input type="checkbox" name=""></th>
-          <td>Jacob</td>
-          <td>Thornton</td>
-          <td>@fat</td>
-          <td>Jacob</td>
-          <td>Thornton</td>
-          <td>@fat</td>
-          <td>Thornton</td>
-        </tr>
-        <tr>
-          <th scope="row"><input type="checkbox" name=""></th>
-          <td >Larry the Bird</td>
-          <td>@twitter</td>
-          <td >Larry the Bird</td>
-          <td>@twitter</td>
-          <td >Larry the Bird</td>
-          <td>@twitter</td>
-          <td >Larry the Bird</td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="table-wrapper-scroll-y my-custom-scrollbar">
+      <table class="table table-hover table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">Checkbox</th>
+            <th scope="col">Username</th>
+            <th scope="col">Biography</th>
+            <th scope="col">Follower count</th>
+            <th scope="col">Following count</th>
+            <th scope="col">photo</th>
+            <th scope="col">Post</th>
+            <th scope="col">Is_private</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row"><input type="checkbox" name="">Select All</th>
+            <td><input type="checkbox" name=""></td>
+            <td><input type="checkbox" name=""></td>
+            <td><input type="checkbox" name=""></td>
+            <td><input type="checkbox" name=""></td>
+            <td><input type="checkbox" name=""></td>
+            <td><input type="checkbox" name=""></td>
+            <td><input type="checkbox" name=""></td>
+          </tr>
+          <tr>
+            <th scope="row"><input type="checkbox" name=""></th>
+            <td>Mark</td>
+            <td>Otto</td>
+            <td>@mdo</td>
+            <td>Mark</td>
+            <td>Otto</td>
+            <td>@mdo</td>
+            <td>Otto</td>
+          </tr>
+          <tr>
+            <th scope="row"><input type="checkbox" name=""></th>
+            <td>Jacob</td>
+            <td>Thornton</td>
+            <td>@fat</td>
+            <td>Jacob</td>
+            <td>Thornton</td>
+            <td>@fat</td>
+            <td>Thornton</td>
+          </tr>
+          <tr>
+            <th scope="row"><input type="checkbox" name=""></th>
+            <td >Larry the Bird</td>
+            <td>@twitter</td>
+            <td >Larry the Bird</td>
+            <td>@twitter</td>
+            <td >Larry the Bird</td>
+            <td>@twitter</td>
+            <td >Larry the Bird</td>
+          </tr>
+          <tr>
+            <th scope="row"><input type="checkbox" name=""></th>
+            <td>Mark</td>
+            <td>Otto</td>
+            <td>@mdo</td>
+            <td>Mark</td>
+            <td>Otto</td>
+            <td>@mdo</td>
+            <td>Otto</td>
+          </tr>
+          <tr>
+            <th scope="row"><input type="checkbox" name=""></th>
+            <td>Jacob</td>
+            <td>Thornton</td>
+            <td>@fat</td>
+            <td>Jacob</td>
+            <td>Thornton</td>
+            <td>@fat</td>
+            <td>Thornton</td>
+          </tr>
+          <tr>
+            <th scope="row"><input type="checkbox" name=""></th>
+            <td >Larry the Bird</td>
+            <td>@twitter</td>
+            <td >Larry the Bird</td>
+            <td>@twitter</td>
+            <td >Larry the Bird</td>
+            <td>@twitter</td>
+            <td >Larry the Bird</td>
+          </tr>
+          <tr>
+            <th scope="row"><input type="checkbox" name=""></th>
+            <td>Mark</td>
+            <td>Otto</td>
+            <td>@mdo</td>
+            <td>Mark</td>
+            <td>Otto</td>
+            <td>@mdo</td>
+            <td>Otto</td>
+          </tr>
+          <tr>
+            <th scope="row"><input type="checkbox" name=""></th>
+            <td>Jacob</td>
+            <td>Thornton</td>
+            <td>@fat</td>
+            <td>Jacob</td>
+            <td>Thornton</td>
+            <td>@fat</td>
+            <td>Thornton</td>
+          </tr>
+          <tr>
+            <th scope="row"><input type="checkbox" name=""></th>
+            <td >Larry the Bird</td>
+            <td>@twitter</td>
+            <td >Larry the Bird</td>
+            <td>@twitter</td>
+            <td >Larry the Bird</td>
+            <td>@twitter</td>
+            <td >Larry the Bird</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
-  <div>
-    <button type="submit">CSV</button>
+  <div style="text-align:center;">
+    <button type="submit" class="btn btn-primary"><span style="color: black;">Export as</span>&nbsp;&nbsp;CSV</button>
   </div>
 </div>
 </body>
