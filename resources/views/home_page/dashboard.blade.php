@@ -70,7 +70,28 @@
     <a href="{{url('follower-and-following-list/'.$profile1->user->pk)}}">
       <div class="follower_upper">
         <p><i class="fa fa-instagram"></i>&nbsp;{{$profile1->user->username}}</p>
-        <h2 class="text-center text-color">{{$profile1->user->follower_count}}</h2>
+        <?php
+           $n = (0+str_replace(",", "", $profile1->user->follower_count));
+
+            if (!is_numeric($n)) return false;
+
+            // now filter it;
+            if ($n > 1000000000000) {
+              $n = round(($n/1000000000000), 2).' T';
+            }
+            elseif ($n > 1000000000){
+              $n = round(($n/1000000000), 2).' B';
+            } 
+            elseif ($n > 1000000){
+              $n = round(($n/1000000), 2).' M';
+            } 
+            elseif ($n > 1000){
+               $n = round(($n/1000), 2).' K';
+            }else{
+              $n = $n;
+            }
+        ?>
+        <h2 class="text-center text-color">{{$n}}</h2>
       </div>
     </a>
         <?php
@@ -109,7 +130,28 @@
           <a href="{{url('follower-and-following-list/'.$profile2->user->pk)}}">
               <div class="follower_upper">
                   <p><i class="fa fa-instagram"></i>&nbsp;{{$profile2->user->username}}</p>
-                  <h2 class="text-center text-color">{{$profile2->user->follower_count}}</h2>
+                  <?php
+                     $n = (0+str_replace(",", "", $profile2->user->follower_count));
+
+                      if (!is_numeric($n)) return false;
+
+                      // now filter it;
+                      if ($n > 1000000000000) {
+                        $n = round(($n/1000000000000), 2).' T';
+                      }
+                      elseif ($n > 1000000000){
+                        $n = round(($n/1000000000), 2).' B';
+                      } 
+                      elseif ($n > 1000000){
+                        $n = round(($n/1000000), 2).' M';
+                      } 
+                      elseif ($n > 1000){
+                         $n = round(($n/1000), 2).' K';
+                      }else{
+                        $n = $n;
+                      }
+                  ?>
+                  <h2 class="text-center text-color">{{$n}}</h2>
               </div>
           </a>
           <?php
@@ -150,7 +192,28 @@
           <a href="{{url('follower-and-following-list/'.$profile3->user->pk)}}">
               <div class="follower_upper">
                   <p><i class="fa fa-instagram"></i>&nbsp;{{$profile3->user->username}}</p>
-                  <h2 class="text-center text-color">{{$profile3->user->follower_count}}</h2>
+                  <?php
+                     $n = (0+str_replace(",", "", $profile3->user->follower_count));
+
+                      if (!is_numeric($n)) return false;
+
+                      // now filter it;
+                      if ($n > 1000000000000) {
+                        $n = round(($n/1000000000000), 2).' T';
+                      }
+                      elseif ($n > 1000000000){
+                        $n = round(($n/1000000000), 2).' B';
+                      } 
+                      elseif ($n > 1000000){
+                        $n = round(($n/1000000), 2).' M';
+                      } 
+                      elseif ($n > 1000){
+                         $n = round(($n/1000), 2).' K';
+                      }else{
+                        $n = $n;
+                      }
+                  ?>
+                  <h2 class="text-center text-color">{{$n}}</h2>
               </div>
           </a>
           <?php
