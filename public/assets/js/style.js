@@ -56,3 +56,44 @@ $(document).ready(function(){
     }
 });
 //follower js end //
+
+// Compare search start //
+
+
+$('.first-search-add-btn').click(function(){
+
+    $('.first-search-add-btn').hide();
+    $('.second-search-add-btn').show();
+    $('.second-search-remove-btn').show();
+    $('.second-search-add').show();
+});
+
+$('.second-search-add-btn').click(function(){
+
+    $('.second-search-add-btn').hide();
+    $('.second-search-remove-btn').hide();
+    $('.third-search-remove-btn').show();
+    $('.third-search-add').show();
+});
+
+$('.second-search-remove-btn').click(function(){
+
+    $('.second-search-add-btn').hide();
+    $('.second-search-remove-btn').hide();
+    $('.second-search-add').hide();
+    $('.first-search-add-btn').show();
+});
+
+$('.third-search-remove-btn').click(function(){
+
+    $('.third-search-remove-btn').hide();
+    $('.third-search-add').hide();
+    $('.second-search-add-btn').show();
+    $('.second-search-remove-btn').show();
+    $('.second-search-add').show();
+});
+
+
+
+
+// Compare search end //
