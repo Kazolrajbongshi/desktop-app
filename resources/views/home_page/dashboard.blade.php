@@ -117,7 +117,7 @@
           ?>
           @foreach($searchResult2->items as $searchResult2)
 
-          <a class="thumbnail" href="#" data-image-id="" data-toggle="modal" data-title="{{$searchResult2->caption->text}}" data-caption="Like : {{$searchResult2->like_count}}  @if(isset($searchResult2->view_count))Views : {{$searchResult2->view_count}}@endif" data-image="{{$searchResult2->image_versions2->candidates[0]->url}}" data-target="#image-gallery">
+          <a class="thumbnail" href="#" data-image-id="" data-toggle="modal" data-title="@if(isset($searchResult1->caption->text)){{$searchResult1->caption->text}}@endif" data-caption="Like : {{$searchResult2->like_count}}  @if(isset($searchResult2->view_count))Views : {{$searchResult2->view_count}}@endif" data-image="{{$searchResult2->image_versions2->candidates[0]->url}}" data-target="#image-gallery">
 
               <div class="follower_lists">
                   <div class="row">
@@ -125,7 +125,7 @@
                           <img src="{{$searchResult2->image_versions2->candidates[0]->url}}" alt="" height="50" width="75">
                       </div>
                       <div class="col-sm-9">
-                          <p>{{$searchResult2->caption->text}}</p>
+                          <p>@if(isset($searchResult1->caption->text)){{$searchResult1->caption->text}}@endif</p>
                           <p> @if(isset($searchResult2->view_count))<i class="fa fa-comment"></i>{{$searchResult2->view_count}}@endif &nbsp;&nbsp;<i class="fa fa-thumbs-up"></i> {{$searchResult2->like_count}} <span class="pull-right"><i class="fa fa-calendar"></i>{{ date("d-m-Y", $searchResult2->taken_at)}}</span></p>
                       </div>
                   </div>
@@ -158,7 +158,7 @@
           ?>
           @foreach($searchResult3->items as $searchResult3)
 
-          <a class="thumbnail" href="#" data-image-id="" data-toggle="modal" data-title="{{$searchResult3->caption->text}}" data-caption="Like : {{$searchResult3->like_count}}  @if(isset($searchResult3->view_count))Views : {{$searchResult3->view_count}}@endif" data-image="{{$searchResult3->image_versions2->candidates[0]->url}}" data-target="#image-gallery">
+          <a class="thumbnail" href="#" data-image-id="" data-toggle="modal" data-title="@if(isset($searchResult1->caption->text)){{$searchResult1->caption->text}}@endif" data-caption="Like : {{$searchResult3->like_count}}  @if(isset($searchResult3->view_count))Views : {{$searchResult3->view_count}}@endif" data-image="{{$searchResult3->image_versions2->candidates[0]->url}}" data-target="#image-gallery">
 
               <div class="follower_lists">
                   <div class="row">
@@ -166,7 +166,7 @@
                           <img src="{{$searchResult3->image_versions2->candidates[0]->url}}" alt="" height="50" width="75">
                       </div>
                       <div class="col-sm-9">
-                          <p>{{$searchResult3->caption->text}}</p>
+                          <p>@if(isset($searchResult1->caption->text)){{$searchResult1->caption->text}}@endif</p>
                           <p> @if(isset($searchResult3->view_count))<i class="fa fa-comment"></i>{{$searchResult3->view_count}}@endif &nbsp;&nbsp;<i class="fa fa-thumbs-up"></i> {{$searchResult3->like_count}} <span class="pull-right"><i class="fa fa-calendar"></i>{{ date("d-m-Y", $searchResult3->taken_at)}}</span></p>
                       </div>
                   </div>
