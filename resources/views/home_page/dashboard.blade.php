@@ -45,14 +45,14 @@
     <div class="col-sm-4 ">
       <button type="button" class="btn btn-danger second-search-remove-btn" style="float: right;display: none;">Remove</button><button type="button" class="btn btn-success second-search-add-btn" style="float: right;display: none; margin-right: 5px;">Add</button>
       <div class="second-search-add" style="overflow: hidden; padding-right: .5em;display: none;">
-        <input type="text" name="searchUser2" class="form-control" placeholder="Second compare instagram user name">
+        <input type="text" name="searchUser2" id="searchUser2" class="form-control" placeholder="Second compare instagram user name">
       </div>
 
     </div>
     <div class="col-sm-4 ">
       <button type="button" class="btn btn-success third-search-add-btn" style="float: right;display: none;">Add</button><button type="button" class="btn btn-danger third-search-remove-btn" style="float: right;display: none;">Remove</button>
       <div class="third-search-add" style="overflow: hidden; padding-right: .5em;display: none;">
-        <input type="text" name="searchUser3" class="form-control" placeholder="Third compare instagram user name">
+        <input type="text" name="searchUser3" id="searchUser3" class="form-control" placeholder="Third compare instagram user name">
       </div>
     </div>
   </div>
