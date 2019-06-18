@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use InstagramAPI\Instagram;
 
 class HomePageController extends Controller
 {
@@ -11,16 +12,47 @@ class HomePageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        Instagram::$allowDangerousWebUsageAtMyOwnRisk = true;
+        $this->ig = new \InstagramAPI\Instagram();
+    }
 
     public function dashboard(){
 
         return view('home_page.dashboard');
     }
 
+    public function search(Request $request){
+        $result1 = $this->ig->login('webvision100','instagram123456');
+        $search1 =   $request->searchUser;
+        $id1 = $this->ig->people->getUserIdForName($search1);
+        $searchResult1 = $this->ig->timeline->getUserFeed($id1);
+       // $searchResult1 = $this->ig->people->getActiveFeedAds($id1);
+        $searchResult1 = json_decode($searchResult1);
+        
+        return view('home_page.dashboard',compact('searchResult1'));
+    }
+
+    public function test(){
+        $result1 = $this->ig->login('webvision100','instagram123456');
+        $search1 =  'icc' ;//$request->searchUser;
+        $id1 = $this->ig->people->getUserIdForName($search1);
+        $searchResult1 = $this->ig->timeline->getUserFeed($id1);
+        // $searchResult1 = $this->ig->people->getActiveFeedAds($id1);
+        //$searchResult1 = json_decode($searchResult1);
+//        print_r($searchResult1);
+//        exit();
+
+        return $searchResult1;
+    }
+
+
     public function followerAndFollowingList(){
 
         return view('home_page.follower_following_list');
     }
+
 
     public function index()
     {

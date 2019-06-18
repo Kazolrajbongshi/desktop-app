@@ -31,101 +31,78 @@
 </div>
   <p>Serch User</p>
   <div class="row">
+    <form action="{{URL::to('/search')}}" method="post">
+            {{csrf_field()}}
+
     <div class="col-sm-4 "> 
       <!-- <input type="submit"value="Find"  /> -->
       <button class="btn btn-success first-search-add-btn" style="float: right">Add</button>
       <div class="first-search-add" style="overflow: hidden; padding-right: .5em;">
-        <input type="text" name="first_compare_user" class="form-control" placeholder="First compare instagram user name">
+        <input type="text" name="searchUser1" class="form-control" placeholder="First compare instagram user name">
       </div>
       
     </div>
     <div class="col-sm-4 "> 
       <button class="btn btn-danger second-search-remove-btn" style="float: right;display: none;">Remove</button><button class="btn btn-success second-search-add-btn" style="float: right;display: none; margin-right: 5px;">Add</button>
       <div class="second-search-add" style="overflow: hidden; padding-right: .5em;display: none;">
-        <input type="text" name="second_compare_user" class="form-control" placeholder="Second compare instagram user name">
+        <input type="text" name="searchUser2" class="form-control" placeholder="Second compare instagram user name">
       </div>
+
     </div>
     <div class="col-sm-4 "> 
       <button class="btn btn-success third-search-add-btn" style="float: right;display: none;">Add</button><button class="btn btn-danger third-search-remove-btn" style="float: right;display: none;">Remove</button>
       <div class="third-search-add" style="overflow: hidden; padding-right: .5em;display: none;">
-        <input type="text" name="third_compare_user" class="form-control" placeholder="Third compare instagram user name">
+        <input type="text" name="searchUser3" class="form-control" placeholder="Third compare instagram user name">
       </div>
     </div>
   </div>
   <div style="margin-top: 20px;">
     <button class="btn btn-success">Search</button>
   </div>
+  </form>
 </div>
-  
+
 <div class="container">
   <div class="row">
+      @if(isset($searchResult1))
     <div class="col-sm-4">
+
     <a href="{{url('follower-and-following-list')}}">
       <div class="follower_upper">
         <p><i class="fa fa-instagram"></i>&nbsp;Tesla</p>
         <h2 class="text-center text-color"><span>2</span>.66M</h2>
       </div>
     </a>
-    <a class="thumbnail" href="#" data-image-id="" data-toggle="modal" data-title="Lorem ipsum dolor sit amet,consecuti..." data-caption="Comment : 100  Like : 200" data-image="{{asset('assets/img/tesla.jpg')}}" data-target="#image-gallery">
-      <div class="follower_lists">
+        <?php
+        $counter = 0;
+        ?>
+        @foreach($searchResult1->items as $searchResult1)
+
+    <a class="thumbnail" href="#" data-image-id="" data-toggle="modal" data-title="{{$searchResult1->caption->text}}" data-caption="Like : {{$searchResult1->like_count}}  @if(isset($searchResult1->view_count))Views : {{$searchResult1->view_count}}@endif" data-image="{{$searchResult1->image_versions2->candidates[0]->url}}" data-target="#image-gallery">
+
+        <div class="follower_lists">
         <div class="row">
-          <div class="col-sm-3">           
-            <img src="{{asset('assets/img/tesla.jpg')}}" alt="" height="50" width="75">        
+          <div class="col-sm-3">
+            <img src="{{$searchResult1->image_versions2->candidates[0]->url}}" alt="" height="50" width="75">
           </div>
           <div class="col-sm-9">
-            <p>Lorem ipsum dolor sit amet,consecuti...</p>
-            <p><i class="fa fa-comment"></i> 100 &nbsp;&nbsp;<i class="fa fa-thumbs-up"></i> 200 <span class="pull-right"><i class="fa fa-calendar"></i> 15-06-2019</span></p>
+            <p>{{$searchResult1->caption->text}}</p>
+            <p> @if(isset($searchResult1->view_count))<i class="fa fa-comment"></i>{{$searchResult1->view_count}}@endif &nbsp;&nbsp;<i class="fa fa-thumbs-up"></i> {{$searchResult1->like_count}} <span class="pull-right"><i class="fa fa-calendar"></i>{{ date("d-m-Y", $searchResult1->taken_at)}}</span></p>
           </div>
         </div>
       </div>
       </a>
-      <a class="thumbnail" href="#" data-image-id="" data-toggle="modal" data-title="Lorem ipsum dolor sit amet,consecuti..." data-caption="Comment : 300  Like : 500" data-image="{{asset('assets/img/tesla.jpg')}}" data-target="#image-gallery">
-      <div class="follower_lists">
-        <div class="row">
-          <div class="col-sm-3">
-            <img src="{{asset('assets/img/tesla.jpg')}}" alt="" height="50" width="75">
-          </div>
-          <div class="col-sm-9">
-            <p>Lorem ipsum dolor sit amet,consecuti...</p>
-            <p><i class="fa fa-comment"></i> 300 &nbsp;&nbsp;<i class="fa fa-thumbs-up"></i> 500 <span class="pull-right"><i class="fa fa-calendar"></i> 15-06-2019</span></p>
-          </div>
-        </div>
-      </div>
-    </a>
-      <div class="follower_lists">
-        <div class="row">
-          <div class="col-sm-3">
-            <img src="{{asset('assets/img/tesla.jpg')}}" alt="" height="50" width="75">
-          </div>
-          <div class="col-sm-9">
-            <p>Lorem ipsum dolor sit amet,consecuti...</p>
-            <p><i class="fa fa-comment"></i> 100 &nbsp;&nbsp;<i class="fa fa-thumbs-up"></i> 200 <span class="pull-right"><i class="fa fa-calendar"></i> 15-06-2019</span></p>
-          </div>
-        </div>
-      </div>
-      <div class="follower_lists">
-        <div class="row">
-          <div class="col-sm-3">
-            <img src="{{asset('assets/img/tesla.jpg')}}" alt="" height="50" width="75">
-          </div>
-          <div class="col-sm-9">
-            <p>Lorem ipsum dolor sit amet,consecuti...</p>
-            <p><i class="fa fa-comment"></i> 100 &nbsp;&nbsp;<i class="fa fa-thumbs-up"></i> 200 <span class="pull-right"><i class="fa fa-calendar"></i> 15-06-2019</span></p>
-          </div>
-        </div>
-      </div>
-      <div class="follower_lists">
-        <div class="row">
-          <div class="col-sm-3">
-            <img src="{{asset('assets/img/tesla.jpg')}}" alt="" height="50" width="75">
-          </div>
-          <div class="col-sm-9">
-            <p>Lorem ipsum dolor sit amet,consecuti...</p>
-            <p><i class="fa fa-comment"></i> 100 &nbsp;&nbsp;<i class="fa fa-thumbs-up"></i> 200 <span class="pull-right"><i class="fa fa-calendar"></i> 15-06-2019</span></p>
-          </div>
-        </div>
-      </div>
+        <?php
+
+        if($counter == 4){
+            break;
+        }
+        $counter++;
+        ?>
+        @endforeach
     </div>
+      @endif
+<!--      second modal-->
     <div class="col-sm-4">
     <a href="#">
       <div class="follower_upper">
@@ -197,7 +174,7 @@
     <a href="#">
       <div class="follower_upper">
         <p><i class="fa fa-instagram"></i>&nbsp;Lambarghini</p>
-        <h2 class="text-center text-color"><span>9</span>.25M</h2> 
+        <h2 class="text-center text-color"><span>9</span>.25M</h2>
       </div>
     </a>
     <a class="thumbnail" href="#" data-image-id="" data-toggle="modal" data-title="Lorem ipsum dolor sit amet,consecuti..." data-caption="Comment : 300  Like : 250" data-image="{{asset('assets/img/lamborghini.jpg')}}" data-target="#image-gallery">
@@ -258,7 +235,7 @@
             <p><i class="fa fa-comment"></i> 300 &nbsp;&nbsp;<i class="fa fa-thumbs-up"></i> 250 <span class="pull-right"><i class="fa fa-calendar"></i> 15-06-2019</span></p>
           </div>
         </div>
-      </div>       
+      </div>
     </div>
   </div>
 </div>
