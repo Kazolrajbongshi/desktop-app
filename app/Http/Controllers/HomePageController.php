@@ -25,12 +25,26 @@ class HomePageController extends Controller
 
     public function search(Request $request){
         $result1 = $this->ig->login('webvision100','instagram123456');
-        $search1 =  'icc' ; // $request->searchUser;
+        $search1 =   $request->searchUser;
         $id1 = $this->ig->people->getUserIdForName($search1);
-        $searchResult1 = $this->ig->timeline->getUserFeed($id1,'1');
+        $searchResult1 = $this->ig->timeline->getUserFeed($id1);
        // $searchResult1 = $this->ig->people->getActiveFeedAds($id1);
         $searchResult1 = json_decode($searchResult1);
-        return view('home_page.dashboard',compact($searchResult1));
+        
+        return view('home_page.dashboard',compact('searchResult1'));
+    }
+
+    public function test(){
+        $result1 = $this->ig->login('webvision100','instagram123456');
+        $search1 =  'icc' ;//$request->searchUser;
+        $id1 = $this->ig->people->getUserIdForName($search1);
+        $searchResult1 = $this->ig->timeline->getUserFeed($id1);
+        // $searchResult1 = $this->ig->people->getActiveFeedAds($id1);
+        //$searchResult1 = json_decode($searchResult1);
+//        print_r($searchResult1);
+//        exit();
+
+        return $searchResult1;
     }
 
 
