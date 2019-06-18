@@ -25,20 +25,71 @@ class HomePageController extends Controller
 
     public function search(Request $request){
         $result1 = $this->ig->login('webvision100','instagram123456');
-        $search1 =   $request->searchUser;
-        $id1 = $this->ig->people->getUserIdForName($search1);
-        $searchResult1 = $this->ig->timeline->getUserFeed($id1);
+        $search1 =   $request->searchUser1;
+        $search2 =   $request->searchUser2;
+        $search3 =   $request->searchUser3;
+        if ($search2 == null && $search3 == null){
+            $id1 = $this->ig->people->getUserIdForName($search1);
+            $profile1 = $this->ig->people->getInfoById($id1);
+            $searchResult1 = $this->ig->timeline->getUserFeed($id1);
+            $searchResult1 = json_decode($searchResult1);
+            $profile1 = json_decode($profile1);
+            return view('home_page.dashboard',compact('searchResult1','profile1'));
+        }
+        if($search1 !=null && $search2 !=null && $search3 == null){
+            $id1 = $this->ig->people->getUserIdForName($search1);
+            $id2 = $this->ig->people->getUserIdForName($search2);
+            $profile1 = $this->ig->people->getInfoById($id1);
+            $profile2 = $this->ig->people->getInfoById($id2);
+            $searchResult1 = $this->ig->timeline->getUserFeed($id1);
+            $searchResult2 = $this->ig->timeline->getUserFeed($id2);
+            $searchResult1 = json_decode($searchResult1);
+            $searchResult2 = json_decode($searchResult2);
+            $profile1 = json_decode($profile1);
+            $profile2 = json_decode($profile2);
+            return view('home_page.dashboard',compact('searchResult1','profile1','searchResult2','profile2'));
+        }
+        if ($search1 != null && $search2 != null && $search3 != null){
+            $id1 = $this->ig->people->getUserIdForName($search1);
+            $id2 = $this->ig->people->getUserIdForName($search2);
+            $id3 = $this->ig->people->getUserIdForName($search3);
+            $profile1 = $this->ig->people->getInfoById($id1);
+            $profile2 = $this->ig->people->getInfoById($id2);
+            $profile3 = $this->ig->people->getInfoById($id3);
+            $searchResult1 = $this->ig->timeline->getUserFeed($id1);
+            $searchResult2 = $this->ig->timeline->getUserFeed($id2);
+            $searchResult3 = $this->ig->timeline->getUserFeed($id3);
+            $searchResult1 = json_decode($searchResult1);
+            $searchResult2 = json_decode($searchResult2);
+            $searchResult3 = json_decode($searchResult3);
+            $profile1 = json_decode($profile1);
+            $profile2 = json_decode($profile2);
+            $profile3 = json_decode($profile3);
+            return view('home_page.dashboard',compact('searchResult1','profile1','searchResult2','profile2','searchResult3','profile3'));
+        }
+
+
+//        $id2 = $this->ig->people->getUserIdForName($search2);
+//        echo $id2;
+//        exit();
+//        $id3 = $this->ig->people->getUserIdForName($search3);
+//
+//        $profile2 = $this->ig->people->getInfoById($id2);
+//        $profile3 = $this->ig->people->getInfoById($id3);
+
        // $searchResult1 = $this->ig->people->getActiveFeedAds($id1);
-        $searchResult1 = json_decode($searchResult1);
-        
-        return view('home_page.dashboard',compact('searchResult1'));
+
+//        print_r($profile1);
+//        exit();
+        echo 'false';
+
     }
 
     public function test(){
         $result1 = $this->ig->login('webvision100','instagram123456');
         $search1 =  'icc' ;//$request->searchUser;
         $id1 = $this->ig->people->getUserIdForName($search1);
-        $searchResult1 = $this->ig->timeline->getUserFeed($id1);
+        $searchResult1 = $this->ig->people->getInfoById($id1);
         // $searchResult1 = $this->ig->people->getActiveFeedAds($id1);
         //$searchResult1 = json_decode($searchResult1);
 //        print_r($searchResult1);
