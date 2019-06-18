@@ -78,19 +78,31 @@ $('.second-search-add-btn').click(function(){
 
 $('.second-search-remove-btn').click(function(){
 
-    $('.second-search-add-btn').hide();
-    $('.second-search-remove-btn').hide();
-    $('.second-search-add').hide();
-    $('.first-search-add-btn').show();
+    var second_value = $('#searchUser2').val();
+
+    if(second_value){
+        alert('Remove the input value');
+    }
+    else{
+        $('.second-search-add-btn').hide();
+        $('.second-search-remove-btn').hide();
+        $('.second-search-add').hide();
+        $('.first-search-add-btn').show();
+    }    
 });
 
 $('.third-search-remove-btn').click(function(){
 
-    $('.third-search-remove-btn').hide();
-    $('.third-search-add').hide();
-    $('.second-search-add-btn').show();
-    $('.second-search-remove-btn').show();
-    $('.second-search-add').show();
+    var third_value = $('#searchUser3').val();
+    if(third_value){
+        alert('Remove the input value');
+    }else{
+        $('.third-search-remove-btn').hide();
+        $('.third-search-add').hide();
+        $('.second-search-add-btn').show();
+        $('.second-search-remove-btn').show();
+        $('.second-search-add').show();
+    }    
 });
 
 
