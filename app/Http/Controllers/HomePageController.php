@@ -71,21 +71,24 @@ class HomePageController extends Controller
     }
 
     public function test(){
+
         $result1 = $this->ig->login('webvision100','instagram123456');
         $search1 =  'fifa' ;//$request->searchUser;
-        $id1 = $this->ig->people->getUserIdForName($search1);
+        $ranktoken = \InstagramAPI\Signatures::generateUUID();
+       // $searchResult1 = $this->ig->people->getInfoById('1474834026');
+        $searchResult1 = $this->ig->people->getSelfFollowing('1474834026',$ranktoken);
        // $searchResult1 = $this->ig->people->getInfoById($id1);
-        $searchResult1 = $this->ig->timeline->getUserFeed($id1);
-        $searchResult1 = json_decode($searchResult1);
+        //$searchResult1 = $this->ig->timeline->getUserFeed($id1);
+        //$searchResult1 = json_decode($searchResult1);
 //        print_r($searchResult1);
 //        exit();
         //$searchResult3->caption->text
-        return $searchResult1->items[0]->caption->text;
+        return $searchResult1;
     }
 
 
-    public function followerAndFollowingList(){
-
+    public function followerAndFollowingList(Request $request){
+        
         return view('home_page.follower_following_list');
     }
 
