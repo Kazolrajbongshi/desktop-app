@@ -88,7 +88,7 @@ class HomePageController extends Controller
 
 
     public function followerAndFollowingList(Request $request){
-        
+
         return view('home_page.follower_following_list');
     }
 
