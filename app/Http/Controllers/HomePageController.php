@@ -71,53 +71,27 @@ class HomePageController extends Controller
     }
 
     public function test(){
-
         $result1 = $this->ig->login('webvision100','instagram123456');
         $search1 =  'fifa' ;//$request->searchUser;
-        $ranktoken = \InstagramAPI\Signatures::generateUUID();
-       // $searchResult1 = $this->ig->people->getInfoById('1474834026');
-        $searchResult1 = $this->ig->people->getFollowing('376525195',$ranktoken);
-       // $searchResult1 = $this->ig->people->getInfoById(1474834026);
+        $id1 = $this->ig->people->getUserIdForName($search1);
        // $searchResult1 = $this->ig->people->getInfoById($id1);
-        //$searchResult1 = $this->ig->timeline->getUserFeed($id1);
-        //$searchResult1 = json_decode($searchResult1);
+        $searchResult1 = $this->ig->timeline->getUserFeed($id1);
+        $searchResult1 = json_decode($searchResult1);
 //        print_r($searchResult1);
 //        exit();
         //$searchResult3->caption->text
-        return $searchResult1;
+        return $searchResult1->items[0]->caption->text;
     }
 
 
-    public function followerAndFollowingListDetails(Request $request,$id){
-//        echo $id;
-//        exit();
-        $userid = $id;
-        $usersInfo = array();
-        $result1 = $this->ig->login('webvision100','instagram123456');
-        $ranktoken = \InstagramAPI\Signatures::generateUUID();
-        $searchResult1 = $this->ig->people->getFollowers($userid,$ranktoken);
+    public function followerAndFollowingList(){
 
-        $searchResult1 = json_decode($searchResult1);
-        try{
-            foreach ($searchResult1->users as $searchResult){
-                $id = $searchResult->pk;
-                $userSelfInfo = $this->ig->people->getInfoById($id);
+        return view('home_page.follower_following_list');
+    }
 
-                $userSelfInfo = json_decode($userSelfInfo);
+    public function followerAndFollowingListDetails(){
 
-                $usersInfo[] = ['username' => $userSelfInfo->user->username,'biography' => $userSelfInfo->user->biography,
-                    'followerCount' => $userSelfInfo->user->follower_count,'followingCount' => $userSelfInfo->user->following_count,
-                    'photo' => $userSelfInfo->user->profile_pic_url,'post' => $userSelfInfo->user->media_count,'private' => $userSelfInfo->user->is_private];
-
-            }
-        }catch (\Exception $ex){
-
-        }
-//        print_r($usersInfo);
-//        exit();
-
-        return view('home_page.follower_following_list_details',compact('usersInfo'));
-//        return $searchResult1;
+        return view('home_page.follower_following_list_details');
     }
 
 
