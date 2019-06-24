@@ -19,8 +19,8 @@ class HomePageController extends Controller
     }
 
     public function dashboard(){
-
-        return view('home_page.dashboard');
+        $deafult_active = 'active';
+        return view('home_page.dashboard',compact('deafult_active'));
     }
 
     public function search(Request $request){
@@ -28,13 +28,14 @@ class HomePageController extends Controller
         $search1 =   $request->searchUser1;
         $search2 =   $request->searchUser2;
         $search3 =   $request->searchUser3;
+        $active = 'active';
         if ($search2 == null && $search3 == null){
             $id1 = $this->ig->people->getUserIdForName($search1);
             $profile1 = $this->ig->people->getInfoById($id1);
             $searchResult1 = $this->ig->timeline->getUserFeed($id1);
             $searchResult1 = json_decode($searchResult1);
             $profile1 = json_decode($profile1);
-            return view('home_page.dashboard',compact('searchResult1','profile1'));
+            return view('home_page.dashboard',compact('searchResult1','profile1','active'));
         }
         if($search1 !=null && $search2 !=null && $search3 == null){
             $id1 = $this->ig->people->getUserIdForName($search1);
@@ -47,7 +48,7 @@ class HomePageController extends Controller
             $searchResult2 = json_decode($searchResult2);
             $profile1 = json_decode($profile1);
             $profile2 = json_decode($profile2);
-            return view('home_page.dashboard',compact('searchResult1','profile1','searchResult2','profile2'));
+            return view('home_page.dashboard',compact('searchResult1','profile1','searchResult2','profile2','active'));
         }
         if ($search1 != null && $search2 != null && $search3 != null){
             $id1 = $this->ig->people->getUserIdForName($search1);
@@ -65,7 +66,7 @@ class HomePageController extends Controller
             $profile1 = json_decode($profile1);
             $profile2 = json_decode($profile2);
             $profile3 = json_decode($profile3);
-            return view('home_page.dashboard',compact('searchResult1','profile1','searchResult2','profile2','searchResult3','profile3'));
+            return view('home_page.dashboard',compact('searchResult1','profile1','searchResult2','profile2','searchResult3','profile3','active'));
         }
         return view('home_page.dashboard');
     }

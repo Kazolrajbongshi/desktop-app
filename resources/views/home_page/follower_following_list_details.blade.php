@@ -12,12 +12,15 @@
 </head>
 <body>
 
-<div class="jumbotron text-center">
+<div class="jumbotron text-center" style="padding-top: 10px;padding-bottom: 5px;margin-bottom: 15px;">
   <p>Serch User</p>
   <div class="row">
     <div class="col-sm-4 col-sm-offset-4"> 
       <input type="text" name="search_user" class="form-control" placeholder="Search user by instagram user name">
     </div>
+  </div>
+  <div style="margin-top: 15px;">
+    <button class="btn btn-success">Search</button>
   </div>
 </div>
   
@@ -25,10 +28,10 @@
   <div class="row">
     <h3>Follower Following List Details:</h3>
     <div class="table-wrapper-scroll-y my-custom-scrollbar">
-      <table class="table table-hover table-bordered">
+      <table class="table table-hover table-bordered" id="home-table" data-toggle="table">
         <thead>
           <tr>
-            <th scope="col">Checkbox</th>
+            <td scope="col"></td>
             <th scope="col">Username</th>
             <th scope="col">Biography</th>
             <th scope="col">Follower count</th>
@@ -40,7 +43,7 @@
         </thead>
         <tbody>
           <tr>
-            <th scope="row"><input type="checkbox" name="">Select All</th>
+            <td scope="row"><input type="checkbox" name="" id="inp-chkbox1"></td>
             <td><input type="checkbox" name=""></td>
             <td><input type="checkbox" name=""></td>
             <td><input type="checkbox" name=""></td>
@@ -50,7 +53,7 @@
             <td><input type="checkbox" name=""></td>
           </tr>
           <tr>
-            <th scope="row"><input type="checkbox" name=""></th>
+            <td scope="row"><input type="checkbox" name="" class="inpchk1"></td>
             <td>Mark</td>
             <td>Otto</td>
             <td>@mdo</td>
@@ -60,7 +63,7 @@
             <td>Otto</td>
           </tr>
           <tr>
-            <th scope="row"><input type="checkbox" name=""></th>
+            <td scope="row"><input type="checkbox" name="" class="inpchk1"></td>
             <td>Jacob</td>
             <td>Thornton</td>
             <td>@fat</td>
@@ -70,7 +73,7 @@
             <td>Thornton</td>
           </tr>
           <tr>
-            <th scope="row"><input type="checkbox" name=""></th>
+            <td scope="row"><input type="checkbox" name="" class="inpchk1"></td>
             <td >Larry the Bird</td>
             <td>@twitter</td>
             <td >Larry the Bird</td>
@@ -80,7 +83,7 @@
             <td >Larry the Bird</td>
           </tr>
           <tr>
-            <th scope="row"><input type="checkbox" name=""></th>
+            <td scope="row"><input type="checkbox" name="" class="inpchk1"></td>
             <td>Mark</td>
             <td>Otto</td>
             <td>@mdo</td>
@@ -90,7 +93,7 @@
             <td>Otto</td>
           </tr>
           <tr>
-            <th scope="row"><input type="checkbox" name=""></th>
+            <td scope="row"><input type="checkbox" name="" class="inpchk1"></td>
             <td>Jacob</td>
             <td>Thornton</td>
             <td>@fat</td>
@@ -100,7 +103,7 @@
             <td>Thornton</td>
           </tr>
           <tr>
-            <th scope="row"><input type="checkbox" name=""></th>
+            <td scope="row"><input type="checkbox" name="" class="inpchk1"></td>
             <td >Larry the Bird</td>
             <td>@twitter</td>
             <td >Larry the Bird</td>
@@ -110,7 +113,7 @@
             <td >Larry the Bird</td>
           </tr>
           <tr>
-            <th scope="row"><input type="checkbox" name=""></th>
+            <td scope="row"><input type="checkbox" name="" class="inpchk1"></td>
             <td>Mark</td>
             <td>Otto</td>
             <td>@mdo</td>
@@ -120,7 +123,7 @@
             <td>Otto</td>
           </tr>
           <tr>
-            <th scope="row"><input type="checkbox" name=""></th>
+            <td scope="row"><input type="checkbox" name="" class="inpchk1"></td>
             <td>Jacob</td>
             <td>Thornton</td>
             <td>@fat</td>
@@ -130,7 +133,7 @@
             <td>Thornton</td>
           </tr>
           <tr>
-            <th scope="row"><input type="checkbox" name=""></th>
+            <td scope="row"><input type="checkbox" name="" class="inpchk1"></td>
             <td >Larry the Bird</td>
             <td>@twitter</td>
             <td >Larry the Bird</td>
@@ -144,9 +147,11 @@
     </div>
   </div>
   <div style="text-align:center;">
-    <button type="submit" class="btn btn-primary"><span style="color: black;">Export as</span>&nbsp;&nbsp;CSV</button>
+    <a href="#" class="btn btn-primary" id="down"><span style="color: black;">Export as</span>&nbsp;&nbsp;CSV</a>
+    <!-- <button type="submit" class="btn btn-primary"><span style="color: black;">Export as</span>&nbsp;&nbsp;CSV</button> -->
   </div>
 </div>
 </body>
 </html>
+<script src="https://rawgit.com/wenzhixin/bootstrap-table/master/src/bootstrap-table.js"></script>
 <script type="text/javascript" src="{{asset('assets/js/style.js')}}"></script>

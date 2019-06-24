@@ -14,239 +14,294 @@
 
 <div class="jumbotron text-center" style="padding-top: 0px;padding-bottom: 5px;margin-bottom: 15px;">
   <ul class="nav nav-tabs" id="myTab" role="tablist">
-  <li class="nav-item">
-    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#defaultsearch" role="tab" aria-controls="home" aria-selected="true">Default Search</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#comparesearch" role="tab" aria-controls="profile" aria-selected="false">Comapare Search</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#mediasearch" role="tab" aria-controls="contact" aria-selected="false">Media Search</a>
-  </li>
-</ul>
-<!-- <div class="tab-content" id="myTabContent">
-  <div class="tab-pane fade active" id="defaultsearch" role="tabpanel" aria-labelledby="home-tab">...</div>
-  <div class="tab-pane fade" id="comparesearch" role="tabpanel" aria-labelledby="profile-tab">...</div>
-  <div class="tab-pane fade" id="mediasearch" role="tabpanel" aria-labelledby="contact-tab">...</div>
-</div> -->
-  <p>Serch User</p>
-  <div class="row">
-    <form action="{{URL::to('/search')}}" method="post">
-            {{csrf_field()}}
-
-    <div class="col-sm-4 ">
-      <!-- <input type="submit"value="Find"  /> -->
-      <button type="button" class="btn btn-success first-search-add-btn" style="float: right">Add</button>
-      <div class="first-search-add" style="overflow: hidden; padding-right: .5em;">
-        <input type="text" name="searchUser1" class="form-control" placeholder="First compare instagram user name">
-      </div>
-
-    </div>
-    <div class="col-sm-4 ">
-      <button type="button" class="btn btn-danger second-search-remove-btn" style="float: right;display: none;">Remove</button><button type="button" class="btn btn-success second-search-add-btn" style="float: right;display: none; margin-right: 5px;">Add</button>
-      <div class="second-search-add" style="overflow: hidden; padding-right: .5em;display: none;">
-        <input type="text" name="searchUser2" id="searchUser2" class="form-control" placeholder="Second compare instagram user name">
-      </div>
-
-    </div>
-    <div class="col-sm-4 ">
-      <button type="button" class="btn btn-success third-search-add-btn" style="float: right;display: none;">Add</button><button type="button" class="btn btn-danger third-search-remove-btn" style="float: right;display: none;">Remove</button>
-      <div class="third-search-add" style="overflow: hidden; padding-right: .5em;display: none;">
-        <input type="text" name="searchUser3" id="searchUser3" class="form-control" placeholder="Third compare instagram user name">
-      </div>
-    </div>
-  </div>
-  <div style="margin-top: 15px;">
-    <button class="btn btn-success">Search</button>
-  </div>
-  </form>
+    @if(isset($deafult_active))
+    <li class="nav-item active">
+      <a class="nav-link" id="home-tab" data-toggle="tab" href="#defaultsearch" role="tab" aria-controls="home" aria-selected="true">Default Search</a>
+    </li>
+    @else
+    <li class="nav-item">
+      <a class="nav-link" id="home-tab" data-toggle="tab" href="#defaultsearch" role="tab" aria-controls="home" aria-selected="true">Default Search</a>
+    </li>
+    @endif
+    @if(isset($active))
+    <li class="nav-item active">
+      <a class="nav-link" id="profile-tab" data-toggle="tab" href="#comparesearch" role="tab" aria-controls="profile" aria-selected="false">Comapare Search</a>
+    </li>
+    @else
+    <li class="nav-item">
+      <a class="nav-link" id="profile-tab" data-toggle="tab" href="#comparesearch" role="tab" aria-controls="profile" aria-selected="false">Comapare Search</a>
+    </li>
+    @endif
+    <li class="nav-item">
+      <a class="nav-link" id="contact-tab" data-toggle="tab" href="#mediasearch" role="tab" aria-controls="contact" aria-selected="false">Media Search</a>
+    </li>
+  </ul>
 </div>
+<!-- Tab start -->
+<div class="tab-content">
 
-<div class="container">
-  <div class="row">
-      @if(isset($searchResult1) && isset($profile1))
-    <div class="col-sm-4">
+  <!-- Default search start-->
+  @if(isset($deafult_active))
+  <div class="tab-pane active" id="defaultsearch" role="tabpanel" aria-labelledby="home-tab">
+  @else
+  <div class="tab-pane" id="defaultsearch" role="tabpanel" aria-labelledby="home-tab">
+  @endif
+    <div class="jumbotron text-center" style="padding-top: 0px;padding-bottom: 5px;margin-bottom: 15px;">
+    <p>Serch User</p>
+    <form action="#" method="post">
+                {{csrf_field()}}
+      <div class="row">
 
-    <a href="{{url('follower-and-following-list/'.$profile1->user->pk)}}">
-      <div class="follower_upper">
-        <p><i class="fa fa-instagram"></i>&nbsp;{{$profile1->user->username}}</p>
-        <?php
-           $n = (0+str_replace(",", "", $profile1->user->follower_count));
-
-            if (!is_numeric($n)) return false;
-
-            // now filter it;
-            if ($n > 1000000000000) {
-              $n = round(($n/1000000000000), 2).' T';
-            }
-            elseif ($n > 1000000000){
-              $n = round(($n/1000000000), 2).' B';
-            } 
-            elseif ($n > 1000000){
-              $n = round(($n/1000000), 2).' M';
-            } 
-            elseif ($n > 1000){
-               $n = round(($n/1000), 2).' K';
-            }else{
-              $n = $n;
-            }
-        ?>
-        <h2 class="text-center text-color">{{$n}}</h2>
-      </div>
-    </a>
-        <?php
-        $counter = 0;
-        ?>
-        @foreach($searchResult1->items as $searchResult1)
-
-    <a class="thumbnail" href="#" data-image-id="" data-toggle="modal" data-title="@if(isset($searchResult1->caption->text)){{$searchResult1->caption->text}}@endif" data-caption="Like : {{$searchResult1->like_count}}  @if(isset($searchResult1->view_count))Views : {{$searchResult1->view_count}}@endif" data-image="{{$searchResult1->image_versions2->candidates[0]->url}}" data-target="#image-gallery">
-
-        <div class="follower_lists">
-        <div class="row">
-          <div class="col-sm-3">
-            <img src="{{$searchResult1->image_versions2->candidates[0]->url}}" alt="" height="50" width="75">
+        <div class="col-sm-4 col-sm-offset-4">
+          <!-- <input type="submit"value="Find"  /> -->
+          <div class="first-search-add" style="overflow: hidden; padding-right: .5em;">
+            <input type="text" name="searchUser1" class="form-control" placeholder="Search by instagram user name">
           </div>
-          <div class="col-sm-9">
-            <p>@if(isset($searchResult1->caption->text)){{str_limit($searchResult1->caption->text, $limit = 70, $end = '..')}}@endif</p>
-            <p> @if(isset($searchResult1->view_count))<i class="fa fa-comment"></i>{{$searchResult1->view_count}}@endif &nbsp;&nbsp;<i class="fa fa-thumbs-up"></i> {{$searchResult1->like_count}} <span class="pull-right"><i class="fa fa-calendar"></i>{{ date("d-m-Y", $searchResult1->taken_at)}}</span></p>
-          </div>
+
         </div>
       </div>
-      </a>
-        <?php
-
-        if($counter == 4){
-            break;
-        }
-        $counter++;
-        ?>
-        @endforeach
-    </div>
-      @endif
-<!--      second modal-->
-      @if(isset($searchResult2) && isset($profile2))
-      <div class="col-sm-4">
-
-          <a href="{{url('follower-and-following-list/'.$profile2->user->pk)}}">
-              <div class="follower_upper">
-                  <p><i class="fa fa-instagram"></i>&nbsp;{{$profile2->user->username}}</p>
-                  <?php
-                     $n = (0+str_replace(",", "", $profile2->user->follower_count));
-
-                      if (!is_numeric($n)) return false;
-
-                      // now filter it;
-                      if ($n > 1000000000000) {
-                        $n = round(($n/1000000000000), 2).' T';
-                      }
-                      elseif ($n > 1000000000){
-                        $n = round(($n/1000000000), 2).' B';
-                      } 
-                      elseif ($n > 1000000){
-                        $n = round(($n/1000000), 2).' M';
-                      } 
-                      elseif ($n > 1000){
-                         $n = round(($n/1000), 2).' K';
-                      }else{
-                        $n = $n;
-                      }
-                  ?>
-                  <h2 class="text-center text-color">{{$n}}</h2>
-              </div>
-          </a>
-          <?php
-          $counter = 0;
-          ?>
-          @foreach($searchResult2->items as $searchResult2)
-
-          <a class="thumbnail" href="#" data-image-id="" data-toggle="modal" data-title="@if(isset($searchResult2->caption->text)){{$searchResult2->caption->text}}@endif" data-caption="Like : {{$searchResult2->like_count}}  @if(isset($searchResult2->view_count))Views : {{$searchResult2->view_count}}@endif" data-image="{{$searchResult2->image_versions2->candidates[0]->url}}" data-target="#image-gallery">
-
-              <div class="follower_lists">
-                  <div class="row">
-                      <div class="col-sm-3">
-                          <img src="{{$searchResult2->image_versions2->candidates[0]->url}}" alt="" height="50" width="75">
-                      </div>
-                      <div class="col-sm-9">
-                          <p>@if(isset($searchResult2->caption->text)){{str_limit($searchResult2->caption->text, $limit = 70, $end = '..')}}@endif</p>
-                          <p> @if(isset($searchResult2->view_count))<i class="fa fa-comment"></i>{{$searchResult2->view_count}}@endif &nbsp;&nbsp;<i class="fa fa-thumbs-up"></i> {{$searchResult2->like_count}} <span class="pull-right"><i class="fa fa-calendar"></i>{{ date("d-m-Y", $searchResult2->taken_at)}}</span></p>
-                      </div>
-                  </div>
-              </div>
-          </a>
-          <?php
-
-          if($counter == 4){
-              break;
-          }
-          $counter++;
-          ?>
-          @endforeach
+      <div style="margin-top: 15px;">
+        <button class="btn btn-success">Search</button>
       </div>
-      @endif
-
-<!--      third modal-->
-
-      @if(isset($searchResult3) && isset($profile3))
-      <div class="col-sm-4">
-
-          <a href="{{url('follower-and-following-list/'.$profile3->user->pk)}}">
-              <div class="follower_upper">
-                  <p><i class="fa fa-instagram"></i>&nbsp;{{$profile3->user->username}}</p>
-                  <?php
-                     $n = (0+str_replace(",", "", $profile3->user->follower_count));
-
-                      if (!is_numeric($n)) return false;
-
-                      // now filter it;
-                      if ($n > 1000000000000) {
-                        $n = round(($n/1000000000000), 2).' T';
-                      }
-                      elseif ($n > 1000000000){
-                        $n = round(($n/1000000000), 2).' B';
-                      } 
-                      elseif ($n > 1000000){
-                        $n = round(($n/1000000), 2).' M';
-                      } 
-                      elseif ($n > 1000){
-                         $n = round(($n/1000), 2).' K';
-                      }else{
-                        $n = $n;
-                      }
-                  ?>
-                  <h2 class="text-center text-color">{{$n}}</h2>
-              </div>
-          </a>
-          <?php
-          $counter = 0;
-          ?>
-          @foreach($searchResult3->items as $searchResult3)
-
-          <a class="thumbnail" href="#" data-image-id="" data-toggle="modal" data-title="@if(isset($searchResult3->caption->text)){{$searchResult3->caption->text}}@endif" data-caption="Like : {{$searchResult3->like_count}}  @if(isset($searchResult3->view_count))Views : {{$searchResult3->view_count}}@endif" data-image="{{$searchResult3->image_versions2->candidates[0]->url}}" data-target="#image-gallery">
-
-              <div class="follower_lists">
-                  <div class="row">
-                      <div class="col-sm-3">
-                          <img src="{{$searchResult3->image_versions2->candidates[0]->url}}" alt="" height="50" width="75">
-                      </div>
-                      <div class="col-sm-9">
-                          <p>@if(isset($searchResult3->caption->text)){{str_limit($searchResult3->caption->text, $limit = 70, $end = '..')}}@endif</p>
-                          <p> @if(isset($searchResult3->view_count))<i class="fa fa-comment"></i>{{$searchResult3->view_count}}@endif &nbsp;&nbsp;<i class="fa fa-thumbs-up"></i> {{$searchResult3->like_count}} <span class="pull-right"><i class="fa fa-calendar"></i>{{ date("d-m-Y", $searchResult3->taken_at)}}</span></p>
-                      </div>
-                  </div>
-              </div>
-          </a>
-          <?php
-
-          if($counter == 4){
-              break;
-          }
-          $counter++;
-          ?>
-          @endforeach
-      </div>
-      @endif
+    </form>
   </div>
+  </div>
+  <!-- Default search end-->
+
+  <!-- Compare search start -->
+  @if(isset($active))
+  <div class="tab-pane active" id="comparesearch" role="tabpanel" aria-labelledby="profile-tab">
+  @else
+  <div class="tab-pane" id="comparesearch" role="tabpanel" aria-labelledby="profile-tab">
+  @endif
+     <div class="jumbotron text-center" style="padding-top: 0px;padding-bottom: 5px;margin-bottom: 15px;">
+       <p>Serch User</p>
+       <form action="{{URL::to('/search')}}" method="post">
+                  {{csrf_field()}}
+        <div class="row">
+          <div class="col-sm-4 ">
+            <!-- <input type="submit"value="Find"  /> -->
+            <button type="button" class="btn btn-success first-search-add-btn" style="float: right">Add</button>
+            <div class="first-search-add" style="overflow: hidden; padding-right: .5em;">
+              <input type="text" name="searchUser1" class="form-control" placeholder="First compare instagram user name">
+            </div>
+
+          </div>
+          <div class="col-sm-4 ">
+            <button type="button" class="btn btn-danger second-search-remove-btn" style="float: right;display: none;">Remove</button><button type="button" class="btn btn-success second-search-add-btn" style="float: right;display: none; margin-right: 5px;">Add</button>
+            <div class="second-search-add" style="overflow: hidden; padding-right: .5em;display: none;">
+              <input type="text" name="searchUser2" id="searchUser2" class="form-control" placeholder="Second compare instagram user name">
+            </div>
+
+          </div>
+          <div class="col-sm-4 ">
+            <button type="button" class="btn btn-success third-search-add-btn" style="float: right;display: none;">Add</button><button type="button" class="btn btn-danger third-search-remove-btn" style="float: right;display: none;">Remove</button>
+            <div class="third-search-add" style="overflow: hidden; padding-right: .5em;display: none;">
+              <input type="text" name="searchUser3" id="searchUser3" class="form-control" placeholder="Third compare instagram user name">
+            </div>
+          </div>
+        </div>
+        <div style="margin-top: 15px;">
+          <button class="btn btn-success">Search</button>
+        </div>
+      </form>
+    </div>
+    <div class="container">
+      <div class="row">
+      @if(isset($searchResult1) && isset($profile1))
+        <div class="col-sm-4">
+
+        <a href="{{url('follower-and-following-list/'.$profile1->user->pk)}}">
+          <div class="follower_upper">
+            <p><i class="fa fa-instagram"></i>&nbsp;{{$profile1->user->username}}</p>
+            <?php
+               $n = (0+str_replace(",", "", $profile1->user->follower_count));
+
+                if (!is_numeric($n)) return false;
+
+                // now filter it;
+                if ($n > 1000000000000) {
+                  $n = round(($n/1000000000000), 2).' T';
+                }
+                elseif ($n > 1000000000){
+                  $n = round(($n/1000000000), 2).' B';
+                } 
+                elseif ($n > 1000000){
+                  $n = round(($n/1000000), 2).' M';
+                } 
+                elseif ($n > 1000){
+                   $n = round(($n/1000), 2).' K';
+                }else{
+                  $n = $n;
+                }
+            ?>
+            <h2 class="text-center text-color">{{$n}}</h2>
+          </div>
+        </a>
+            <?php
+            $counter = 0;
+            ?>
+            @foreach($searchResult1->items as $searchResult1)
+
+        <a class="thumbnail" href="#" data-image-id="" data-toggle="modal" data-title="@if(isset($searchResult1->caption->text)){{$searchResult1->caption->text}}@endif" data-caption="Like : {{$searchResult1->like_count}}  @if(isset($searchResult1->view_count))Views : {{$searchResult1->view_count}}@endif" data-image="@if(isset($searchResult1->image_versions2->candidates[0]->url)){{$searchResult1->image_versions2->candidates[0]->url}}@else{{asset('assets/img/no_image.jpg')}}@endif" data-target="#image-gallery">
+
+            <div class="follower_lists">
+            <div class="row">
+              <div class="col-sm-3">
+                <img src="@if(isset($searchResult1->image_versions2->candidates[0]->url)){{$searchResult1->image_versions2->candidates[0]->url}}@else{{asset('assets/img/no_image.jpg')}}@endif" alt="" height="50" width="75">
+              </div>
+              <div class="col-sm-9">
+                <p>@if(isset($searchResult1->caption->text)){{str_limit($searchResult1->caption->text, $limit = 70, $end = '..')}}@endif</p>
+                <p> @if(isset($searchResult1->view_count))<i class="fa fa-comment"></i>{{$searchResult1->view_count}}@endif &nbsp;&nbsp;<i class="fa fa-thumbs-up"></i> {{$searchResult1->like_count}} <span class="pull-right"><i class="fa fa-calendar"></i>{{ date("d-m-Y", $searchResult1->taken_at)}}</span></p>
+              </div>
+            </div>
+          </div>
+          </a>
+            <?php
+
+            if($counter == 4){
+                break;
+            }
+            $counter++;
+            ?>
+            @endforeach
+        </div>
+          @endif
+    <!--      second modal-->
+          @if(isset($searchResult2) && isset($profile2))
+          <div class="col-sm-4">
+
+              <a href="{{url('follower-and-following-list/'.$profile2->user->pk)}}">
+                  <div class="follower_upper">
+                      <p><i class="fa fa-instagram"></i>&nbsp;{{$profile2->user->username}}</p>
+                      <?php
+                         $n = (0+str_replace(",", "", $profile2->user->follower_count));
+
+                          if (!is_numeric($n)) return false;
+
+                          // now filter it;
+                          if ($n > 1000000000000) {
+                            $n = round(($n/1000000000000), 2).' T';
+                          }
+                          elseif ($n > 1000000000){
+                            $n = round(($n/1000000000), 2).' B';
+                          } 
+                          elseif ($n > 1000000){
+                            $n = round(($n/1000000), 2).' M';
+                          } 
+                          elseif ($n > 1000){
+                             $n = round(($n/1000), 2).' K';
+                          }else{
+                            $n = $n;
+                          }
+                      ?>
+                      <h2 class="text-center text-color">{{$n}}</h2>
+                  </div>
+              </a>
+              <?php
+              $counter = 0;
+              ?>
+              @foreach($searchResult2->items as $searchResult2)
+
+              <a class="thumbnail" href="#" data-image-id="" data-toggle="modal" data-title="@if(isset($searchResult2->caption->text)){{$searchResult2->caption->text}}@endif" data-caption="Like : {{$searchResult2->like_count}}  @if(isset($searchResult2->view_count))Views : {{$searchResult2->view_count}}@endif" data-image="@if(isset($searchResult2->image_versions2->candidates[0]->url)){{$searchResult2->image_versions2->candidates[0]->url}}@else{{asset('assets/img/no_image.jpg')}}@endif" data-target="#image-gallery">
+
+                  <div class="follower_lists">
+                      <div class="row">
+                          <div class="col-sm-3">
+                              <img src="@if(isset($searchResult2->image_versions2->candidates[0]->url)){{$searchResult2->image_versions2->candidates[0]->url}}@else{{asset('assets/img/no_image.jpg')}}@endif" alt="" height="50" width="75">
+                          </div>
+                          <div class="col-sm-9">
+                              <p>@if(isset($searchResult2->caption->text)){{str_limit($searchResult2->caption->text, $limit = 70, $end = '..')}}@endif</p>
+                              <p> @if(isset($searchResult2->view_count))<i class="fa fa-comment"></i>{{$searchResult2->view_count}}@endif &nbsp;&nbsp;<i class="fa fa-thumbs-up"></i> {{$searchResult2->like_count}} <span class="pull-right"><i class="fa fa-calendar"></i>{{ date("d-m-Y", $searchResult2->taken_at)}}</span></p>
+                          </div>
+                      </div>
+                  </div>
+              </a>
+              <?php
+
+              if($counter == 4){
+                  break;
+              }
+              $counter++;
+              ?>
+              @endforeach
+          </div>
+          @endif
+
+    <!--      third modal-->
+
+          @if(isset($searchResult3) && isset($profile3))
+          <div class="col-sm-4">
+
+              <a href="{{url('follower-and-following-list/'.$profile3->user->pk)}}">
+                  <div class="follower_upper">
+                      <p><i class="fa fa-instagram"></i>&nbsp;{{$profile3->user->username}}</p>
+                      <?php
+                         $n = (0+str_replace(",", "", $profile3->user->follower_count));
+
+                          if (!is_numeric($n)) return false;
+
+                          // now filter it;
+                          if ($n > 1000000000000) {
+                            $n = round(($n/1000000000000), 2).' T';
+                          }
+                          elseif ($n > 1000000000){
+                            $n = round(($n/1000000000), 2).' B';
+                          } 
+                          elseif ($n > 1000000){
+                            $n = round(($n/1000000), 2).' M';
+                          } 
+                          elseif ($n > 1000){
+                             $n = round(($n/1000), 2).' K';
+                          }else{
+                            $n = $n;
+                          }
+                      ?>
+                      <h2 class="text-center text-color">{{$n}}</h2>
+                  </div>
+              </a>
+              <?php
+              $counter = 0;
+              ?>
+              @foreach($searchResult3->items as $searchResult3)
+
+              <a class="thumbnail" href="#" data-image-id="" data-toggle="modal" data-title="@if(isset($searchResult3->caption->text)){{$searchResult3->caption->text}}@endif" data-caption="Like : {{$searchResult3->like_count}}  @if(isset($searchResult3->view_count))Views : {{$searchResult3->view_count}}@endif" data-image="@if(isset($searchResult3->image_versions2->candidates[0]->url)){{$searchResult3->image_versions2->candidates[0]->url}}@else{{asset('assets/img/no_image.jpg')}}@endif" data-target="#image-gallery">
+
+                  <div class="follower_lists">
+                      <div class="row">
+                          <div class="col-sm-3">
+                              <img src="@if(isset($searchResult3->image_versions2->candidates[0]->url)){{$searchResult3->image_versions2->candidates[0]->url}}@else{{asset('assets/img/no_image.jpg')}}@endif" alt="" height="50" width="75">
+                          </div>
+                          <div class="col-sm-9">
+                              <p>@if(isset($searchResult3->caption->text)){{str_limit($searchResult3->caption->text, $limit = 70, $end = '..')}}@endif</p>
+                              <p> @if(isset($searchResult3->view_count))<i class="fa fa-comment"></i>{{$searchResult3->view_count}}@endif &nbsp;&nbsp;<i class="fa fa-thumbs-up"></i> {{$searchResult3->like_count}} <span class="pull-right"><i class="fa fa-calendar"></i>{{ date("d-m-Y", $searchResult3->taken_at)}}</span></p>
+                          </div>
+                      </div>
+                  </div>
+              </a>
+              <?php
+
+              if($counter == 4){
+                  break;
+              }
+              $counter++;
+              ?>
+              @endforeach
+          </div>
+          @endif
+      </div>
+    </div>
+  </div>
+  <!-- Compare search end -->
+
+  <div class="tab-pane" id="mediasearch" role="tabpanel" aria-labelledby="contact-tab">No Content</div>
 </div>
+<!-- Tab end -->
+
+  
+
+
+
 
 
 <div class="modal fade" id="image-gallery" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

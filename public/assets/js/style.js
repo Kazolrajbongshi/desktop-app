@@ -1,3 +1,61 @@
+
+//follower csv list download start//
+
+$(document).ready(function(){
+    $("#inp-chkbox1").change(function(){
+        $(".inpchk1").prop("checked",$(this).prop("checked"));
+    });
+});
+
+//Extraxt CSV 
+
+$(document).ready(function () {
+
+    function exportTableToCSV($table, filename) {
+    
+            var $rows = $table.find('tr:has(td:has(input:checked)),tr:has(th)'),
+            //var $rows = $table.filter('tr:has(:checkbox:checked)').find('tr:has(td),tr:has(th)'),
+
+            tmpColDelim = String.fromCharCode(11),
+            tmpRowDelim = String.fromCharCode(0),
+
+            colDelim = '","',
+            rowDelim = '"\r\n"',
+
+            csv = '"' + $rows.map(function (i, row) {
+                var $row = $(row), $cols = $row.find('td,th');
+    
+                return $cols.map(function (j, col) {
+                    var $col = $(col), text = $col.text();
+    
+                    return text.replace(/"/g, '""');
+                }).get().join(tmpColDelim);
+    
+            }).get().join(tmpRowDelim)
+                .split(tmpRowDelim).join(rowDelim)
+                .split(tmpColDelim).join(colDelim) + '"',
+
+            csvData = 'data:application/csv;charset=utf-8,' + encodeURIComponent(csv);
+            
+            console.log(csv);
+            
+            if (window.navigator.msSaveBlob) { 
+                window.navigator.msSaveOrOpenBlob(new Blob([csv], {type: "text/plain;charset=utf-8;"}), "csvname.csv")
+            } 
+            else {
+                $(this).attr({ 'download': filename, 'href': csvData, 'target': '_blank' }); 
+            }
+    }
+    
+    $("#down").on('click', function (event) {
+        
+        exportTableToCSV.apply(this, [$('#home-table'), 'data.csv']);
+
+    });
+});
+
+//follower csv list download end//
+
 //follower js start //
 $(document).ready(function(){
 
