@@ -67,7 +67,7 @@
       @if(isset($searchResult1) && isset($profile1))
     <div class="col-sm-4">
 
-    <a href="{{url('follower-and-following-list/'.$profile1->user->pk)}}">
+    <a href="{{url('follower-and-following-list-details/'.$profile1->user->pk)}}">
       <div class="follower_upper">
         <p><i class="fa fa-instagram"></i>&nbsp;{{$profile1->user->username}}</p>
         <?php
@@ -81,10 +81,10 @@
             }
             elseif ($n > 1000000000){
               $n = round(($n/1000000000), 2).' B';
-            } 
+            }
             elseif ($n > 1000000){
               $n = round(($n/1000000), 2).' M';
-            } 
+            }
             elseif ($n > 1000){
                $n = round(($n/1000), 2).' K';
             }else{
@@ -127,7 +127,7 @@
       @if(isset($searchResult2) && isset($profile2))
       <div class="col-sm-4">
 
-          <a href="{{url('follower-and-following-list/'.$profile2->user->pk)}}">
+          <a href="{{url('follower-and-following-list-details/'.$profile2->user->pk)}}">
               <div class="follower_upper">
                   <p><i class="fa fa-instagram"></i>&nbsp;{{$profile2->user->username}}</p>
                   <?php
@@ -141,10 +141,10 @@
                       }
                       elseif ($n > 1000000000){
                         $n = round(($n/1000000000), 2).' B';
-                      } 
+                      }
                       elseif ($n > 1000000){
                         $n = round(($n/1000000), 2).' M';
-                      } 
+                      }
                       elseif ($n > 1000){
                          $n = round(($n/1000), 2).' K';
                       }else{
@@ -189,7 +189,7 @@
       @if(isset($searchResult3) && isset($profile3))
       <div class="col-sm-4">
 
-          <a href="{{url('follower-and-following-list/'.$profile3->user->pk)}}">
+          <a href="{{url('follower-and-following-list-details/'.$profile3->user->pk)}}">
               <div class="follower_upper">
                   <p><i class="fa fa-instagram"></i>&nbsp;{{$profile3->user->username}}</p>
                   <?php
@@ -203,10 +203,10 @@
                       }
                       elseif ($n > 1000000000){
                         $n = round(($n/1000000000), 2).' B';
-                      } 
+                      }
                       elseif ($n > 1000000){
                         $n = round(($n/1000000), 2).' M';
-                      } 
+                      }
                       elseif ($n > 1000){
                          $n = round(($n/1000), 2).' K';
                       }else{

@@ -15,12 +15,12 @@
 <div class="jumbotron text-center">
   <p>Serch User</p>
   <div class="row">
-    <div class="col-sm-4 col-sm-offset-4"> 
+    <div class="col-sm-4 col-sm-offset-4">
       <input type="text" name="search_user" class="form-control" placeholder="Search user by instagram user name">
     </div>
   </div>
 </div>
-  
+
 <div class="container">
   <div class="row">
     <h3>Follower Following List Details:</h3>
@@ -49,96 +49,31 @@
             <td><input type="checkbox" name=""></td>
             <td><input type="checkbox" name=""></td>
           </tr>
+          <?php
+          print_r($usersInfo[0]['username']) ;
+//          exit();
+          ?>
+          @if(isset($usersInfo))
+          @foreach($usersInfo as $userInfo)
           <tr>
             <th scope="row"><input type="checkbox" name=""></th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-            <td>Otto</td>
+
+            <td>{{$userInfo['username']}}</td>
+            <td>{{$userInfo['biography']}}</td>
+            <td>{{$userInfo['followerCount']}}</td>
+            <td>{{$userInfo['followingCount']}}</td>
+            <td> <img src="{{$userInfo['photo']}}"></td>
+            <td>{{$userInfo['post']}}</td>
+            <td>@if($userInfo['private'] == null)
+                No
+                @else
+                Yes
+                @endif
+            </td>
+
           </tr>
-          <tr>
-            <th scope="row"><input type="checkbox" name=""></th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-            <td>Thornton</td>
-          </tr>
-          <tr>
-            <th scope="row"><input type="checkbox" name=""></th>
-            <td >Larry the Bird</td>
-            <td>@twitter</td>
-            <td >Larry the Bird</td>
-            <td>@twitter</td>
-            <td >Larry the Bird</td>
-            <td>@twitter</td>
-            <td >Larry the Bird</td>
-          </tr>
-          <tr>
-            <th scope="row"><input type="checkbox" name=""></th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-            <td>Otto</td>
-          </tr>
-          <tr>
-            <th scope="row"><input type="checkbox" name=""></th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-            <td>Thornton</td>
-          </tr>
-          <tr>
-            <th scope="row"><input type="checkbox" name=""></th>
-            <td >Larry the Bird</td>
-            <td>@twitter</td>
-            <td >Larry the Bird</td>
-            <td>@twitter</td>
-            <td >Larry the Bird</td>
-            <td>@twitter</td>
-            <td >Larry the Bird</td>
-          </tr>
-          <tr>
-            <th scope="row"><input type="checkbox" name=""></th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-            <td>Otto</td>
-          </tr>
-          <tr>
-            <th scope="row"><input type="checkbox" name=""></th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-            <td>Thornton</td>
-          </tr>
-          <tr>
-            <th scope="row"><input type="checkbox" name=""></th>
-            <td >Larry the Bird</td>
-            <td>@twitter</td>
-            <td >Larry the Bird</td>
-            <td>@twitter</td>
-            <td >Larry the Bird</td>
-            <td>@twitter</td>
-            <td >Larry the Bird</td>
-          </tr>
+          @endforeach
+        @endif
         </tbody>
       </table>
     </div>
