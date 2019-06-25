@@ -90,10 +90,37 @@ class HomePageController extends Controller
         return view('home_page.follower_following_list');
     }
 
-    public function followerAndFollowingListDetails(){
+    public function followerAndFollowingListDetails(Request $request,$id){
+//        echo $id;
+//        exit();
+       $userid = $id;
+       $usersInfo = array();
+       $result1 = $this->ig->login('webvision100','instagram123456');
+       $ranktoken = \InstagramAPI\Signatures::generateUUID();
+       $searchResult1 = $this->ig->people->getFollowers($userid,$ranktoken);
 
-        return view('home_page.follower_following_list_details');
-    }
+       $searchResult1 = json_decode($searchResult1);
+       try{
+           foreach ($searchResult1->users as $searchResult){
+               $id = $searchResult->pk;
+               $userSelfInfo = $this->ig->people->getInfoById($id);
+
+               $userSelfInfo = json_decode($userSelfInfo);
+
+               $usersInfo[] = ['username' => $userSelfInfo->user->username,'biography' => $userSelfInfo->user->biography,
+                   'followerCount' => $userSelfInfo->user->follower_count,'followingCount' => $userSelfInfo->user->following_count,
+                   'photo' => $userSelfInfo->user->profile_pic_url,'post' => $userSelfInfo->user->media_count,'private' => $userSelfInfo->user->is_private];
+
+           }
+       }catch (\Exception $ex){
+
+       }
+//        print_r($usersInfo);
+//        exit();
+
+       return view('home_page.follower_following_list_details',compact('usersInfo'));
+//        return $searchResult1;
+   }
 
 
     public function index()

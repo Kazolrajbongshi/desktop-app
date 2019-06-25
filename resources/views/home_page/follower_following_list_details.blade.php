@@ -28,10 +28,10 @@
   <div class="row">
     <h3>Follower Following List Details:</h3>
     <div class="table-wrapper-scroll-y my-custom-scrollbar">
-      <table class="table table-hover table-bordered" id="home-table" data-toggle="table">
+      <table id="demo" class="countries-tiny table table-hover table-bordered" data-toggle="table">
         <thead>
           <tr>
-            <td scope="col"></td>
+            <td scope="col"><input type="checkbox" name="" id="inp-chkbox1"></td>
             <th scope="col">Username</th>
             <th scope="col">Biography</th>
             <th scope="col">Follower count</th>
@@ -42,7 +42,41 @@
           </tr>
         </thead>
         <tbody>
+          @if(isset($usersInfo))
+            @foreach($usersInfo as $userInfo)
+            <tr>
+              <td scope="row"><input type="checkbox" name="" class="inpchk1"></td>
+              <td>{{$userInfo['username']}}</td>
+              <td>{{$userInfo['biography']}}</td>
+              <td>{{$userInfo['followerCount']}}</td>
+              <td>{{$userInfo['followingCount']}}</td>
+              <td><span style="display: none;">{{$userInfo['photo']}}</span> <img src="{{$userInfo['photo']}}" height="50" width="75"></td>
+              <td>{{$userInfo['post']}}</td>
+              @if($userInfo['private'] == null)
+              <td>No</td>
+              @else
+              <td>Yes</td>
+              @endif
+            </tr>
+          @endforeach
+        @endif
+        </tbody>
+      </table>
+      <!-- <table class="table table-hover table-bordered" id="home-table" data-toggle="table">
+        <thead>
           <tr>
+            <td scope="col"><input type="checkbox" name="" id="inp-chkbox1"></td>
+            <th scope="col">Username</th>
+            <th scope="col">Biography</th>
+            <th scope="col">Follower count</th>
+            <th scope="col">Following count</th>
+            <th scope="col">photo</th>
+            <th scope="col">Post</th>
+            <th scope="col">Is_private</th>
+          </tr>
+        </thead>
+        <tbody> -->
+          <!-- <tr>
             <td scope="row"><input type="checkbox" name="" id="inp-chkbox1"></td>
             <td><input type="checkbox" name=""></td>
             <td><input type="checkbox" name=""></td>
@@ -51,99 +85,27 @@
             <td><input type="checkbox" name=""></td>
             <td><input type="checkbox" name=""></td>
             <td><input type="checkbox" name=""></td>
-          </tr>
-          <tr>
-            <td scope="row"><input type="checkbox" name="" class="inpchk1"></td>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-            <td>Otto</td>
-          </tr>
-          <tr>
-            <td scope="row"><input type="checkbox" name="" class="inpchk1"></td>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-            <td>Thornton</td>
-          </tr>
-          <tr>
-            <td scope="row"><input type="checkbox" name="" class="inpchk1"></td>
-            <td >Larry the Bird</td>
-            <td>@twitter</td>
-            <td >Larry the Bird</td>
-            <td>@twitter</td>
-            <td >Larry the Bird</td>
-            <td>@twitter</td>
-            <td >Larry the Bird</td>
-          </tr>
-          <tr>
-            <td scope="row"><input type="checkbox" name="" class="inpchk1"></td>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-            <td>Otto</td>
-          </tr>
-          <tr>
-            <td scope="row"><input type="checkbox" name="" class="inpchk1"></td>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-            <td>Thornton</td>
-          </tr>
-          <tr>
-            <td scope="row"><input type="checkbox" name="" class="inpchk1"></td>
-            <td >Larry the Bird</td>
-            <td>@twitter</td>
-            <td >Larry the Bird</td>
-            <td>@twitter</td>
-            <td >Larry the Bird</td>
-            <td>@twitter</td>
-            <td >Larry the Bird</td>
-          </tr>
-          <tr>
-            <td scope="row"><input type="checkbox" name="" class="inpchk1"></td>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-            <td>Otto</td>
-          </tr>
-          <tr>
-            <td scope="row"><input type="checkbox" name="" class="inpchk1"></td>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-            <td>Thornton</td>
-          </tr>
-          <tr>
-            <td scope="row"><input type="checkbox" name="" class="inpchk1"></td>
-            <td >Larry the Bird</td>
-            <td>@twitter</td>
-            <td >Larry the Bird</td>
-            <td>@twitter</td>
-            <td >Larry the Bird</td>
-            <td>@twitter</td>
-            <td >Larry the Bird</td>
-          </tr>
+          </tr> -->
+          <!-- @if(isset($usersInfo))
+            @foreach($usersInfo as $userInfo)
+            <tr>
+              <td scope="row"><input type="checkbox" name="" class="inpchk1"></td>
+              <td>{{$userInfo['username']}}</td>
+              <td>{{$userInfo['biography']}}</td>
+              <td>{{$userInfo['followerCount']}}</td>
+              <td>{{$userInfo['followingCount']}}</td>
+              <td><span style="display: none;">{{$userInfo['photo']}}</span> <img src="{{$userInfo['photo']}}" height="50" width="75"></td>
+              <td>{{$userInfo['post']}}</td>
+              @if($userInfo['private'] == null)
+              <td>No</td>
+              @else
+              <td>Yes</td>
+              @endif
+            </tr>
+          @endforeach
+        @endif
         </tbody>
-      </table>
+      </table> -->
     </div>
   </div>
   <div style="text-align:center;">
@@ -154,4 +116,5 @@
 </body>
 </html>
 <script src="https://rawgit.com/wenzhixin/bootstrap-table/master/src/bootstrap-table.js"></script>
+<script type="text/javascript" src="{{asset('assets/js/tablefilter.js')}}"></script>
 <script type="text/javascript" src="{{asset('assets/js/style.js')}}"></script>

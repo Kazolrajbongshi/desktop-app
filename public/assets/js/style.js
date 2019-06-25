@@ -1,4 +1,6 @@
 
+
+
 //follower csv list download start//
 
 $(document).ready(function(){
@@ -49,7 +51,7 @@ $(document).ready(function () {
     
     $("#down").on('click', function (event) {
         
-        exportTableToCSV.apply(this, [$('#home-table'), 'data.csv']);
+        exportTableToCSV.apply(this, [$('#demo'), 'data.csv']);
 
     });
 });
@@ -163,7 +165,23 @@ $('.third-search-remove-btn').click(function(){
     }    
 });
 
-
+// First search follower and following details start //
+var filtersConfig = {
+        base_path: 'tablefilter/',
+        auto_filter: {
+            delay: 1100 //milliseconds
+        },
+        filters_row_index: 1,
+        state: true,
+        alternate_rows: true,
+        rows_counter: true,
+        btn_reset: true,
+        status_bar: true,
+        msg_filter: 'Filtering...'
+    };
+    var tf = new TableFilter('demo', filtersConfig);
+    tf.init();
+// First search follower and following details end //
 
 
 // Compare search end //
