@@ -24,8 +24,8 @@
   </div>
 </div>
   
-<div class="container">
-  <div class="row">
+<!-- <div class="container"> -->
+  <!-- <div class="row"> -->
     <h3>Follower Following List Details:</h3>
     <div class="table-wrapper-scroll-y my-custom-scrollbar">
       <table id="demo" class="countries-tiny table table-hover table-bordered" data-toggle="table">
@@ -34,8 +34,8 @@
             <td scope="col"><input type="checkbox" name="" id="inp-chkbox1"></td>
             <th scope="col">Username</th>
             <th scope="col">Biography</th>
-            <th scope="col">Follower count</th>
-            <th scope="col">Following count</th>
+            <th scope="col">Follower</th>
+            <th scope="col">Following</th>
             <th scope="col">photo</th>
             <th scope="col">Post</th>
             <th scope="col">Is_private</th>
@@ -107,12 +107,12 @@
         </tbody>
       </table> -->
     </div>
-  </div>
+  <!-- </div> -->
   <div style="text-align:center;">
     <a href="#" class="btn btn-primary" id="down"><span style="color: black;">Export as</span>&nbsp;&nbsp;CSV</a>
     <!-- <button type="submit" class="btn btn-primary"><span style="color: black;">Export as</span>&nbsp;&nbsp;CSV</button> -->
   </div>
-</div>
+<!-- </div> -->
 </body>
 </html>
 <script src="https://rawgit.com/wenzhixin/bootstrap-table/master/src/bootstrap-table.js"></script>
