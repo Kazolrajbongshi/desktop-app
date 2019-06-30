@@ -13,22 +13,26 @@
 <body>
 
 <div class="jumbotron text-center" style="padding-top: 0px;padding-bottom: 5px;margin-bottom: 15px;">
-  <ul class="nav nav-tabs" id="myTab" role="tablist">
+  <div class="navbar-header">
+    <a class="navbar-brand logo" href="#"><span>D-Gram</span></a>
+      <!-- <a class="navbar-brand" href="#"><img src="{{asset('assets/img/pdf_logo.PNG')}}"></a> -->
+  </div>
+  <ul class="nav nav-tabs" id="myTab" role="tablist" style="margin-left: 35%;">
     @if(isset($deafult_active))
-    <li class="nav-item active">
+    <li class="nav-item active" style="border-right: 1px solid #10b3b3;">
       <a class="nav-link" id="home-tab" data-toggle="tab" href="#defaultsearch" role="tab" aria-controls="home" aria-selected="true">Default Search</a>
     </li>
     @else
-    <li class="nav-item">
+    <li class="nav-item" style="border-right: 1px solid #10b3b3;">
       <a class="nav-link" id="home-tab" data-toggle="tab" href="#defaultsearch" role="tab" aria-controls="home" aria-selected="true">Default Search</a>
     </li>
     @endif
     @if(isset($active))
-    <li class="nav-item active">
+    <li class="nav-item active" style="border-right: 1px solid #10b3b3;">
       <a class="nav-link" id="profile-tab" data-toggle="tab" href="#comparesearch" role="tab" aria-controls="profile" aria-selected="false">Comapare Search</a>
     </li>
     @else
-    <li class="nav-item">
+    <li class="nav-item" style="border-right: 1px solid #10b3b3;">
       <a class="nav-link" id="profile-tab" data-toggle="tab" href="#comparesearch" role="tab" aria-controls="profile" aria-selected="false">Comapare Search</a>
     </li>
     @endif
@@ -55,13 +59,13 @@
         <div class="col-sm-4 col-sm-offset-4">
           <!-- <input type="submit"value="Find"  /> -->
           <div class="first-search-add" style="overflow: hidden; padding-right: .5em;">
-            <input type="text" name="searchUser1" class="form-control" placeholder="Search by instagram user name">
+            <input type="text" name="searchUser1" class="form-control" placeholder="Search by instagram user name" style="height: 45px;">
           </div>
 
         </div>
       </div>
       <div style="margin-top: 15px;">
-        <button class="btn btn-success">Search</button>
+        <button class="btn btn-success btn-lg">Search</button>
       </div>
     </form>
   </div>
@@ -74,35 +78,35 @@
   @else
   <div class="tab-pane" id="comparesearch" role="tabpanel" aria-labelledby="profile-tab">
   @endif
-     <div class="jumbotron text-center" style="padding-top: 0px;padding-bottom: 5px;margin-bottom: 15px;">
-       <p>Serch User</p>
+     <div class="jumbotron text-center" style="padding-top: 20px;padding-bottom: 5px;margin-bottom: 15px;">
+       <!-- <p>Serch User</p> -->
        <form action="{{URL::to('/search')}}" method="post">
                   {{csrf_field()}}
         <div class="row">
           <div class="col-sm-4 ">
             <!-- <input type="submit"value="Find"  /> -->
-            <button type="button" class="btn btn-success first-search-add-btn" style="float: right">Add</button>
-            <div class="first-search-add" style="overflow: hidden; padding-right: .5em;">
-              <input type="text" name="searchUser1" class="form-control" placeholder="First compare instagram user name">
+            <button type="button" class="btn btn-success btn-lg first-search-add-btn" style="float: right;background-color: #10b3b3;"><i class="fa fa-plus"></i></button>
+            <div class="first-search-add" style="overflow: hidden; padding-right: 0px;">
+              <input type="text" name="searchUser1" class="form-control" placeholder="First compare instagram user name" style="height: 45px;">
             </div>
 
           </div>
           <div class="col-sm-4 ">
-            <button type="button" class="btn btn-danger second-search-remove-btn" style="float: right;display: none;">Remove</button><button type="button" class="btn btn-success second-search-add-btn" style="float: right;display: none; margin-right: 5px;">Add</button>
-            <div class="second-search-add" style="overflow: hidden; padding-right: .5em;display: none;">
-              <input type="text" name="searchUser2" id="searchUser2" class="form-control" placeholder="Second compare instagram user name">
+            <button type="button" class="btn btn-danger btn-lg second-search-remove-btn" style="float: right;display: none;"><i class="fa fa-minus"></i></button><button type="button" class="btn btn-success btn-lg second-search-add-btn" style="float: right;display: none; margin-right: 5px;background-color: #10b3b3;""><i class="fa fa-plus"></i></button>
+            <div class="second-search-add" style="overflow: hidden; padding-right: 0px;display: none;">
+              <input type="text" name="searchUser2" id="searchUser2" class="form-control" placeholder="Second compare instagram user name" style="height: 45px;">
             </div>
 
           </div>
           <div class="col-sm-4 ">
-            <button type="button" class="btn btn-success third-search-add-btn" style="float: right;display: none;">Add</button><button type="button" class="btn btn-danger third-search-remove-btn" style="float: right;display: none;">Remove</button>
-            <div class="third-search-add" style="overflow: hidden; padding-right: .5em;display: none;">
-              <input type="text" name="searchUser3" id="searchUser3" class="form-control" placeholder="Third compare instagram user name">
+            <button type="button" class="btn btn-success btn-lg third-search-add-btn" style="float: right;display: none;background-color: #10b3b3;""><i class="fa fa-plus"></i></button><button type="button" class="btn btn-danger btn-lg third-search-remove-btn" style="float: right;display: none;"><i class="fa fa-minus"></i></button>
+            <div class="third-search-add" style="overflow: hidden; padding-right: 0px;display: none;">
+              <input type="text" name="searchUser3" id="searchUser3" class="form-control" placeholder="Third compare instagram user name" style="height: 45px;">
             </div>
           </div>
         </div>
         <div style="margin-top: 15px;">
-          <button class="btn btn-success">Search</button>
+          <button class="btn btn-default btn-lg" style="border: 2px solid #10b3b3;">Search</button>
         </div>
       </form>
     </div>

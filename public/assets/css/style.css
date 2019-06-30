@@ -45,3 +45,10 @@
     margin-bottom: 10px;
     overflow: auto;
 }
+.logo{
+	background: #10b3b3;
+    color: white;
+    font-size: 3rem !important;
+    font-weight: bold;
+    font-style: italic;
+}
