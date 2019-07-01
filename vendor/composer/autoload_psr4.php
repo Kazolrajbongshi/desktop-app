@@ -78,5 +78,6 @@ return array(
     'Carbon\\' => array($vendorDir . '/nesbot/carbon/src/Carbon'),
     'BinSoul\\Net\\Mqtt\\Client\\React\\' => array($vendorDir . '/binsoul/net-mqtt-client-react/src'),
     'BinSoul\\Net\\Mqtt\\' => array($vendorDir . '/binsoul/net-mqtt/src'),
+    'Ayesh\\InstagramDownload\\' => array($vendorDir . '/ayesh/instagram-download/src'),
     'App\\' => array($baseDir . '/app'),
 );

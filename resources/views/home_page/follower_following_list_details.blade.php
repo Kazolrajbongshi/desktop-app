@@ -49,10 +49,7 @@
             <td><input type="checkbox" name=""></td>
             <td><input type="checkbox" name=""></td>
           </tr>
-          <?php
-          print_r($usersInfo[0]['username']) ;
-//          exit();
-          ?>
+
           @if(isset($usersInfo))
           @foreach($usersInfo as $userInfo)
           <tr>

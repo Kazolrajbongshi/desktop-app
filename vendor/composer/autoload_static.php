@@ -157,6 +157,7 @@ class ComposerStaticInit589685e1055d40a0744852730efbeb22
         ),
         'A' => 
         array (
+            'Ayesh\\InstagramDownload\\' => 24,
             'App\\' => 4,
         ),
     );
@@ -452,6 +453,10 @@ class ComposerStaticInit589685e1055d40a0744852730efbeb22
         array (
             0 => __DIR__ . '/..' . '/binsoul/net-mqtt/src',
         ),
+        'Ayesh\\InstagramDownload\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/ayesh/instagram-download/src',
+        ),
         'App\\' => 
         array (
             0 => __DIR__ . '/../..' . '/app',
@@ -511,6 +516,7 @@ class ComposerStaticInit589685e1055d40a0744852730efbeb22
         'App\\Providers\\EventServiceProvider' => __DIR__ . '/../..' . '/app/Providers/EventServiceProvider.php',
         'App\\Providers\\RouteServiceProvider' => __DIR__ . '/../..' . '/app/Providers/RouteServiceProvider.php',
         'App\\User' => __DIR__ . '/../..' . '/app/User.php',
+        'Ayesh\\InstagramDownload\\InstagramDownload' => __DIR__ . '/..' . '/ayesh/instagram-download/src/InstagramDownload.php',
         'BinSoul\\Net\\Mqtt\\Client\\React\\ReactFlow' => __DIR__ . '/..' . '/binsoul/net-mqtt-client-react/src/ReactFlow.php',
         'BinSoul\\Net\\Mqtt\\Client\\React\\ReactMqttClient' => __DIR__ . '/..' . '/binsoul/net-mqtt-client-react/src/ReactMqttClient.php',
         'BinSoul\\Net\\Mqtt\\Connection' => __DIR__ . '/..' . '/binsoul/net-mqtt/src/Connection.php',
