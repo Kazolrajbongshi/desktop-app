@@ -10,14 +10,15 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
   <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
-<body>
+<body style="background: #eeeeee;">
 
-<div class="jumbotron text-center" style="padding-top: 0px;padding-bottom: 5px;margin-bottom: 15px;">
+<!-- <div class="jumbotron text-center" style="padding-top: 0px;padding-bottom: 5px;margin-bottom: 15px;"> -->
+<div class="text-center" style="padding: 0px;border-bottom: 2px solid #ffffff;">
   <div class="navbar-header">
     <a class="navbar-brand logo" href="#"><span>D-Gram</span></a>
       <!-- <a class="navbar-brand" href="#"><img src="{{asset('assets/img/pdf_logo.PNG')}}"></a> -->
   </div>
-  <ul class="nav nav-tabs" id="myTab" role="tablist" style="margin-left: 35%;">
+  <ul class="nav nav-tabs" id="myTab" role="tablist" style="margin-left: 35%;border-bottom: #ffffff;">
     @if(isset($deafult_active))
     <li class="nav-item active" style="border-right: 1px solid #10b3b3;">
       <a class="nav-link" id="home-tab" data-toggle="tab" href="#defaultsearch" role="tab" aria-controls="home" aria-selected="true">Default Search</a>
@@ -58,17 +59,35 @@
 
         <div class="col-sm-4 col-sm-offset-4">
           <!-- <input type="submit"value="Find"  /> -->
-          <div class="first-search-add" style="overflow: hidden; padding-right: .5em;">
+          <!-- <div class="first-search-add" style="overflow: hidden; padding-right: .5em;">
             <input type="text" name="searchUser1" class="form-control" placeholder="Search by instagram user name" style="height: 45px;">
-          </div>
+          </div> -->
+
+          <button type="button" class="btn btn-success btn-lg first-search-add-btn" style="float: right;background-color: #ffffff;color: #000000;border-color: #ccc;border-left: 2px solid #10b3b3;">Search</button>
+            <div class="first-search-add" style="overflow: hidden; padding-right: 0px;">
+              <input type="text" name="searchUser1" class="form-control" placeholder="" style="height: 46px;">
+            </div>
 
         </div>
       </div>
-      <div style="margin-top: 15px;">
+      <!-- <div style="margin-top: 15px;">
         <button class="btn btn-success btn-lg">Search</button>
-      </div>
+      </div> -->
     </form>
   </div>
+
+
+  <div class="row" style="margin-top: 10%;">
+      <div class="container">
+        <div class="text-center">
+          <div class="col-sm-6 col-sm-offset-3 no_src_msg">
+            At the very beginning here it will be shown instruction of this search works. When search find result will be shown; it will be gone. Every time this compare tab will be open this message box will be shown.
+          </div>
+        </div>
+      </div>    
+    </div>
+
+
   </div>
   <!-- Default search end-->
 
@@ -110,6 +129,17 @@
         </div>
       </form>
     </div>
+
+    <div class="row" style="margin-top: 10%;">
+      <div class="container">
+        <div class="text-center">
+          <div class="col-sm-6 col-sm-offset-3 no_src_msg">
+            At the very beginning here it will be shown instruction of this search works. When search find result will be shown; it will be gone. Every time this compare tab will be open this message box will be shown.
+          </div>
+        </div>
+      </div>    
+    </div>
+
     <div class="container">
       <div class="row">
       @if(isset($searchResult1) && isset($profile1))
