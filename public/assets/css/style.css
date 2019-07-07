@@ -52,3 +52,9 @@
     font-weight: bold;
     font-style: italic;
 }
+.no_src_msg{
+	border: 2px solid #10b3b3;
+	background: #8fcfde;
+	padding: 15px;
+	font-size: 15px;
+}
