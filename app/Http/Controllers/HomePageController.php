@@ -22,8 +22,8 @@ class HomePageController extends Controller
     }
 
     public function dashboard(){
-
-        return view('home_page.dashboard');
+        $deafult_active = 'active';
+        return view('home_page.dashboard',compact('deafult_active'));
     }
 
     public function search(Request $request){
@@ -31,13 +31,14 @@ class HomePageController extends Controller
         $search1 =   $request->searchUser1;
         $search2 =   $request->searchUser2;
         $search3 =   $request->searchUser3;
+        $active = 'active';
         if ($search2 == null && $search3 == null){
             $id1 = $this->ig->people->getUserIdForName($search1);
             $profile1 = $this->ig->people->getInfoById($id1);
             $searchResult1 = $this->ig->timeline->getUserFeed($id1);
             $searchResult1 = json_decode($searchResult1);
             $profile1 = json_decode($profile1);
-            return view('home_page.dashboard',compact('searchResult1','profile1'));
+            return view('home_page.dashboard',compact('searchResult1','profile1','active'));
         }
         if($search1 !=null && $search2 !=null && $search3 == null){
             $id1 = $this->ig->people->getUserIdForName($search1);
@@ -50,7 +51,7 @@ class HomePageController extends Controller
             $searchResult2 = json_decode($searchResult2);
             $profile1 = json_decode($profile1);
             $profile2 = json_decode($profile2);
-            return view('home_page.dashboard',compact('searchResult1','profile1','searchResult2','profile2'));
+            return view('home_page.dashboard',compact('searchResult1','profile1','searchResult2','profile2','active'));
         }
         if ($search1 != null && $search2 != null && $search3 != null){
             $id1 = $this->ig->people->getUserIdForName($search1);
@@ -68,12 +69,13 @@ class HomePageController extends Controller
             $profile1 = json_decode($profile1);
             $profile2 = json_decode($profile2);
             $profile3 = json_decode($profile3);
-            return view('home_page.dashboard',compact('searchResult1','profile1','searchResult2','profile2','searchResult3','profile3'));
+            return view('home_page.dashboard',compact('searchResult1','profile1','searchResult2','profile2','searchResult3','profile3','active'));
         }
         return view('home_page.dashboard');
     }
 
     public function test(){
+
 
 //        $result1 = $this->ig->login('webvision100','instagram123456');
 //        $search1 =  'fifa' ;//$request->searchUser;
@@ -116,40 +118,46 @@ class HomePageController extends Controller
             echo 'Something went wrong: '.$e->getMessage()."\n";
         }
 
+
     }
 
+
+    public function followerAndFollowingList(){
+
+        return view('home_page.follower_following_list');
+    }
 
     public function followerAndFollowingListDetails(Request $request,$id){
 //        echo $id;
 //        exit();
-        $userid = $id;
-        $usersInfo = array();
-        $result1 = $this->ig->login('webvision100','instagram123456');
-        $ranktoken = \InstagramAPI\Signatures::generateUUID();
-        $searchResult1 = $this->ig->people->getFollowers($userid,$ranktoken);
+       $userid = $id;
+       $usersInfo = array();
+       $result1 = $this->ig->login('webvision100','instagram123456');
+       $ranktoken = \InstagramAPI\Signatures::generateUUID();
+       $searchResult1 = $this->ig->people->getFollowers($userid,$ranktoken);
 
-        $searchResult1 = json_decode($searchResult1);
-        try{
-            foreach ($searchResult1->users as $searchResult){
-                $id = $searchResult->pk;
-                $userSelfInfo = $this->ig->people->getInfoById($id);
+       $searchResult1 = json_decode($searchResult1);
+       try{
+           foreach ($searchResult1->users as $searchResult){
+               $id = $searchResult->pk;
+               $userSelfInfo = $this->ig->people->getInfoById($id);
 
-                $userSelfInfo = json_decode($userSelfInfo);
+               $userSelfInfo = json_decode($userSelfInfo);
 
-                $usersInfo[] = ['username' => $userSelfInfo->user->username,'biography' => $userSelfInfo->user->biography,
-                    'followerCount' => $userSelfInfo->user->follower_count,'followingCount' => $userSelfInfo->user->following_count,
-                    'photo' => $userSelfInfo->user->profile_pic_url,'post' => $userSelfInfo->user->media_count,'private' => $userSelfInfo->user->is_private];
+               $usersInfo[] = ['username' => $userSelfInfo->user->username,'biography' => $userSelfInfo->user->biography,
+                   'followerCount' => $userSelfInfo->user->follower_count,'followingCount' => $userSelfInfo->user->following_count,
+                   'photo' => $userSelfInfo->user->profile_pic_url,'post' => $userSelfInfo->user->media_count,'private' => $userSelfInfo->user->is_private];
 
-            }
-        }catch (\Exception $ex){
+           }
+       }catch (\Exception $ex){
 
-        }
+       }
 //        print_r($usersInfo);
 //        exit();
 
-        return view('home_page.follower_following_list_details',compact('usersInfo'));
+       return view('home_page.follower_following_list_details',compact('usersInfo'));
 //        return $searchResult1;
-    }
+   }
 
 
     public function index()
