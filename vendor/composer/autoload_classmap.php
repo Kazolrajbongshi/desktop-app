@@ -27,6 +27,7 @@ return array(
     'App\\Providers\\EventServiceProvider' => $baseDir . '/app/Providers/EventServiceProvider.php',
     'App\\Providers\\RouteServiceProvider' => $baseDir . '/app/Providers/RouteServiceProvider.php',
     'App\\User' => $baseDir . '/app/User.php',
+    'Ayesh\\InstagramDownload\\InstagramDownload' => $vendorDir . '/ayesh/instagram-download/src/InstagramDownload.php',
     'BinSoul\\Net\\Mqtt\\Client\\React\\ReactFlow' => $vendorDir . '/binsoul/net-mqtt-client-react/src/ReactFlow.php',
     'BinSoul\\Net\\Mqtt\\Client\\React\\ReactMqttClient' => $vendorDir . '/binsoul/net-mqtt-client-react/src/ReactMqttClient.php',
     'BinSoul\\Net\\Mqtt\\Connection' => $vendorDir . '/binsoul/net-mqtt/src/Connection.php',
