@@ -51,9 +51,9 @@
   @else
   <div class="tab-pane" id="defaultsearch" role="tabpanel" aria-labelledby="home-tab">
   @endif
-    <div class="jumbotron text-center" style="padding-top: 0px;padding-bottom: 5px;margin-bottom: 15px;">
-    <p>Serch User</p>
-    <form action="#" method="post">
+    <div class="jumbotron text-center" style="padding-top: 20px;padding-bottom: 5px;margin-bottom: 15px;">
+    <!-- <p>Serch User</p> -->
+    <form action="{{URL::to('/default-search')}}" method="post">
                 {{csrf_field()}}
       <div class="row">
 
@@ -63,9 +63,9 @@
             <input type="text" name="searchUser1" class="form-control" placeholder="Search by instagram user name" style="height: 45px;">
           </div> -->
 
-          <button type="button" class="btn btn-success btn-lg first-search-add-btn" style="float: right;background-color: #ffffff;color: #000000;border-color: #ccc;border-left: 2px solid #10b3b3;">Search</button>
+          <button class="btn btn-success btn-lg" id="default_search_button">Search</button>
             <div class="first-search-add" style="overflow: hidden; padding-right: 0px;">
-              <input type="text" name="searchUser1" class="form-control" placeholder="" style="height: 46px;">
+              <input type="text" name="searchUser" class="form-control" placeholder="Enter your search name" style="height: 46px;border-top-right-radius: 0;border-bottom-right-radius: 0;">
             </div>
 
         </div>
@@ -76,18 +76,82 @@
     </form>
   </div>
 
-
-  <div class="row" style="margin-top: 10%;">
-      <div class="container">
-        <div class="text-center">
-          <div class="col-sm-6 col-sm-offset-3 no_src_msg">
-            At the very beginning here it will be shown instruction of this search works. When search find result will be shown; it will be gone. Every time this compare tab will be open this message box will be shown.
+  @if(!isset($searchResult))
+    <div class="row" style="margin-top: 10%;">
+        <div class="container">
+          <div class="text-center">
+            <div class="col-sm-6 col-sm-offset-3 no_src_msg">
+              At the very beginning here it will be shown instruction of this search works. When search find result will be shown; it will be gone. Every time this compare tab will be open this message box will be shown.
+            </div>
           </div>
+        </div>    
+      </div>
+  @endif
+@if(isset($searchResult) && isset($profile))
+  <div class="container">
+    <div class="row">
+      
+        <div class="col-sm-6 col-sm-offset-3" style="background: white;padding: 1em;">
+
+        <a href="{{url('follower-and-following-list-details/'.$profile->user->pk)}}">
+          <div class="follower_upper">
+            <p><i class="fa fa-instagram"></i>&nbsp;{{$profile->user->username}}</p>
+            <?php
+               $n = (0+str_replace(",", "", $profile->user->follower_count));
+
+                if (!is_numeric($n)) return false;
+
+                // now filter it;
+                if ($n > 1000000000000) {
+                  $n = round(($n/1000000000000), 2).' T';
+                }
+                elseif ($n > 1000000000){
+                  $n = round(($n/1000000000), 2).' B';
+                } 
+                elseif ($n > 1000000){
+                  $n = round(($n/1000000), 2).' M';
+                } 
+                elseif ($n > 1000){
+                   $n = round(($n/1000), 2).' K';
+                }else{
+                  $n = $n;
+                }
+            ?>
+            <h2 class="text-center text-color">{{$n}}</h2>
+          </div>
+        </a>
+            <?php
+            $counter = 0;
+            ?>
+            @foreach($searchResult->items as $searchResult)
+
+        <a class="thumbnail" href="#" data-image-id="" data-toggle="modal" data-title="@if(isset($searchResult->caption->text)){{$searchResult->caption->text}}@endif" data-caption="Like : {{$searchResult->like_count}}  @if(isset($searchResult->view_count))Views : {{$searchResult->view_count}}@endif" data-image="@if(isset($searchResult->image_versions2->candidates[0]->url)){{$searchResult->image_versions2->candidates[0]->url}}@else{{asset('assets/img/no_image.jpg')}}@endif" data-target="#image-gallery">
+
+            <div class="follower_lists">
+            <div class="row">
+              <div class="col-sm-3">
+                <img src="@if(isset($searchResult->image_versions2->candidates[0]->url)){{$searchResult->image_versions2->candidates[0]->url}}@else{{asset('assets/img/no_image.jpg')}}@endif" alt="" height="50" width="75">
+              </div>
+              <div class="col-sm-9">
+                <p>@if(isset($searchResult->caption->text)){{str_limit($searchResult->caption->text, $limit = 70, $end = '..')}}@endif</p>
+                <p> @if(isset($searchResul1->view_count))<i class="fa fa-eye"></i>{{$searchResult->view_count}}@endif &nbsp;&nbsp;<i class="fa fa-thumbs-up"></i> {{$searchResult->like_count}} <span class="pull-right"><i class="fa fa-calendar"></i>{{ date("d-m-Y", $searchResult->taken_at)}}</span></p>
+              </div>
+            </div>
+          </div>
+          </a>
+            <?php
+
+            if($counter == 4){
+                break;
+            }
+            $counter++;
+            ?>
+            @endforeach
         </div>
-      </div>    
+          
     </div>
-
-
+  </div>
+@endif
   </div>
   <!-- Default search end-->
 
@@ -106,21 +170,21 @@
             <!-- <input type="submit"value="Find"  /> -->
             <button type="button" class="btn btn-success btn-lg first-search-add-btn" style="float: right;background-color: #10b3b3;"><i class="fa fa-plus"></i></button>
             <div class="first-search-add" style="overflow: hidden; padding-right: 0px;">
-              <input type="text" name="searchUser1" class="form-control" placeholder="First compare instagram user name" style="height: 45px;">
+              <input type="text" name="searchUser1" class="form-control" placeholder="Enter your competitor account" style="height: 45px;">
             </div>
 
           </div>
           <div class="col-sm-4 ">
-            <button type="button" class="btn btn-danger btn-lg second-search-remove-btn" style="float: right;display: none;"><i class="fa fa-minus"></i></button><button type="button" class="btn btn-success btn-lg second-search-add-btn" style="float: right;display: none; margin-right: 5px;background-color: #10b3b3;""><i class="fa fa-plus"></i></button>
+            <button type="button" class="btn btn-success btn-lg second-search-add-btn" style="float: right;display: none; background-color: #10b3b3;""><i class="fa fa-plus"></i></button><button type="button" class="btn btn-danger btn-lg second-search-remove-btn" style="float: right;margin-right: 5px;display: none;"><i class="fa fa-minus"></i></button>
             <div class="second-search-add" style="overflow: hidden; padding-right: 0px;display: none;">
-              <input type="text" name="searchUser2" id="searchUser2" class="form-control" placeholder="Second compare instagram user name" style="height: 45px;">
+              <input type="text" name="searchUser2" id="searchUser2" class="form-control" placeholder="Enter your competitor account" style="height: 45px;">
             </div>
 
           </div>
           <div class="col-sm-4 ">
             <button type="button" class="btn btn-success btn-lg third-search-add-btn" style="float: right;display: none;background-color: #10b3b3;""><i class="fa fa-plus"></i></button><button type="button" class="btn btn-danger btn-lg third-search-remove-btn" style="float: right;display: none;"><i class="fa fa-minus"></i></button>
             <div class="third-search-add" style="overflow: hidden; padding-right: 0px;display: none;">
-              <input type="text" name="searchUser3" id="searchUser3" class="form-control" placeholder="Third compare instagram user name" style="height: 45px;">
+              <input type="text" name="searchUser3" id="searchUser3" class="form-control" placeholder="Enter your competitor account" style="height: 45px;">
             </div>
           </div>
         </div>
@@ -130,17 +194,19 @@
       </form>
     </div>
 
-    <div class="row" style="margin-top: 10%;">
-      <div class="container">
-        <div class="text-center">
-          <div class="col-sm-6 col-sm-offset-3 no_src_msg">
-            At the very beginning here it will be shown instruction of this search works. When search find result will be shown; it will be gone. Every time this compare tab will be open this message box will be shown.
+    @if(!isset($searchResult1))
+      <div class="row" style="margin-top: 10%;">
+        <div class="container">
+          <div class="text-center">
+            <div class="col-sm-6 col-sm-offset-3 no_src_msg">
+              At the very beginning here it will be shown instruction of this search works. When search find result will be shown; it will be gone. Every time this compare tab will be open this message box will be shown.
+            </div>
           </div>
-        </div>
-      </div>    
-    </div>
-
-    <div class="container">
+        </div>    
+      </div>
+    @endif
+    @if(isset($searchResult1) && isset($profile1))
+    <div class="container" style="background: white;padding: 1em;">
       <div class="row">
       @if(isset($searchResult1) && isset($profile1))
         <div class="col-sm-4">
@@ -186,7 +252,7 @@
               </div>
               <div class="col-sm-9">
                 <p>@if(isset($searchResult1->caption->text)){{str_limit($searchResult1->caption->text, $limit = 70, $end = '..')}}@endif</p>
-                <p> @if(isset($searchResult1->view_count))<i class="fa fa-comment"></i>{{$searchResult1->view_count}}@endif &nbsp;&nbsp;<i class="fa fa-thumbs-up"></i> {{$searchResult1->like_count}} <span class="pull-right"><i class="fa fa-calendar"></i>{{ date("d-m-Y", $searchResult1->taken_at)}}</span></p>
+                <p> @if(isset($searchResult1->view_count))<i class="fa fa-eye"></i>{{$searchResult1->view_count}}@endif &nbsp;&nbsp;<i class="fa fa-thumbs-up"></i> {{$searchResult1->like_count}} <span class="pull-right"><i class="fa fa-calendar"></i>{{ date("d-m-Y", $searchResult1->taken_at)}}</span></p>
               </div>
             </div>
           </div>
@@ -246,7 +312,7 @@
                           </div>
                           <div class="col-sm-9">
                               <p>@if(isset($searchResult2->caption->text)){{str_limit($searchResult2->caption->text, $limit = 70, $end = '..')}}@endif</p>
-                              <p> @if(isset($searchResult2->view_count))<i class="fa fa-comment"></i>{{$searchResult2->view_count}}@endif &nbsp;&nbsp;<i class="fa fa-thumbs-up"></i> {{$searchResult2->like_count}} <span class="pull-right"><i class="fa fa-calendar"></i>{{ date("d-m-Y", $searchResult2->taken_at)}}</span></p>
+                              <p> @if(isset($searchResult2->view_count))<i class="fa fa-eye"></i>{{$searchResult2->view_count}}@endif &nbsp;&nbsp;<i class="fa fa-thumbs-up"></i> {{$searchResult2->like_count}} <span class="pull-right"><i class="fa fa-calendar"></i>{{ date("d-m-Y", $searchResult2->taken_at)}}</span></p>
                           </div>
                       </div>
                   </div>
@@ -308,7 +374,7 @@
                           </div>
                           <div class="col-sm-9">
                               <p>@if(isset($searchResult3->caption->text)){{str_limit($searchResult3->caption->text, $limit = 70, $end = '..')}}@endif</p>
-                              <p> @if(isset($searchResult3->view_count))<i class="fa fa-comment"></i>{{$searchResult3->view_count}}@endif &nbsp;&nbsp;<i class="fa fa-thumbs-up"></i> {{$searchResult3->like_count}} <span class="pull-right"><i class="fa fa-calendar"></i>{{ date("d-m-Y", $searchResult3->taken_at)}}</span></p>
+                              <p> @if(isset($searchResult3->view_count))<i class="fa fa-eye"></i>{{$searchResult3->view_count}}@endif &nbsp;&nbsp;<i class="fa fa-thumbs-up"></i> {{$searchResult3->like_count}} <span class="pull-right"><i class="fa fa-calendar"></i>{{ date("d-m-Y", $searchResult3->taken_at)}}</span></p>
                           </div>
                       </div>
                   </div>
@@ -325,6 +391,7 @@
           @endif
       </div>
     </div>
+    @endif
   </div>
   <!-- Compare search end -->
 
