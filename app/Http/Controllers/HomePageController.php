@@ -8,6 +8,7 @@ use InstagramAPI\Instagram;
 use Storage;
 use Ayesh\InstagramDownload\InstagramDownload;
 
+
 class HomePageController extends Controller
 {
     /**
@@ -95,29 +96,38 @@ class HomePageController extends Controller
 //       // Storage::put($name, $contents);
 //        $temp = Storage::disk('uploads')->put($name, $contents);
         //return $searchResult1;
-        set_time_limit(0);
 
+        set_time_limit(0);
+        date_default_timezone_set('UTC');
 /////// CONFIG ///////
-        $username = 'webvision100';
-        $password = 'instagram123456';
+
+        $username = 'mahfuzhur007';
+        $password = 'rockerboy0168';
         $debug = true;
         $truncatedDebug = false;
 //////////////////////
-        $ig = new \InstagramAPI\Instagram($debug, $truncatedDebug);
+
         try {
-            $loginResponse = $ig->login($username, $password);
+            $loginResponse = $this->ig->login($username, $password);
             if ($loginResponse !== null && $loginResponse->isTwoFactorRequired()) {
-                $twoFactorIdentifier = $loginResponse->getTwoFactorInfo()->getTwoFactorIdentifier();
+                $this->twoFactorIdentifier = $loginResponse->getTwoFactorInfo()->getTwoFactorIdentifier();
                 // The "STDIN" lets you paste the code via terminal for testing.
                 // You should replace this line with the logic you want.
                 // The verification code will be sent by Instagram via SMS.
-                $verificationCode = trim(fgets(STDIN));
-                $ig->finishTwoFactorLogin($username, $password, $twoFactorIdentifier, $verificationCode);
+                $verificationCode = '374650';
+
+               $this->two($username,$password,$verificationCode);
             }
         } catch (\Exception $e) {
             echo 'Something went wrong: '.$e->getMessage()."\n";
         }
+        $searchResult1 =$this->ig->people->getSelfInfo();
 
+        return $searchResult1;
+    }
+
+    public function two($username,$password,$verificationCode){
+        $temp = $this->ig->finishTwoFactorLogin($username, $password, $this->twoFactorIdentifier, $verificationCode);
 
     }
 
