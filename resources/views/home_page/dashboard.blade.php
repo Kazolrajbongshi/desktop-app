@@ -170,21 +170,21 @@
             <!-- <input type="submit"value="Find"  /> -->
             <button type="button" class="btn btn-success btn-lg first-search-add-btn" style="float: right;background-color: #10b3b3;"><i class="fa fa-plus"></i></button>
             <div class="first-search-add" style="overflow: hidden; padding-right: 0px;">
-              <input type="text" name="searchUser1" class="form-control" placeholder="First compare instagram user name" style="height: 45px;">
+              <input type="text" name="searchUser1" class="form-control" placeholder="First compare instagram user name" style="height: 46px;">
             </div>
 
           </div>
           <div class="col-sm-4 ">
             <button type="button" class="btn btn-danger btn-lg second-search-remove-btn" style="float: right;display: none;"><i class="fa fa-minus"></i></button><button type="button" class="btn btn-success btn-lg second-search-add-btn" style="float: right;display: none; margin-right: 5px;background-color: #10b3b3;""><i class="fa fa-plus"></i></button>
             <div class="second-search-add" style="overflow: hidden; padding-right: 0px;display: none;">
-              <input type="text" name="searchUser2" id="searchUser2" class="form-control" placeholder="Second compare instagram user name" style="height: 45px;">
+              <input type="text" name="searchUser2" id="searchUser2" class="form-control" placeholder="Second compare instagram user name" style="height: 46px;">
             </div>
 
           </div>
           <div class="col-sm-4 ">
             <button type="button" class="btn btn-success btn-lg third-search-add-btn" style="float: right;display: none;background-color: #10b3b3;""><i class="fa fa-plus"></i></button><button type="button" class="btn btn-danger btn-lg third-search-remove-btn" style="float: right;display: none;"><i class="fa fa-minus"></i></button>
             <div class="third-search-add" style="overflow: hidden; padding-right: 0px;display: none;">
-              <input type="text" name="searchUser3" id="searchUser3" class="form-control" placeholder="Third compare instagram user name" style="height: 45px;">
+              <input type="text" name="searchUser3" id="searchUser3" class="form-control" placeholder="Third compare instagram user name" style="height: 46px;">
             </div>
           </div>
         </div>
@@ -396,6 +396,7 @@
   </div>
   <!-- Compare search end -->
 
+  <!-- Media Search Start -->
   <div class="tab-pane" id="mediasearch" role="tabpanel" aria-labelledby="contact-tab">
     
       <div class="create_btn_holder">
@@ -464,6 +465,7 @@
             </div>
         </div>
     </div>
+    <!-- Media search end -->
   </div>
 </div>
 <!-- Tab end -->

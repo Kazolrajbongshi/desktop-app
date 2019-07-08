@@ -97,5 +97,12 @@
     clear: both;
     display: table;
 }
-
+button.first-search-add-btn,button.second-search-add-btn,button.third-search-remove-btn {
+	border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+.first-search-add>input,.second-search-add>input,.second-search-add>input {
+	border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
 
