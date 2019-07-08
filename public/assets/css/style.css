@@ -58,6 +58,17 @@
 	padding: 15px;
 	font-size: 15px;
 }
+
+#default_search_button{
+	float: right;
+	background-color: #ffffff;
+	color: #000000;
+	border-color: #ccc;
+	border-left: 1px solid #10b3b3;
+	border-top-left-radius: 0;
+	border-bottom-left-radius: 0;
+}
+
 .create_btn_holder {
     display: flex;
     padding-top: 25px;
@@ -86,4 +97,5 @@
     clear: both;
     display: table;
 }
+
 

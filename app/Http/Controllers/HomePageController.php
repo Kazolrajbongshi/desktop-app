@@ -75,6 +75,22 @@ class HomePageController extends Controller
         return view('home_page.dashboard');
     }
 
+    public function defaultSearch(Request $request){
+
+        $result1 = $this->ig->login('webvision100','instagram123456');
+        $search =   $request->searchUser;
+        $deafult_active = 'active';
+        if ($search != null){
+            $id = $this->ig->people->getUserIdForName($search);
+            $profile = $this->ig->people->getInfoById($id);
+            $searchResult = $this->ig->timeline->getUserFeed($id);
+            $searchResult = json_decode($searchResult);
+            $profile = json_decode($profile);
+            return view('home_page.dashboard',compact('searchResult','profile','deafult_active'));
+        }
+
+    }
+
     public function test(){
 
 

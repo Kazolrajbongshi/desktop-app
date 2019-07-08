@@ -21,4 +21,4 @@ Route::get('/test','HomePageController@test');
 
 Route::get('/follower-and-following-list','HomePageController@followerAndFollowingList');
 Route::get('/follower-and-following-list-details/{id}','HomePageController@followerAndFollowingListDetails');
-
+Route::post('/default-search','HomePageController@defaultSearch');
