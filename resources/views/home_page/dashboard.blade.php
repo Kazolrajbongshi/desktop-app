@@ -170,21 +170,21 @@
             <!-- <input type="submit"value="Find"  /> -->
             <button type="button" class="btn btn-success btn-lg first-search-add-btn" style="float: right;background-color: #10b3b3;"><i class="fa fa-plus"></i></button>
             <div class="first-search-add" style="overflow: hidden; padding-right: 0px;">
-              <input type="text" name="searchUser1" class="form-control" placeholder="Enter your competitor account" style="height: 45px;">
+              <input type="text" name="searchUser1" class="form-control" placeholder="First compare instagram user name" style="height: 45px;">
             </div>
 
           </div>
           <div class="col-sm-4 ">
-            <button type="button" class="btn btn-success btn-lg second-search-add-btn" style="float: right;display: none; background-color: #10b3b3;""><i class="fa fa-plus"></i></button><button type="button" class="btn btn-danger btn-lg second-search-remove-btn" style="float: right;margin-right: 5px;display: none;"><i class="fa fa-minus"></i></button>
+            <button type="button" class="btn btn-danger btn-lg second-search-remove-btn" style="float: right;display: none;"><i class="fa fa-minus"></i></button><button type="button" class="btn btn-success btn-lg second-search-add-btn" style="float: right;display: none; margin-right: 5px;background-color: #10b3b3;""><i class="fa fa-plus"></i></button>
             <div class="second-search-add" style="overflow: hidden; padding-right: 0px;display: none;">
-              <input type="text" name="searchUser2" id="searchUser2" class="form-control" placeholder="Enter your competitor account" style="height: 45px;">
+              <input type="text" name="searchUser2" id="searchUser2" class="form-control" placeholder="Second compare instagram user name" style="height: 45px;">
             </div>
 
           </div>
           <div class="col-sm-4 ">
             <button type="button" class="btn btn-success btn-lg third-search-add-btn" style="float: right;display: none;background-color: #10b3b3;""><i class="fa fa-plus"></i></button><button type="button" class="btn btn-danger btn-lg third-search-remove-btn" style="float: right;display: none;"><i class="fa fa-minus"></i></button>
             <div class="third-search-add" style="overflow: hidden; padding-right: 0px;display: none;">
-              <input type="text" name="searchUser3" id="searchUser3" class="form-control" placeholder="Enter your competitor account" style="height: 45px;">
+              <input type="text" name="searchUser3" id="searchUser3" class="form-control" placeholder="Third compare instagram user name" style="height: 45px;">
             </div>
           </div>
         </div>
@@ -206,6 +206,7 @@
       </div>
     @endif
     @if(isset($searchResult1) && isset($profile1))
+
     <div class="container" style="background: white;padding: 1em;">
       <div class="row">
       @if(isset($searchResult1) && isset($profile1))
@@ -252,7 +253,7 @@
               </div>
               <div class="col-sm-9">
                 <p>@if(isset($searchResult1->caption->text)){{str_limit($searchResult1->caption->text, $limit = 70, $end = '..')}}@endif</p>
-                <p> @if(isset($searchResult1->view_count))<i class="fa fa-eye"></i>{{$searchResult1->view_count}}@endif &nbsp;&nbsp;<i class="fa fa-thumbs-up"></i> {{$searchResult1->like_count}} <span class="pull-right"><i class="fa fa-calendar"></i>{{ date("d-m-Y", $searchResult1->taken_at)}}</span></p>
+                <p> @if(isset($searchResult1->view_count))<i class="fa fa-comment"></i>{{$searchResult1->view_count}}@endif &nbsp;&nbsp;<i class="fa fa-thumbs-up"></i> {{$searchResult1->like_count}} <span class="pull-right"><i class="fa fa-calendar"></i>{{ date("d-m-Y", $searchResult1->taken_at)}}</span></p>
               </div>
             </div>
           </div>
@@ -312,7 +313,7 @@
                           </div>
                           <div class="col-sm-9">
                               <p>@if(isset($searchResult2->caption->text)){{str_limit($searchResult2->caption->text, $limit = 70, $end = '..')}}@endif</p>
-                              <p> @if(isset($searchResult2->view_count))<i class="fa fa-eye"></i>{{$searchResult2->view_count}}@endif &nbsp;&nbsp;<i class="fa fa-thumbs-up"></i> {{$searchResult2->like_count}} <span class="pull-right"><i class="fa fa-calendar"></i>{{ date("d-m-Y", $searchResult2->taken_at)}}</span></p>
+                              <p> @if(isset($searchResult2->view_count))<i class="fa fa-comment"></i>{{$searchResult2->view_count}}@endif &nbsp;&nbsp;<i class="fa fa-thumbs-up"></i> {{$searchResult2->like_count}} <span class="pull-right"><i class="fa fa-calendar"></i>{{ date("d-m-Y", $searchResult2->taken_at)}}</span></p>
                           </div>
                       </div>
                   </div>
@@ -374,7 +375,7 @@
                           </div>
                           <div class="col-sm-9">
                               <p>@if(isset($searchResult3->caption->text)){{str_limit($searchResult3->caption->text, $limit = 70, $end = '..')}}@endif</p>
-                              <p> @if(isset($searchResult3->view_count))<i class="fa fa-eye"></i>{{$searchResult3->view_count}}@endif &nbsp;&nbsp;<i class="fa fa-thumbs-up"></i> {{$searchResult3->like_count}} <span class="pull-right"><i class="fa fa-calendar"></i>{{ date("d-m-Y", $searchResult3->taken_at)}}</span></p>
+                              <p> @if(isset($searchResult3->view_count))<i class="fa fa-comment"></i>{{$searchResult3->view_count}}@endif &nbsp;&nbsp;<i class="fa fa-thumbs-up"></i> {{$searchResult3->like_count}} <span class="pull-right"><i class="fa fa-calendar"></i>{{ date("d-m-Y", $searchResult3->taken_at)}}</span></p>
                           </div>
                       </div>
                   </div>
@@ -395,7 +396,75 @@
   </div>
   <!-- Compare search end -->
 
-  <div class="tab-pane" id="mediasearch" role="tabpanel" aria-labelledby="contact-tab">No Content</div>
+  <div class="tab-pane" id="mediasearch" role="tabpanel" aria-labelledby="contact-tab">
+    
+      <div class="create_btn_holder">
+          <a href="#">
+              <div class="create_new_template">
+                  <span><i class="fa fa-plus" aria-hidden="true"></i></span>
+                  <span class="new_template">Create New Template</span>
+              </div>
+          </a>
+      </div>
+
+
+        <div class="jumbotron text-center" style="padding-top: 0px;padding-bottom: 5px;margin-bottom: 15px;">
+            <form action="#" method="post">
+                {{csrf_field()}}
+                <div class="row">
+
+                    <div class="col-sm-4 col-sm-offset-4">
+                        <!-- <input type="submit"value="Find"  /> -->
+                        <!-- <div class="first-search-add" style="overflow: hidden; padding-right: .5em;">
+                          <input type="text" name="searchUser1" class="form-control" placeholder="Search by instagram user name" style="height: 45px;">
+                        </div> -->
+
+                        <button type="button" class="btn btn-success btn-lg first-search-add-btn"
+                                style="float: right;background-color: #ffffff;color: #000000;border-color: #ccc;border-left: 2px solid #10b3b3;">
+                            Search
+                        </button>
+                        <div class="first-search-add" style="overflow: hidden; padding-right: 0px;">
+                            <input type="text" name="searchUser1" class="form-control"
+                                   placeholder="Enter Your Hashtag Word"
+                                   style="height: 46px;">
+                        </div>
+
+                    </div>
+                </div>
+                <!-- <div style="margin-top: 15px;">
+                  <button class="btn btn-success btn-lg">Search</button>
+                </div> -->
+            </form>
+        </div>
+
+
+        <div class="row" style="margin-top: 10%;">
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    <div class="column">
+                        <img src="{{asset('assets/img/ford.jpg')}}" alt="Snow" style="border: 3px solid #ddd; border-radius: 4px;padding: 5px; height:270px; width: 300px;">
+                        <br>
+<!--                                <input type="text"style="width: 50%; margin: 0;">-->
+                        <button type="button" class="btn btn-info" style="width:100%;">Download</button>
+                    </div>
+                    <div class="column">
+                        <img src="{{asset('assets/img/ford.jpg')}}" alt="Forest" style="border: 3px solid #ddd; border-radius: 4px;padding: 5px;  height:270px; width: 300px;">
+                        <br>
+                        <button type="button" class="btn btn-info" style="width:100%">Download</button>
+                    </div>
+                    <div class="column">
+                        <img src="{{asset('assets/img/ford.jpg')}}" alt="Mountains" style="border: 3px solid #ddd; border-radius: 4px;padding: 5px; height:270px; width: 300px;">
+                        <br>
+                        <button type="button" class="btn btn-info" style="width:100%">Download</button>
+                    </div>
+                </div>
+                <div class="col-md-2"></div>
+
+            </div>
+        </div>
+    </div>
+  </div>
 </div>
 <!-- Tab end -->
 
