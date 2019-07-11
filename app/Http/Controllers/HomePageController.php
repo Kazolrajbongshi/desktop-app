@@ -119,8 +119,7 @@ class HomePageController extends Controller
 
         $username = 'mahfuzhur007';
         $password = 'rockerboy0168';
-        $debug = true;
-        $truncatedDebug = false;
+
 //////////////////////
 
         try {
@@ -147,10 +146,52 @@ class HomePageController extends Controller
 
     }
 
+    public function loginPage(){
+        return view('home_page.login_page');
+    }
+
 
     public function followerAndFollowingList(){
 
         return view('home_page.follower_following_list');
+    }
+
+    public function loginSubmit(Request $request){
+        $username = $request->username;
+        $password = $request->password;
+        session(['username' => $username,'password' => $password]);
+        set_time_limit(0);
+        date_default_timezone_set('UTC');
+        try {
+            $loginResponse = $this->ig->login($username, $password);
+            if ($loginResponse !== null && $loginResponse->isTwoFactorRequired()) {
+                $this->twoFactorIdentifier = $loginResponse->getTwoFactorInfo()->getTwoFactorIdentifier();
+                // The "STDIN" lets you paste the code via terminal for testing.
+                // You should replace this line with the logic you want.
+                // The verification code will be sent by Instagram via SMS.
+//                $verificationCode = '2222';
+//
+//                //$this->two($username,$password,$verificationCode);
+//                $this->ig->finishTwoFactorLogin($username, $password, $this->twoFactorIdentifier, $verificationCode);
+                return view('home_page.sms_page');
+            }else{
+                return redirect('dashboard');
+            }
+        } catch (\Exception $e) {
+            echo 'Something went wrong: '.$e->getMessage()."\n";
+        }
+
+    }
+
+    public function smsPage(Request $request){
+        try{
+            $sms = $request->code;
+            $this->ig->finishTwoFactorLogin(session('username'), session('password'), $this->twoFactorIdentifier, $sms);
+            return view('dashboard');
+        }catch (\Exception $ex){
+
+        }
+
     }
 
     public function followerAndFollowingListDetails(Request $request,$id){
