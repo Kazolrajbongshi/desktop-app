@@ -28,7 +28,7 @@ class HomePageController extends Controller
     }
 
     public function search(Request $request){
-        $result1 = $this->ig->login('webvision100','instagram123456');
+        $result1 = $this->ig->login('kazolrazbongshi','22325725');
         $search1 =   $request->searchUser1;
         $search2 =   $request->searchUser2;
         $search3 =   $request->searchUser3;
@@ -39,7 +39,7 @@ class HomePageController extends Controller
             $searchResult1 = $this->ig->timeline->getUserFeed($id1);
             $searchResult1 = json_decode($searchResult1);
             $profile1 = json_decode($profile1);
-            return view('home_page.dashboard',compact('searchResult1','profile1','active'));
+            return view('home_page.compare_ajax_dashboard',compact('searchResult1','profile1','active'));
         }
         if($search1 !=null && $search2 !=null && $search3 == null){
             $id1 = $this->ig->people->getUserIdForName($search1);
@@ -52,7 +52,7 @@ class HomePageController extends Controller
             $searchResult2 = json_decode($searchResult2);
             $profile1 = json_decode($profile1);
             $profile2 = json_decode($profile2);
-            return view('home_page.dashboard',compact('searchResult1','profile1','searchResult2','profile2','active'));
+            return view('home_page.compare_ajax_dashboard',compact('searchResult1','profile1','searchResult2','profile2','active'));
         }
         if ($search1 != null && $search2 != null && $search3 != null){
             $id1 = $this->ig->people->getUserIdForName($search1);
@@ -70,15 +70,16 @@ class HomePageController extends Controller
             $profile1 = json_decode($profile1);
             $profile2 = json_decode($profile2);
             $profile3 = json_decode($profile3);
-            return view('home_page.dashboard',compact('searchResult1','profile1','searchResult2','profile2','searchResult3','profile3','active'));
+            return view('home_page.compare_ajax_dashboard',compact('searchResult1','profile1','searchResult2','profile2','searchResult3','profile3','active'));
         }
         return view('home_page.dashboard');
     }
 
     public function defaultSearch(Request $request){
 
-        $result1 = $this->ig->login('webvision100','instagram123456');
+        $result1 = $this->ig->login('kazolrazbongshi','22325725');
         $search =   $request->searchUser;
+        // return response()->json(['data'=>$search]);
         $deafult_active = 'active';
         if ($search != null){
             $id = $this->ig->people->getUserIdForName($search);
@@ -86,7 +87,8 @@ class HomePageController extends Controller
             $searchResult = $this->ig->timeline->getUserFeed($id);
             $searchResult = json_decode($searchResult);
             $profile = json_decode($profile);
-            return view('home_page.dashboard',compact('searchResult','profile','deafult_active'));
+            // return view('home_page.dashboard',compact('searchResult','profile','deafult_active'));
+            return view('home_page.ajax_dashboard',compact('searchResult','profile','deafult_active'));
         }
 
     }
