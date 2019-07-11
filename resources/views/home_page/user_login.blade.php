@@ -11,24 +11,17 @@
     <!-- font awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    <title>管理者ログイン</title>
+    <title>Login</title>
 </head>
-<body class="auth_page @if(isset($sign_in_page)){{$sign_in_page}} @elseif(isset($success_page)) {{$success_page}}@endif" >
+<body style="background: #eeeeee;">
 <!-- top header -->
+<div style="padding: 0px;border-bottom: 2px solid #ffffff;">
+  <div class="navbar-header">
+    <a class="navbar-brand logo" href="#" style="    height: 50px;padding: 5px 15px;line-height: 40px;font-size: 2rem !important;font-style: italic;"><span>D-Gram</span></a>
+      <!-- <a class="navbar-brand" href="#"><img src="{{asset('assets/img/pdf_logo.PNG')}}"></a> -->
+  </div>
 
-<header>
-    <div class="container-fluid">
-        <div class="row top_fixed">
-            <div class="navbar-header">
-                <a class="navbar-brand logo" href="#"><span>D-Gram</span></a>
-
-            </div>
-        </div>
-
-    </div>
-
-</header>
-
+</div>
 <div class="container u_main_content">
     <div class="row">
         <div class="wizard">
@@ -42,14 +35,14 @@
                     </div>
                     @endif
                 </div>
-                <form role="form" method="POST" action="{{ URL::to('admin-login-check') }}">
+                <form role="form" method="POST" action="{{url('/loginSubmit')}}">
                     {{ csrf_field() }}
-                    <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                        <label for="email">Email</label>
-                        <input type="name" class="form-control" name="email" id="email" placeholder="Email" value="{{ old('email') }}"  required="">
-                        @if ($errors->has('email'))
+                    <div class="form-group{{ $errors->has('username') ? ' has-error' : '' }}">
+                        <label for="email">Username</label>
+                        <input type="text" class="form-control" name="username" id="username" placeholder="username" value="{{ old('username') }}"  required="">
+                        @if ($errors->has('username'))
                         <span class="help-block">
-                              <strong>{{ $errors->first('email') }}</strong>
+                              <strong>{{ $errors->first('username') }}</strong>
                           </span>
                         @endif
                     </div>
