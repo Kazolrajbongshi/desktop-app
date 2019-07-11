@@ -1,4 +1,4 @@
-<form action='/loginSubmit' method="post">
+<form action="{{url('/loginSubmit')}}" method="post">
     @csrf
     <label>username</label>
     <input type="text" name="username" placeholder="username">

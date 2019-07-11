@@ -20,7 +20,7 @@
                 {{csrf_field()}}
                 <meta type="hidden" name="csrf-token" content="{{csrf_token()}}">
 
-        <a href="#" class="default_search_follow_list">
+        <a href="javascript:void(0);" class="default_search_follow_list">
             <input type="hidden" name="default_search_follow" id="default_search_follow" value="{{$profile->user->pk}}">
           <div class="follower_upper">
             <p><i class="fa fa-instagram"></i>&nbsp;{{$profile->user->username}}</p>

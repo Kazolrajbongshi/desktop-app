@@ -16,7 +16,12 @@
       @if(isset($searchResult1) && isset($profile1))
         <div class="col-sm-4">
 
-        <a href="{{url('follower-and-following-list-details/'.$profile1->user->pk)}}">
+          <form action="javascript:void(0);" method="post">
+                {{csrf_field()}}
+                <meta type="hidden" name="csrf-token" content="{{csrf_token()}}">
+
+        <a href="javascript:void(0);" class="compare_search_follow_list_1">
+          <input type="hidden" name="compare_search_follow_1" id="compare_search_follow_1" value="{{$profile1->user->pk}}">
           <div class="follower_upper">
             <p><i class="fa fa-instagram"></i>&nbsp;{{$profile1->user->username}}</p>
             <?php
@@ -43,6 +48,7 @@
             <h2 class="text-center text-color">{{$n}}</h2>
           </div>
         </a>
+      </form>
             <?php
             $counter = 0;
             ?>
@@ -76,7 +82,12 @@
           @if(isset($searchResult2) && isset($profile2))
           <div class="col-sm-4">
 
-              <a href="{{url('follower-and-following-list-details/'.$profile2->user->pk)}}">
+            <form action="javascript:void(0);" method="post">
+                {{csrf_field()}}
+                <meta type="hidden" name="csrf-token" content="{{csrf_token()}}">
+
+              <a href="javascript:void(0);" class="compare_search_follow_list_2">
+          <input type="hidden" name="compare_search_follow_2" id="compare_search_follow_2" value="{{$profile2->user->pk}}">
                   <div class="follower_upper">
                       <p><i class="fa fa-instagram"></i>&nbsp;{{$profile2->user->username}}</p>
                       <?php
@@ -103,6 +114,7 @@
                       <h2 class="text-center text-color">{{$n}}</h2>
                   </div>
               </a>
+            </form>
               <?php
               $counter = 0;
               ?>
@@ -138,7 +150,12 @@
           @if(isset($searchResult3) && isset($profile3))
           <div class="col-sm-4">
 
-              <a href="{{url('follower-and-following-list-details/'.$profile3->user->pk)}}">
+            <form action="javascript:void(0);" method="post">
+                {{csrf_field()}}
+                <meta type="hidden" name="csrf-token" content="{{csrf_token()}}">
+
+              <a href="javascript:void(0);" class="compare_search_follow_list_3">
+          <input type="hidden" name="compare_search_follow_3" id="compare_search_follow_3" value="{{$profile3->user->pk}}">
                   <div class="follower_upper">
                       <p><i class="fa fa-instagram"></i>&nbsp;{{$profile3->user->username}}</p>
                       <?php
@@ -165,6 +182,7 @@
                       <h2 class="text-center text-color">{{$n}}</h2>
                   </div>
               </a>
+            </form>
               <?php
               $counter = 0;
               ?>
@@ -283,6 +301,83 @@ $(document).ready(function(){
             updateGallery($(this));
         });
     }
+
+// first search follower list start //
+    $('.compare_search_follow_list_1').click(function(){
+
+        var user_id = $('#compare_search_follow_1').val();
+        $.ajax({
+          url: "{{url('/follower-and-following-list-details')}}",
+          type: "post",
+          data: {"_token": "{{ csrf_token() }}","user_id": user_id},
+          beforeSend: function(){
+            console.log(user_id);
+            $('#Load').show();
+          },
+          success: function(response){
+            console.log(response.data);
+            $('#compare_search_result_show').html(response);
+          },
+          complete: function(response){
+            $('#Load').hide();
+          }
+        });
+
+      });
+
+    // first search follower list end //
+
+    // second search follower list start //
+
+    $('.compare_search_follow_list_2').click(function(){
+
+        var user_id = $('#compare_search_follow_2').val();
+        $.ajax({
+          url: "{{url('/follower-and-following-list-details')}}",
+          type: "post",
+          data: {"_token": "{{ csrf_token() }}","user_id": user_id},
+          beforeSend: function(){
+            console.log(user_id);
+            $('#Load').show();
+          },
+          success: function(response){
+            console.log(response.data);
+            $('#compare_search_result_show').html(response);
+          },
+          complete: function(response){
+            $('#Load').hide();
+          }
+        });
+
+      });
+
+    // second search follower list end //
+
+    // third search follower list start //
+
+    $('.compare_search_follow_list_3').click(function(){
+
+        var user_id = $('#compare_search_follow_3').val();
+        $.ajax({
+          url: "{{url('/follower-and-following-list-details')}}",
+          type: "post",
+          data: {"_token": "{{ csrf_token() }}","user_id": user_id},
+          beforeSend: function(){
+            console.log(user_id);
+            $('#Load').show();
+          },
+          success: function(response){
+            console.log(response.data);
+            $('#compare_search_result_show').html(response);
+          },
+          complete: function(response){
+            $('#Load').hide();
+          }
+        });
+
+      });
+// third search follower list end //
+
 });
 //follower js end //
 </script>

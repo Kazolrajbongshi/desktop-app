@@ -190,7 +190,8 @@ class HomePageController extends Controller
         try{
             $sms = $request->code;
             $this->ig->finishTwoFactorLogin(session('username'), session('password'), session('twoFactorIdentifier'), $sms);
-            return view('home_page.dashboard');
+            // return view('home_page.dashboard');
+            return redirect('/dashboard');
         }catch (\Exception $ex){
             echo $ex;
         }
