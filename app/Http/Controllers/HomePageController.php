@@ -188,7 +188,7 @@ class HomePageController extends Controller
 
     public function index()
     {
-        //
+        return view('home_page.desigram');
     }
 
     /**

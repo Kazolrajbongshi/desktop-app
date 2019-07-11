@@ -105,4 +105,11 @@ button.first-search-add-btn,button.second-search-add-btn,button.third-search-rem
 	border-top-right-radius: 0;
     border-bottom-right-radius: 0;
 }
-
+.login-holder {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
