@@ -38,7 +38,8 @@
 
 .load {
   position: fixed;
-  background: url('assets/img/preloader.png') no-repeat 50% fixed / cover;);
+  /*background: url('assets/img/preloader.png') no-repeat 50% fixed / cover;);*/
+  background: black;
   width: 100%;
   height: 100vh;
   top: 0px;
