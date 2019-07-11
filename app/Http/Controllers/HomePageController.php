@@ -28,7 +28,7 @@ class HomePageController extends Controller
     }
 
     public function search(Request $request){
-        $result1 = $this->ig->login('kazolrazbongshi','22325725');
+        $result1 = $this->ig->login('webvision100','instagram123456');
         $search1 =   $request->searchUser1;
         $search2 =   $request->searchUser2;
         $search3 =   $request->searchUser3;
@@ -77,7 +77,7 @@ class HomePageController extends Controller
 
     public function defaultSearch(Request $request){
 
-        $result1 = $this->ig->login('kazolrazbongshi','22325725');
+        $result1 = $this->ig->login('webvision100','instagram123456');
         $search =   $request->searchUser;
         // return response()->json(['data'=>$search]);
         $deafult_active = 'active';
@@ -204,7 +204,7 @@ class HomePageController extends Controller
         // return response()->json(['data'=>$request->user_id]);
        $userid = $request->user_id;
        $usersInfo = array();
-       $result1 = $this->ig->login('kazolrazbongshi','22325725');
+       $result1 = $this->ig->login('webvision100','instagram123456');
        $ranktoken = \InstagramAPI\Signatures::generateUUID();
        $searchResult1 = $this->ig->people->getFollowers($userid,$ranktoken);
 
