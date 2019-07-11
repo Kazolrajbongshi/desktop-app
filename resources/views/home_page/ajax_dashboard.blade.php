@@ -16,7 +16,12 @@
       
         <div class="col-sm-6 col-sm-offset-3" style="background: white;padding: 1em;">
 
-        <a href="{{url('follower-and-following-list-details/'.$profile->user->pk)}}">
+            <form action="javascript:void(0);" method="post">
+                {{csrf_field()}}
+                <meta type="hidden" name="csrf-token" content="{{csrf_token()}}">
+
+        <a href="#" class="default_search_follow_list">
+            <input type="hidden" name="default_search_follow" id="default_search_follow" value="{{$profile->user->pk}}">
           <div class="follower_upper">
             <p><i class="fa fa-instagram"></i>&nbsp;{{$profile->user->username}}</p>
             <?php
@@ -43,6 +48,7 @@
             <h2 class="text-center text-color">{{$n}}</h2>
           </div>
         </a>
+    </form>
             <?php
             $counter = 0;
             ?>
@@ -161,6 +167,31 @@ $(document).ready(function(){
             updateGallery($(this));
         });
     }
+
+
+    $('.default_search_follow_list').click(function(){
+
+        var user_id = $('#default_search_follow').val();
+        $.ajax({
+          url: "{{url('/follower-and-following-list-details')}}",
+          type: "post",
+          data: {"_token": "{{ csrf_token() }}","user_id": user_id},
+          beforeSend: function(){
+            console.log(user_id);
+            $('#Load').show();
+          },
+          success: function(response){
+            console.log(response.data);
+            $('#defaultsearchresult').html(response);
+          },
+          complete: function(response){
+            $('#Load').hide();
+          }
+        });
+
+      });
+
+
 });
 //follower js end //
 </script>

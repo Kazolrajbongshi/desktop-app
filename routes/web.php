@@ -20,7 +20,7 @@ Route::post('/search','HomePageController@search');
 Route::get('/test','HomePageController@test');
 
 Route::get('/follower-and-following-list','HomePageController@followerAndFollowingList');
-Route::get('/follower-and-following-list-details/{id}','HomePageController@followerAndFollowingListDetails');
+Route::post('/follower-and-following-list-details','HomePageController@followerAndFollowingListDetails');
 Route::post('/default-search','HomePageController@defaultSearch');
 Route::get('/login','HomePageController@loginPage');
 Route::post('/loginSubmit','HomePageController@loginSubmit');

@@ -75,7 +75,7 @@ class HomePageController extends Controller
         return view('home_page.dashboard');
     }
 
-    public function defaultsmsPageSearch(Request $request){
+    public function defaultSearch(Request $request){
 
         $result1 = $this->ig->login('kazolrazbongshi','22325725');
         $search =   $request->searchUser;
@@ -197,12 +197,13 @@ class HomePageController extends Controller
 
     }
 
-    public function followerAndFollowingListDetails(Request $request,$id){
+    public function followerAndFollowingListDetails(Request $request){
 //        echo $id;
 //        exit();
-       $userid = $id;
+        // return response()->json(['data'=>$request->user_id]);
+       $userid = $request->user_id;
        $usersInfo = array();
-       $result1 = $this->ig->login('webvision100','instagram123456');
+       $result1 = $this->ig->login('kazolrazbongshi','22325725');
        $ranktoken = \InstagramAPI\Signatures::generateUUID();
        $searchResult1 = $this->ig->people->getFollowers($userid,$ranktoken);
 
@@ -225,7 +226,7 @@ class HomePageController extends Controller
 //        print_r($usersInfo);
 //        exit();
 
-       return view('home_page.follower_following_list_details',compact('usersInfo'));
+       return view('home_page.ajax_follower_following_list_details',compact('usersInfo'));
 //        return $searchResult1;
    }
 
