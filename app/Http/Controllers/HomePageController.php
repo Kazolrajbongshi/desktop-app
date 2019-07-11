@@ -242,9 +242,9 @@ class HomePageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function userLogin()
     {
-        //
+        return view('home_page.user_login');
     }
 
     /**
