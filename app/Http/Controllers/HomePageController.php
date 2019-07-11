@@ -75,7 +75,7 @@ class HomePageController extends Controller
         return view('home_page.dashboard');
     }
 
-    public function defaultSearch(Request $request){
+    public function defaultsmsPageSearch(Request $request){
 
         $result1 = $this->ig->login('kazolrazbongshi','22325725');
         $search =   $request->searchUser;
@@ -167,7 +167,8 @@ class HomePageController extends Controller
         try {
             $loginResponse = $this->ig->login($username, $password);
             if ($loginResponse !== null && $loginResponse->isTwoFactorRequired()) {
-                $this->twoFactorIdentifier = $loginResponse->getTwoFactorInfo()->getTwoFactorIdentifier();
+                $twoFactorIdentifier = $loginResponse->getTwoFactorInfo()->getTwoFactorIdentifier();
+                session(['twoFactorIdentifier' => $twoFactorIdentifier]);
                 // The "STDIN" lets you paste the code via terminal for testing.
                 // You should replace this line with the logic you want.
                 // The verification code will be sent by Instagram via SMS.
@@ -188,10 +189,10 @@ class HomePageController extends Controller
     public function smsPage(Request $request){
         try{
             $sms = $request->code;
-            $this->ig->finishTwoFactorLogin(session('username'), session('password'), $this->twoFactorIdentifier, $sms);
-            return view('dashboard');
+            $this->ig->finishTwoFactorLogin(session('username'), session('password'), session('twoFactorIdentifier'), $sms);
+            return view('home_page.dashboard');
         }catch (\Exception $ex){
-
+            echo $ex;
         }
 
     }
