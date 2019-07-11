@@ -22,3 +22,6 @@ Route::get('/test','HomePageController@test');
 Route::get('/follower-and-following-list','HomePageController@followerAndFollowingList');
 Route::get('/follower-and-following-list-details/{id}','HomePageController@followerAndFollowingListDetails');
 Route::post('/default-search','HomePageController@defaultSearch');
+Route::get('/login','HomePageController@loginPage');
+Route::post('/loginSubmit','HomePageController@loginSubmit');
+Route::post('/sms-page','HomePageController@smsPage');
