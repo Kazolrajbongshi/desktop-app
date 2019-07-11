@@ -14,6 +14,7 @@
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/user-login','HomePageController@userLogin');
 Route::get('/dashboard','HomePageController@dashboard');
 
 Route::post('/search','HomePageController@search');
