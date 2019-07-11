@@ -28,7 +28,7 @@ class HomePageController extends Controller
     }
 
     public function search(Request $request){
-        $result1 = $this->ig->login('webvision100','instagram123456');
+        $result1 = $this->ig->login('kazolrazbongshi','22325725');
         $search1 =   $request->searchUser1;
         $search2 =   $request->searchUser2;
         $search3 =   $request->searchUser3;
@@ -39,7 +39,7 @@ class HomePageController extends Controller
             $searchResult1 = $this->ig->timeline->getUserFeed($id1);
             $searchResult1 = json_decode($searchResult1);
             $profile1 = json_decode($profile1);
-            return view('home_page.dashboard',compact('searchResult1','profile1','active'));
+            return view('home_page.compare_ajax_dashboard',compact('searchResult1','profile1','active'));
         }
         if($search1 !=null && $search2 !=null && $search3 == null){
             $id1 = $this->ig->people->getUserIdForName($search1);
@@ -52,7 +52,7 @@ class HomePageController extends Controller
             $searchResult2 = json_decode($searchResult2);
             $profile1 = json_decode($profile1);
             $profile2 = json_decode($profile2);
-            return view('home_page.dashboard',compact('searchResult1','profile1','searchResult2','profile2','active'));
+            return view('home_page.compare_ajax_dashboard',compact('searchResult1','profile1','searchResult2','profile2','active'));
         }
         if ($search1 != null && $search2 != null && $search3 != null){
             $id1 = $this->ig->people->getUserIdForName($search1);
@@ -70,15 +70,16 @@ class HomePageController extends Controller
             $profile1 = json_decode($profile1);
             $profile2 = json_decode($profile2);
             $profile3 = json_decode($profile3);
-            return view('home_page.dashboard',compact('searchResult1','profile1','searchResult2','profile2','searchResult3','profile3','active'));
+            return view('home_page.compare_ajax_dashboard',compact('searchResult1','profile1','searchResult2','profile2','searchResult3','profile3','active'));
         }
         return view('home_page.dashboard');
     }
 
     public function defaultSearch(Request $request){
 
-        $result1 = $this->ig->login('webvision100','instagram123456');
+        $result1 = $this->ig->login('kazolrazbongshi','22325725');
         $search =   $request->searchUser;
+        // return response()->json(['data'=>$search]);
         $deafult_active = 'active';
         if ($search != null){
             $id = $this->ig->people->getUserIdForName($search);
@@ -86,7 +87,8 @@ class HomePageController extends Controller
             $searchResult = $this->ig->timeline->getUserFeed($id);
             $searchResult = json_decode($searchResult);
             $profile = json_decode($profile);
-            return view('home_page.dashboard',compact('searchResult','profile','deafult_active'));
+            // return view('home_page.dashboard',compact('searchResult','profile','deafult_active'));
+            return view('home_page.ajax_dashboard',compact('searchResult','profile','deafult_active'));
         }
 
     }
@@ -119,8 +121,7 @@ class HomePageController extends Controller
 
         $username = 'mahfuzhur007';
         $password = 'rockerboy0168';
-        $debug = true;
-        $truncatedDebug = false;
+
 //////////////////////
 
         try {
@@ -147,18 +148,62 @@ class HomePageController extends Controller
 
     }
 
+    public function loginPage(){
+        return view('home_page.login_page');
+    }
+
 
     public function followerAndFollowingList(){
 
         return view('home_page.follower_following_list');
     }
 
-    public function followerAndFollowingListDetails(Request $request,$id){
+    public function loginSubmit(Request $request){
+        $username = $request->username;
+        $password = $request->password;
+        session(['username' => $username,'password' => $password]);
+        set_time_limit(0);
+        date_default_timezone_set('UTC');
+        try {
+            $loginResponse = $this->ig->login($username, $password);
+            if ($loginResponse !== null && $loginResponse->isTwoFactorRequired()) {
+                $twoFactorIdentifier = $loginResponse->getTwoFactorInfo()->getTwoFactorIdentifier();
+                session(['twoFactorIdentifier' => $twoFactorIdentifier]);
+                // The "STDIN" lets you paste the code via terminal for testing.
+                // You should replace this line with the logic you want.
+                // The verification code will be sent by Instagram via SMS.
+//                $verificationCode = '2222';
+//
+//                //$this->two($username,$password,$verificationCode);
+//                $this->ig->finishTwoFactorLogin($username, $password, $this->twoFactorIdentifier, $verificationCode);
+                return view('home_page.sms_page');
+            }else{
+                return redirect('dashboard');
+            }
+        } catch (\Exception $e) {
+            echo 'Something went wrong: '.$e->getMessage()."\n";
+        }
+
+    }
+
+    public function smsPage(Request $request){
+        try{
+            $sms = $request->code;
+            $this->ig->finishTwoFactorLogin(session('username'), session('password'), session('twoFactorIdentifier'), $sms);
+            return view('home_page.dashboard');
+        }catch (\Exception $ex){
+            echo $ex;
+        }
+
+    }
+
+    public function followerAndFollowingListDetails(Request $request){
 //        echo $id;
 //        exit();
-       $userid = $id;
+        // return response()->json(['data'=>$request->user_id]);
+       $userid = $request->user_id;
        $usersInfo = array();
-       $result1 = $this->ig->login('webvision100','instagram123456');
+       $result1 = $this->ig->login('kazolrazbongshi','22325725');
        $ranktoken = \InstagramAPI\Signatures::generateUUID();
        $searchResult1 = $this->ig->people->getFollowers($userid,$ranktoken);
 
@@ -181,7 +226,7 @@ class HomePageController extends Controller
 //        print_r($usersInfo);
 //        exit();
 
-       return view('home_page.follower_following_list_details',compact('usersInfo'));
+       return view('home_page.ajax_follower_following_list_details',compact('usersInfo'));
 //        return $searchResult1;
    }
 

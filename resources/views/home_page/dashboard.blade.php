@@ -9,6 +9,77 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
   <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <style type="text/css">
+
+
+.load__none {
+  display: none;  
+  color:#fff;
+}
+
+.load__animation{
+  border: 5px solid #06af94;
+  border-top-color: #e50914;
+  border-top-style: groove;
+  height: 100px;
+  width: 100px;
+  border-radius: 100%;
+  position: relative;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+  margin: auto;
+  -webkit-animation: turn 1.5s linear infinite;
+  -o-animation: turn 1.5s linear infinite;
+  animation: turn 1.5s linear infinite;
+}
+
+.load {
+  position: fixed;
+  /*background: url('assets/img/preloader.png') no-repeat 50% fixed / cover;);*/
+  background: black;
+  width: 100%;
+  height: 100vh;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  opacity: 0.8;
+  display: flex;
+  align-items:center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.load__container {
+  position: relative;
+}
+
+@keyframes turn {
+  from {transform: rotate(0deg)}
+  to {transform: rotate(360deg)}
+} 
+
+.load__title {
+  color: #fff;
+  font-size: 2rem;
+}
+
+
+@keyframes loadPage {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: .5;
+  }
+  100% {
+    opacity: 1;
+  }
+  
+}
+</style>
 </head>
 <body style="background: #eeeeee;">
 
@@ -53,19 +124,21 @@
   @endif
     <div class="jumbotron text-center" style="padding-top: 20px;padding-bottom: 5px;margin-bottom: 15px;">
     <!-- <p>Serch User</p> -->
-    <form action="{{URL::to('/default-search')}}" method="post">
+    <!-- <form action="{{URL::to('/default-search')}}" method="post"> -->
+    <form action="javascript:void(0);" method="post">
                 {{csrf_field()}}
       <div class="row">
-
+        
+        <meta type="hidden" name="csrf-token" content="{{csrf_token()}}">
         <div class="col-sm-4 col-sm-offset-4">
           <!-- <input type="submit"value="Find"  /> -->
           <!-- <div class="first-search-add" style="overflow: hidden; padding-right: .5em;">
             <input type="text" name="searchUser1" class="form-control" placeholder="Search by instagram user name" style="height: 45px;">
           </div> -->
 
-          <button class="btn btn-success btn-lg" id="default_search_button">Search</button>
+          <button type="button" class="btn btn-success btn-lg" id="default_search_button">Search</button>
             <div class="first-search-add" style="overflow: hidden; padding-right: 0px;">
-              <input type="text" name="searchUser" class="form-control" placeholder="Enter your search name" style="height: 46px;border-top-right-radius: 0;border-bottom-right-radius: 0;">
+              <input type="text" name="searchUser" class="form-control" id="default_value" placeholder="Enter your search name" style="height: 46px;border-top-right-radius: 0;border-bottom-right-radius: 0;">
             </div>
 
         </div>
@@ -75,7 +148,7 @@
       </div> -->
     </form>
   </div>
-
+<div id="defaultsearchresult">
   @if(!isset($searchResult))
     <div class="row" style="margin-top: 10%;">
         <div class="container">
@@ -152,6 +225,7 @@
     </div>
   </div>
 @endif
+</div>
   </div>
   <!-- Default search end-->
 
@@ -163,14 +237,17 @@
   @endif
      <div class="jumbotron text-center" style="padding-top: 20px;padding-bottom: 5px;margin-bottom: 15px;">
        <!-- <p>Serch User</p> -->
-       <form action="{{URL::to('/search')}}" method="post">
+       <!-- <form action="{{URL::to('/search')}}" method="post"> -->
+        <form action="javascript:void(0);" method="post">
                   {{csrf_field()}}
+
+          <meta type="hidden" name="csrf-token" content="{{csrf_token()}}">
         <div class="row">
           <div class="col-sm-4 ">
             <!-- <input type="submit"value="Find"  /> -->
             <button type="button" class="btn btn-success btn-lg first-search-add-btn" style="float: right;background-color: #10b3b3;"><i class="fa fa-plus"></i></button>
             <div class="first-search-add" style="overflow: hidden; padding-right: 0px;">
-              <input type="text" name="searchUser1" class="form-control" placeholder="First compare instagram user name" style="height: 46px;">
+              <input type="text" name="searchUser1" id="searchUser1" class="form-control" placeholder="First compare instagram user name" style="height: 46px;">
             </div>
 
           </div>
@@ -189,11 +266,13 @@
           </div>
         </div>
         <div style="margin-top: 15px;">
-          <button class="btn btn-default btn-lg" style="border: 2px solid #10b3b3;">Search</button>
+          <button class="btn btn-default btn-lg" id="compare_search_button" style="border: 2px solid #10b3b3;">Search</button>
         </div>
       </form>
     </div>
 
+  <div id="compare_search_result_show">
+    
     @if(!isset($searchResult1))
       <div class="row" style="margin-top: 10%;">
         <div class="container">
@@ -393,6 +472,7 @@
       </div>
     </div>
     @endif
+    </div>
   </div>
   <!-- Compare search end -->
 
@@ -470,9 +550,15 @@
 </div>
 <!-- Tab end -->
 
-  
-
-
+<!-- Preloader start -->  
+<div id="Load" class="load" style="display: none;">
+  <div class="load__container">
+    <div class="load__animation"></div>
+    <div class="load__mask"></div>
+    <span class="load__title">Your request is processing...</span>
+  </div>
+</div>
+<!-- Preloader end -->
 
 
 
@@ -504,7 +590,60 @@
     </div>
 </div>
 
+<script type="text/javascript">
+    $(document).ready(function(){
+      //Default search start//
+      $('#default_search_button').click(function(){
 
+        var searchUser = $('#default_value').val();
+        $.ajax({
+          url: "{{url('/default-search')}}",
+          type: "post",
+          data: {"_token": "{{ csrf_token() }}","searchUser": searchUser},
+          beforeSend: function(){
+            console.log(searchUser);
+            $('#Load').show();
+          },
+          success: function(response){
+            console.log(response.data);
+            $('#defaultsearchresult').html(response);
+          },
+          complete: function(response){
+            $('#Load').hide();
+          }
+        });
+
+      });
+      //Default search end//
+
+      //Compare search start//
+
+      $('#compare_search_button').click(function(){
+
+        var searchUser1 = $('#searchUser1').val();
+        var searchUser2 = $('#searchUser2').val();
+        var searchUser3 = $('#searchUser3').val();
+        $.ajax({
+          url: "{{url('/search')}}",
+          type: "post",
+          data: {"_token": "{{ csrf_token() }}","searchUser1": searchUser1,"searchUser2": searchUser2,"searchUser3": searchUser3},
+          beforeSend: function(){
+            console.log(searchUser1);
+            $('#Load').show();
+          },
+          success: function(response){
+            $('#compare_search_result_show').html(response);
+          },
+          complete: function(response){
+            $('#Load').hide();
+          }
+        });
+
+      });
+      //Compare search end//
+
+    });
+  </script>
 
 </body>
 </html>
