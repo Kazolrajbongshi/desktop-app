@@ -28,7 +28,7 @@ class HomePageController extends Controller
     }
 
     public function search(Request $request){
-        $result1 = $this->ig->login('kazolrazbongshi','22325725');
+        $result1 = $this->ig->login('webvision100','instagram123456');
         $search1 =   $request->searchUser1;
         $search2 =   $request->searchUser2;
         $search3 =   $request->searchUser3;
@@ -75,9 +75,9 @@ class HomePageController extends Controller
         return view('home_page.dashboard');
     }
 
-    public function defaultsmsPageSearch(Request $request){
+    public function defaultSearch(Request $request){
 
-        $result1 = $this->ig->login('kazolrazbongshi','22325725');
+        $result1 = $this->ig->login('webvision100','instagram123456');
         $search =   $request->searchUser;
         // return response()->json(['data'=>$search]);
         $deafult_active = 'active';
@@ -190,17 +190,19 @@ class HomePageController extends Controller
         try{
             $sms = $request->code;
             $this->ig->finishTwoFactorLogin(session('username'), session('password'), session('twoFactorIdentifier'), $sms);
-            return view('home_page.dashboard');
+            // return view('home_page.dashboard');
+            return redirect('/dashboard');
         }catch (\Exception $ex){
             echo $ex;
         }
 
     }
 
-    public function followerAndFollowingListDetails(Request $request,$id){
+    public function followerAndFollowingListDetails(Request $request){
 //        echo $id;
 //        exit();
-       $userid = $id;
+        // return response()->json(['data'=>$request->user_id]);
+       $userid = $request->user_id;
        $usersInfo = array();
        $result1 = $this->ig->login('webvision100','instagram123456');
        $ranktoken = \InstagramAPI\Signatures::generateUUID();
@@ -225,14 +227,14 @@ class HomePageController extends Controller
 //        print_r($usersInfo);
 //        exit();
 
-       return view('home_page.follower_following_list_details',compact('usersInfo'));
+       return view('home_page.ajax_follower_following_list_details',compact('usersInfo'));
 //        return $searchResult1;
    }
 
 
     public function index()
     {
-        //
+        return view('home_page.desigram');
     }
 
     /**
@@ -240,9 +242,9 @@ class HomePageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function userLogin()
     {
-        //
+        return view('home_page.user_login');
     }
 
     /**

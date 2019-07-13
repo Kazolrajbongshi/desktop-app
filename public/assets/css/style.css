@@ -105,4 +105,47 @@ button.first-search-add-btn,button.second-search-add-btn,button.third-search-rem
 	border-top-right-radius: 0;
     border-bottom-right-radius: 0;
 }
-
+.login-holder {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+.wizard {
+    margin: 20px auto;
+    width: 100%;
+}
+.sign_up_form .form_title, .sign_in_form .form_title{
+    text-align: center;
+}
+.sign_up_form .form_title>h3, .sign_in_form .form_title>h3 {
+    font-weight: normal;
+}
+.sign_up_form {
+    max-width: 850px;
+    margin: 0 auto;
+}
+.sign_up_form a {
+    color: #06af94;
+}
+.button_holder {
+    text-align: center;
+    padding: 1em 0;
+}
+.button_holder>.registration_btn {
+    color: #ffffff;
+    text-align: center;
+    line-height: 1.8em;
+    border-radius: 5px;
+    border: none;
+    padding: 0.4em 7em;
+    background-color: #06af94;
+    cursor: pointer;
+    margin-bottom: 10px;
+    box-shadow: 0px 1px 10px #00d362
+}
+.container.u_main_content {
+    padding-top: 68px;
+}
