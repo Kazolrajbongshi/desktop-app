@@ -96,10 +96,15 @@ class HomePageController extends Controller
     public function test(){
 
 
-//        $result1 = $this->ig->login('webvision100','instagram123456');
+        $result1 = $this->ig->login('webvision100','instagram123456');
 //        $search1 =  'fifa' ;//$request->searchUser;
 //        $ranktoken = \InstagramAPI\Signatures::generateUUID();
-//       // $searchResult1 = $this->ig->people->getInfoById('1474834026');
+ //$searchResult1 = $this->ig->people->getInfoById('1474834026');
+        $id1 = $this->ig->people->getUserIdForName('icc');
+        //$profile1 = $this->ig->people->getInfoById($id1);
+        $searchResult1 = $this->ig->timeline->getUserFeed($id1);
+        $searchResult1 = json_decode($searchResult1);
+//        $profile1 = json_decode($profile1);
 
 ////        print_r($searchResult1);
 ////        exit();
@@ -115,34 +120,57 @@ class HomePageController extends Controller
 //        $temp = Storage::disk('uploads')->put($name, $contents);
         //return $searchResult1;
 
-        set_time_limit(0);
-        date_default_timezone_set('UTC');
-/////// CONFIG ///////
+//        set_time_limit(0);
+//        date_default_timezone_set('UTC');
+///////// CONFIG ///////
+//
+//        $username = 'mahfuzhur007';
+//        $password = 'rockerboy0168';
+//
+////////////////////////
+//
+//        try {
+//            $loginResponse = $this->ig->login($username, $password);
+//            if ($loginResponse !== null && $loginResponse->isTwoFactorRequired()) {
+//                $this->twoFactorIdentifier = $loginResponse->getTwoFactorInfo()->getTwoFactorIdentifier();
+//                // The "STDIN" lets you paste the code via terminal for testing.
+//                // You should replace this line with the logic you want.
+//                // The verification code will be sent by Instagram via SMS.
+//                $verificationCode = '374650';
+//
+//               $this->two($username,$password,$verificationCode);
+//            }
+//        } catch (\Exception $e) {
+//            echo 'Something went wrong: '.$e->getMessage()."\n";
+//        }
+//        $searchResult1 =$this->ig->people->getSelfInfo();
 
-        $username = 'mahfuzhur007';
-        $password = 'rockerboy0168';
-
-//////////////////////
-
-        try {
-            $loginResponse = $this->ig->login($username, $password);
-            if ($loginResponse !== null && $loginResponse->isTwoFactorRequired()) {
-                $this->twoFactorIdentifier = $loginResponse->getTwoFactorInfo()->getTwoFactorIdentifier();
-                // The "STDIN" lets you paste the code via terminal for testing.
-                // You should replace this line with the logic you want.
-                // The verification code will be sent by Instagram via SMS.
-                $verificationCode = '374650';
-
-               $this->two($username,$password,$verificationCode);
-            }
-        } catch (\Exception $e) {
-            echo 'Something went wrong: '.$e->getMessage()."\n";
-        }
-        $searchResult1 =$this->ig->people->getSelfInfo();
-
-        return $searchResult1;
+        return $searchResult1->items;
     }
+    public function pictureSearch(Request $request){
+        $result1 = $this->ig->login('webvision100','instagram123456');
+        $search1 = $request->pictureSearch;
+        $id1 = $this->ig->people->getUserIdForName($search1);
+        //$profile1 = $this->ig->people->getInfoById($id1);
+        $searchResult = $this->ig->timeline->getUserFeed($id1);
+        $pictures = json_decode($searchResult);
+//        print_r($pictures->items[0]->image_versions2->candidates[0]->url);
+//        exit();
+        $active = 'active';
+        return view('home_page.dashboard',compact('pictures','active'));
+    }
+    public function pictureDownload(Request $request){
+        $url = $request->imageUrl;
+        $contents = file_get_contents($url);
+        $name = str_random(10).'.'.'jpg';;
+       // Storage::put($name, $contents);
+        $temp = Storage::disk('uploads')->put($name, $contents);
+        //$url = Storage::url($name);
+        return Storage::download(asset('/images/'.$name));
 
+
+        //echo $temp;
+    }
     public function two($username,$password,$verificationCode){
         $temp = $this->ig->finishTwoFactorLogin($username, $password, $this->twoFactorIdentifier, $verificationCode);
 
