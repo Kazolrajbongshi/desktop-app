@@ -478,7 +478,11 @@
   <!-- Compare search end -->
 
   <!-- Media Search Start -->
+  @if(isset($media_active))
+  <div class="tab-pane active" id="mediasearch" role="tabpanel" aria-labelledby="contact-tab">
+  @else
   <div class="tab-pane" id="mediasearch" role="tabpanel" aria-labelledby="contact-tab">
+  @endif
 
       <div class="create_btn_holder">
           <a href="#">

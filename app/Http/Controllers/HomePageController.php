@@ -161,8 +161,8 @@ class HomePageController extends Controller
         $pictures = json_decode($searchResult);
 //        print_r($pictures->items[0]->image_versions2->candidates[0]->url);
 //        exit();
-        $active = 'active';
-        return view('home_page.dashboard',compact('pictures','active'));
+        $media_active = 'active';
+        return view('home_page.dashboard',compact('pictures','media_active'));
     }
     public function pictureDownload(Request $request){
         $url = $request->imageUrl;
