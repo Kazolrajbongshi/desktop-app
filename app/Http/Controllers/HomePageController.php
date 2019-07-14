@@ -192,30 +192,30 @@ class HomePageController extends Controller
     }
 
     public function loginSubmit(Request $request){
-        $username = $request->username;
-        $password = $request->password;
-        session(['username' => $username,'password' => $password]);
-        set_time_limit(0);
-        date_default_timezone_set('UTC');
-        try {
-            $loginResponse = $this->ig->login($username, $password);
-            if ($loginResponse !== null && $loginResponse->isTwoFactorRequired()) {
-                $twoFactorIdentifier = $loginResponse->getTwoFactorInfo()->getTwoFactorIdentifier();
-                session(['twoFactorIdentifier' => $twoFactorIdentifier]);
-                // The "STDIN" lets you paste the code via terminal for testing.
-                // You should replace this line with the logic you want.
-                // The verification code will be sent by Instagram via SMS.
-//                $verificationCode = '2222';
-//
-//                //$this->two($username,$password,$verificationCode);
-//                $this->ig->finishTwoFactorLogin($username, $password, $this->twoFactorIdentifier, $verificationCode);
+//        $username = $request->username;
+//        $password = $request->password;
+//        session(['username' => $username,'password' => $password]);
+//        set_time_limit(0);
+//        date_default_timezone_set('UTC');
+//        try {
+//            $loginResponse = $this->ig->login($username, $password);
+//            if ($loginResponse !== null && $loginResponse->isTwoFactorRequired()) {
+//                $twoFactorIdentifier = $loginResponse->getTwoFactorInfo()->getTwoFactorIdentifier();
+//                session(['twoFactorIdentifier' => $twoFactorIdentifier]);
+//                // The "STDIN" lets you paste the code via terminal for testing.
+//                // You should replace this line with the logic you want.
+//                // The verification code will be sent by Instagram via SMS.
+////                $verificationCode = '2222';
+////
+////                //$this->two($username,$password,$verificationCode);
+////                $this->ig->finishTwoFactorLogin($username, $password, $this->twoFactorIdentifier, $verificationCode);
                 return view('home_page.sms_page');
-            }else{
-                return redirect('dashboard');
-            }
-        } catch (\Exception $e) {
-            echo 'Something went wrong: '.$e->getMessage()."\n";
-        }
+//            }else{
+//                return redirect('dashboard');
+//            }
+//        } catch (\Exception $e) {
+//            echo 'Something went wrong: '.$e->getMessage()."\n";
+//        }
 
     }
 

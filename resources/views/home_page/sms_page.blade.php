@@ -35,8 +35,9 @@
             <a href="#">
                 <form action="/sms-page" method="post">
                     @csrf
-                    <input type="text" name="code">
-                    <input type="submit">
+                    <input type="text" class="form-control" placeholder="Enter Verification Code" name="code">
+<!--                    <input type="submit">-->
+                    <br>
                     <button class="btn btn-info btn-lg" style="background-color: #06af94">Submit</button>
                 </form>
 
