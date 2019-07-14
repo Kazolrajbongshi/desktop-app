@@ -181,8 +181,14 @@ $(document).ready(function(){
             $('#Load').show();
           },
           success: function(response){
-            console.log(response.data);
+            if(response.value == 1){
+              console.log(response.value);
+              window.location.href = '{{url("/logout")}}';
+            }
+            else {
+              console.log(response.value);
             $('#defaultsearchresult').html(response);
+            }
           },
           complete: function(response){
             $('#Load').hide();

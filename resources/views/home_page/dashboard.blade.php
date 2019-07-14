@@ -112,6 +112,7 @@
       <a class="nav-link" id="contact-tab" data-toggle="tab" href="#mediasearch" role="tab" aria-controls="contact" aria-selected="false">Media Search</a>
     </li>
   </ul>
+  <a href="{{url('logout')}}" class="btn btn-default pull-right" style="margin-right: 1%;margin-top: -3%;">Logout</a>
 </div>
 <!-- Tab start -->
 <div class="tab-content">
