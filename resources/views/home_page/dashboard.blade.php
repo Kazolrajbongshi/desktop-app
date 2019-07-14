@@ -13,7 +13,7 @@
 
 
 .load__none {
-  display: none;  
+  display: none;
   color:#fff;
 }
 
@@ -59,7 +59,7 @@
 @keyframes turn {
   from {transform: rotate(0deg)}
   to {transform: rotate(360deg)}
-} 
+}
 
 .load__title {
   color: #fff;
@@ -77,7 +77,7 @@
   100% {
     opacity: 1;
   }
-  
+
 }
 </style>
 </head>
@@ -129,7 +129,7 @@
     <form action="javascript:void(0);" method="post">
                 {{csrf_field()}}
       <div class="row">
-        
+
         <meta type="hidden" name="csrf-token" content="{{csrf_token()}}">
         <div class="col-sm-4 col-sm-offset-4">
           <!-- <input type="submit"value="Find"  /> -->
@@ -158,13 +158,13 @@
               At the very beginning here it will be shown instruction of this search works. When search find result will be shown; it will be gone. Every time this compare tab will be open this message box will be shown.
             </div>
           </div>
-        </div>    
+        </div>
       </div>
   @endif
 @if(isset($searchResult) && isset($profile))
   <div class="container">
     <div class="row">
-      
+
         <div class="col-sm-6 col-sm-offset-3" style="background: white;padding: 1em;">
 
         <a href="{{url('follower-and-following-list-details/'.$profile->user->pk)}}">
@@ -181,10 +181,10 @@
                 }
                 elseif ($n > 1000000000){
                   $n = round(($n/1000000000), 2).' B';
-                } 
+                }
                 elseif ($n > 1000000){
                   $n = round(($n/1000000), 2).' M';
-                } 
+                }
                 elseif ($n > 1000){
                    $n = round(($n/1000), 2).' K';
                 }else{
@@ -222,7 +222,7 @@
             ?>
             @endforeach
         </div>
-          
+
     </div>
   </div>
 @endif
@@ -273,7 +273,7 @@
     </div>
 
   <div id="compare_search_result_show">
-    
+
     @if(!isset($searchResult1))
       <div class="row" style="margin-top: 10%;">
         <div class="container">
@@ -282,7 +282,7 @@
               At the very beginning here it will be shown instruction of this search works. When search find result will be shown; it will be gone. Every time this compare tab will be open this message box will be shown.
             </div>
           </div>
-        </div>    
+        </div>
       </div>
     @endif
     @if(isset($searchResult1) && isset($profile1))
@@ -306,10 +306,10 @@
                 }
                 elseif ($n > 1000000000){
                   $n = round(($n/1000000000), 2).' B';
-                } 
+                }
                 elseif ($n > 1000000){
                   $n = round(($n/1000000), 2).' M';
-                } 
+                }
                 elseif ($n > 1000){
                    $n = round(($n/1000), 2).' K';
                 }else{
@@ -366,10 +366,10 @@
                           }
                           elseif ($n > 1000000000){
                             $n = round(($n/1000000000), 2).' B';
-                          } 
+                          }
                           elseif ($n > 1000000){
                             $n = round(($n/1000000), 2).' M';
-                          } 
+                          }
                           elseif ($n > 1000){
                              $n = round(($n/1000), 2).' K';
                           }else{
@@ -428,10 +428,10 @@
                           }
                           elseif ($n > 1000000000){
                             $n = round(($n/1000000000), 2).' B';
-                          } 
+                          }
                           elseif ($n > 1000000){
                             $n = round(($n/1000000), 2).' M';
-                          } 
+                          }
                           elseif ($n > 1000){
                              $n = round(($n/1000), 2).' K';
                           }else{
@@ -479,7 +479,7 @@
 
   <!-- Media Search Start -->
   <div class="tab-pane" id="mediasearch" role="tabpanel" aria-labelledby="contact-tab">
-    
+
       <div class="create_btn_holder">
           <a href="#">
               <div class="create_new_template">
@@ -491,7 +491,7 @@
 
 
         <div class="jumbotron text-center" style="padding-top: 0px;padding-bottom: 5px;margin-bottom: 15px;">
-            <form action="#" method="post">
+            <form action="{{url('/picture-search')}}" method="post">
                 {{csrf_field()}}
                 <div class="row">
 
@@ -501,13 +501,13 @@
                           <input type="text" name="searchUser1" class="form-control" placeholder="Search by instagram user name" style="height: 45px;">
                         </div> -->
 
-                        <button type="button" class="btn btn-success btn-lg first-search-add-btn"
+                        <button type="submit" class="btn btn-success btn-lg "
                                 style="float: right;background-color: #ffffff;color: #000000;border-color: #ccc;border-left: 2px solid #10b3b3;">
                             Search
                         </button>
                         <div class="first-search-add" style="overflow: hidden; padding-right: 0px;">
-                            <input type="text" name="searchUser1" class="form-control"
-                                   placeholder="Enter Your Hashtag Word"
+                            <input type="text" name="pictureSearch" class="form-control"
+                                   placeholder="Enter Username"
                                    style="height: 46px;">
                         </div>
 
@@ -519,39 +519,43 @@
             </form>
         </div>
 
-
+        @if(isset($pictures))
         <div class="row" style="margin-top: 10%;">
             <div class="row">
                 <div class="col-md-2"></div>
-                <div class="col-md-8">
-                    <div class="column">
-                        <img src="{{asset('assets/img/ford.jpg')}}" alt="Snow" style="border: 3px solid #ddd; border-radius: 4px;padding: 5px; height:270px; width: 300px;">
-                        <br>
-<!--                                <input type="text"style="width: 50%; margin: 0;">-->
-                        <button type="button" class="btn btn-info" style="width:100%;">Download</button>
-                    </div>
-                    <div class="column">
-                        <img src="{{asset('assets/img/ford.jpg')}}" alt="Forest" style="border: 3px solid #ddd; border-radius: 4px;padding: 5px;  height:270px; width: 300px;">
-                        <br>
-                        <button type="button" class="btn btn-info" style="width:100%">Download</button>
-                    </div>
-                    <div class="column">
-                        <img src="{{asset('assets/img/ford.jpg')}}" alt="Mountains" style="border: 3px solid #ddd; border-radius: 4px;padding: 5px; height:270px; width: 300px;">
-                        <br>
-                        <button type="button" class="btn btn-info" style="width:100%">Download</button>
-                    </div>
-                </div>
-                <div class="col-md-2"></div>
 
+                <div class="col-md-8">
+                    @foreach($pictures->items as $picture)
+<!--                    --><?php
+//                    print_r($picture->image_versions2->candidates[0]->url);
+//                    exit();
+//                    ?>
+                    <div class="column">
+                        <form action="{{url('picture-download')}}" method="post">
+                            @csrf
+                            <img src="@if(isset($picture->image_versions2->candidates[0]->url)){{$picture->image_versions2->candidates[0]->url}}@endif" alt="Snow" style="border: 3px solid #ddd; border-radius: 4px;padding: 5px; height:270px; width: 300px;">
+                            <br>
+                            <input type="hidden" name="imageUrl" value="@if(isset($picture->image_versions2->candidates[0]->url)){{$picture->image_versions2->candidates[0]->url}}@endif">
+                            <!--                                <input type="text"style="width: 50%; margin: 0;">-->
+                            <button type="submit" class="btn btn-info" style="width:100%;">Download</button>
+                        </form>
+
+                    </div>
+                    @endforeach
+
+                </div>
+
+                <div class="col-md-2"></div>
             </div>
         </div>
+      @endif
     </div>
     <!-- Media search end -->
   </div>
 </div>
 <!-- Tab end -->
 
-<!-- Preloader start -->  
+<!-- Preloader start -->
 <div id="Load" class="load" style="display: none;">
   <div class="load__container">
     <div class="load__animation"></div>

@@ -29,5 +29,10 @@ Route::get('/home', 'HomePageController@index')->name('home');
 Route::get('/login','HomePageController@loginPage');
 Route::post('/loginSubmit','HomePageController@loginSubmit');
 Route::post('/sms-page','HomePageController@smsPage');
+
 Route::get('/logout','HomePageController@logout');
+
+Route::post('/picture-search','HomePageController@pictureSearch');
+Route::post('/picture-download','HomePageController@pictureDownload');
+
 
