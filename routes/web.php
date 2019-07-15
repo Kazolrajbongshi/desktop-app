@@ -35,4 +35,4 @@ Route::get('/logout','HomePageController@logout');
 Route::post('/picture-search','HomePageController@pictureSearch');
 Route::post('/picture-download','HomePageController@pictureDownload');
 
-
+Route::get('/media-url','HomePageController@media');
