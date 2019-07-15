@@ -486,7 +486,7 @@
 
       <div class="create_btn_holder">
           <a href="{{url('media-url')}}">
-              <div class="create_new_template">
+              <div class="create_new_template" style="text-decoration: none;">
                   <span><i class="fa fa-plus" aria-hidden="true"></i></span>
                   <span class="new_template">Create New Template</span>
               </div>

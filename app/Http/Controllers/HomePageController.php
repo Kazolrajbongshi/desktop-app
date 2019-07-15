@@ -27,6 +27,8 @@ class HomePageController extends Controller
         $this->ig = new \InstagramAPI\Instagram();
     }
 
+
+
     public function dashboard(){
         if(session('username')){
             $deafult_active = 'active';
@@ -156,6 +158,7 @@ class HomePageController extends Controller
 
         return $searchResult1;
     }
+
     public function pictureSearch(Request $request){
         $result1 = $this->ig->login('webvision100','instagram123456');
         $search1 = $request->pictureSearch;
@@ -180,6 +183,31 @@ class HomePageController extends Controller
 
 
         //echo $temp;
+    }
+
+    public function urlDownload(Request $request){
+        $copyLink = $request->copyLink;
+        try {
+            $client = new InstagramDownload($copyLink);
+            $url = $client->getDownloadUrl(); // Returns the download URL.
+            //$type = $client->getType(); // Returns "image" or "video" depending on the media type.
+            $contents = file_get_contents($url);
+            $name = str_random(10).'.'.'jpg';;
+            // Storage::put($name, $contents);
+            $temp = Storage::disk('uploads')->put($name, $contents);
+            //$url = Storage::url($name);
+            //return response()->download(asset('images/'.$name));
+            return response()->download('images/'.$name);
+        }
+        catch (\InvalidArgumentException $exception) {
+            /*
+             * \InvalidArgumentException exceptions will be thrown if there is a validation
+             * error in the URL. You might want to break the code flow and report the error
+             * to your form handler at this point.
+             */
+            $error = $exception->getMessage();
+        }
+
     }
     public function two($username,$password,$verificationCode){
         $temp = $this->ig->finishTwoFactorLogin($username, $password, $this->twoFactorIdentifier, $verificationCode);
