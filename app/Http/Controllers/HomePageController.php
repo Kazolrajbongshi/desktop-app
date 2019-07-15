@@ -17,6 +17,10 @@ class HomePageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function media()
+    {
+        return view('home_page.media_url');
+    }
     public function __construct()
     {
         Instagram::$allowDangerousWebUsageAtMyOwnRisk = true;
