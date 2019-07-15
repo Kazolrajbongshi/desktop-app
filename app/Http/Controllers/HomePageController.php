@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use InstagramAPI\Instagram;
 use Storage;
 use Ayesh\InstagramDownload\InstagramDownload;
+use Session;
 
 
 class HomePageController extends Controller
@@ -23,12 +24,16 @@ class HomePageController extends Controller
     }
 
     public function dashboard(){
-        $deafult_active = 'active';
-        return view('home_page.dashboard',compact('deafult_active'));
+        if(session('username')){
+            $deafult_active = 'active';
+            return view('home_page.dashboard',compact('deafult_active'));
+        }else{
+            return redirect('/user-login');
+        }
     }
 
     public function search(Request $request){
-        $result1 = $this->ig->login('webvision100','instagram123456');
+        $result1 = $this->ig->login(session('username'), session('password'));
         $search1 =   $request->searchUser1;
         $search2 =   $request->searchUser2;
         $search3 =   $request->searchUser3;
@@ -77,7 +82,7 @@ class HomePageController extends Controller
 
     public function defaultSearch(Request $request){
 
-        $result1 = $this->ig->login('webvision100','instagram123456');
+        $result1 = $this->ig->login(session('username'), session('password'));
         $search =   $request->searchUser;
         // return response()->json(['data'=>$search]);
         $deafult_active = 'active';
@@ -156,8 +161,8 @@ class HomePageController extends Controller
         $pictures = json_decode($searchResult);
 //        print_r($pictures->items[0]->image_versions2->candidates[0]->url);
 //        exit();
-        $active = 'active';
-        return view('home_page.dashboard',compact('pictures','active'));
+        $media_active = 'active';
+        return view('home_page.dashboard',compact('pictures','media_active'));
     }
     public function pictureDownload(Request $request){
         $url = $request->imageUrl;
@@ -188,30 +193,30 @@ class HomePageController extends Controller
     }
 
     public function loginSubmit(Request $request){
-        $username = $request->username;
-        $password = $request->password;
-        session(['username' => $username,'password' => $password]);
-        set_time_limit(0);
-        date_default_timezone_set('UTC');
-        try {
-            $loginResponse = $this->ig->login($username, $password);
-            if ($loginResponse !== null && $loginResponse->isTwoFactorRequired()) {
-                $twoFactorIdentifier = $loginResponse->getTwoFactorInfo()->getTwoFactorIdentifier();
-                session(['twoFactorIdentifier' => $twoFactorIdentifier]);
-                // The "STDIN" lets you paste the code via terminal for testing.
-                // You should replace this line with the logic you want.
-                // The verification code will be sent by Instagram via SMS.
-//                $verificationCode = '2222';
-//
-//                //$this->two($username,$password,$verificationCode);
-//                $this->ig->finishTwoFactorLogin($username, $password, $this->twoFactorIdentifier, $verificationCode);
+//        $username = $request->username;
+//        $password = $request->password;
+//        session(['username' => $username,'password' => $password]);
+//        set_time_limit(0);
+//        date_default_timezone_set('UTC');
+//        try {
+//            $loginResponse = $this->ig->login($username, $password);
+//            if ($loginResponse !== null && $loginResponse->isTwoFactorRequired()) {
+//                $twoFactorIdentifier = $loginResponse->getTwoFactorInfo()->getTwoFactorIdentifier();
+//                session(['twoFactorIdentifier' => $twoFactorIdentifier]);
+//                // The "STDIN" lets you paste the code via terminal for testing.
+//                // You should replace this line with the logic you want.
+//                // The verification code will be sent by Instagram via SMS.
+////                $verificationCode = '2222';
+////
+////                //$this->two($username,$password,$verificationCode);
+////                $this->ig->finishTwoFactorLogin($username, $password, $this->twoFactorIdentifier, $verificationCode);
                 return view('home_page.sms_page');
-            }else{
-                return redirect('dashboard');
-            }
-        } catch (\Exception $e) {
-            echo 'Something went wrong: '.$e->getMessage()."\n";
-        }
+//            }else{
+//                return redirect('dashboard');
+//            }
+//        } catch (\Exception $e) {
+//            echo 'Something went wrong: '.$e->getMessage()."\n";
+//        }
 
     }
 
@@ -228,36 +233,46 @@ class HomePageController extends Controller
     }
 
     public function followerAndFollowingListDetails(Request $request){
-//        echo $id;
-//        exit();
-        // return response()->json(['data'=>$request->user_id]);
-       $userid = $request->user_id;
-       $usersInfo = array();
-       $result1 = $this->ig->login('webvision100','instagram123456');
-       $ranktoken = \InstagramAPI\Signatures::generateUUID();
-       $searchResult1 = $this->ig->people->getFollowers($userid,$ranktoken);
 
-       $searchResult1 = json_decode($searchResult1);
-       try{
-           foreach ($searchResult1->users as $searchResult){
-               $id = $searchResult->pk;
-               $userSelfInfo = $this->ig->people->getInfoById($id);
+        if(session('username')){
+    //        echo $id;
+    //        exit();
+            // return response()->json(['data'=>$request->user_id]);
+           $userid = $request->user_id;
+           $usersInfo = array();
+           $result1 = $this->ig->login(session('username'), session('password'));
+           $ranktoken = \InstagramAPI\Signatures::generateUUID();
+           $searchResult1 = $this->ig->people->getFollowers($userid,$ranktoken);
 
-               $userSelfInfo = json_decode($userSelfInfo);
+           $searchResult1 = json_decode($searchResult1);
+           try{
+               foreach ($searchResult1->users as $searchResult){
+                   $id = $searchResult->pk;
+                   $userSelfInfo = $this->ig->people->getInfoById($id);
 
-               $usersInfo[] = ['username' => $userSelfInfo->user->username,'biography' => $userSelfInfo->user->biography,
-                   'followerCount' => $userSelfInfo->user->follower_count,'followingCount' => $userSelfInfo->user->following_count,
-                   'photo' => $userSelfInfo->user->profile_pic_url,'post' => $userSelfInfo->user->media_count,'private' => $userSelfInfo->user->is_private];
+                   $userSelfInfo = json_decode($userSelfInfo);
+
+                   $usersInfo[] = ['username' => $userSelfInfo->user->username,'biography' => $userSelfInfo->user->biography,
+                       'followerCount' => $userSelfInfo->user->follower_count,'followingCount' => $userSelfInfo->user->following_count,
+                       'photo' => $userSelfInfo->user->profile_pic_url,'post' => $userSelfInfo->user->media_count,'private' => $userSelfInfo->user->is_private];
+
+               }
+           }catch (\Exception $ex){
 
            }
-       }catch (\Exception $ex){
+    //        print_r($usersInfo);
+    //        exit();
 
-       }
-//        print_r($usersInfo);
-//        exit();
+           return view('home_page.ajax_follower_following_list_details',compact('usersInfo'));
+    //        return $searchResult1;
+       }else{
+            return response()->json(['data'=>'1']);
+        }
+   }
 
-       return view('home_page.ajax_follower_following_list_details',compact('usersInfo'));
-//        return $searchResult1;
+   public function logout(){
+    Session::flush();
+    return redirect('/user-login');
    }
 
 

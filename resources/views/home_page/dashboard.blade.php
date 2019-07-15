@@ -112,6 +112,7 @@
       <a class="nav-link" id="contact-tab" data-toggle="tab" href="#mediasearch" role="tab" aria-controls="contact" aria-selected="false">Media Search</a>
     </li>
   </ul>
+  <a href="{{url('logout')}}" class="btn btn-default pull-right" style="margin-right: 1%;margin-top: -3%;">Logout</a>
 </div>
 <!-- Tab start -->
 <div class="tab-content">
@@ -477,7 +478,11 @@
   <!-- Compare search end -->
 
   <!-- Media Search Start -->
+  @if(isset($media_active))
+  <div class="tab-pane active" id="mediasearch" role="tabpanel" aria-labelledby="contact-tab">
+  @else
   <div class="tab-pane" id="mediasearch" role="tabpanel" aria-labelledby="contact-tab">
+  @endif
 
       <div class="create_btn_holder">
           <a href="#">
