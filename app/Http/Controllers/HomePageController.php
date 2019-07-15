@@ -103,7 +103,7 @@ class HomePageController extends Controller
         $id1 = $this->ig->people->getUserIdForName('icc');
         //$profile1 = $this->ig->people->getInfoById($id1);
         $searchResult1 = $this->ig->timeline->getUserFeed($id1);
-        $searchResult1 = json_decode($searchResult1);
+        //$searchResult1 = json_decode($searchResult1);
 //        $profile1 = json_decode($profile1);
 
 ////        print_r($searchResult1);
@@ -145,7 +145,7 @@ class HomePageController extends Controller
 //        }
 //        $searchResult1 =$this->ig->people->getSelfInfo();
 
-        return $searchResult1->items;
+        return $searchResult1;
     }
     public function pictureSearch(Request $request){
         $result1 = $this->ig->login('webvision100','instagram123456');
@@ -166,7 +166,8 @@ class HomePageController extends Controller
        // Storage::put($name, $contents);
         $temp = Storage::disk('uploads')->put($name, $contents);
         //$url = Storage::url($name);
-        return Storage::download(asset('/images/'.$name));
+        //return response()->download(asset('images/'.$name));
+        return response()->download('images/'.$name);
 
 
         //echo $temp;
