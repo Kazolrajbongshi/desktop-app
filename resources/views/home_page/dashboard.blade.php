@@ -108,9 +108,15 @@
       <a class="nav-link" id="profile-tab" data-toggle="tab" href="#comparesearch" role="tab" aria-controls="profile" aria-selected="false">Comapare Search</a>
     </li>
     @endif
+    @if(isset($media_active))
+    <li class="nav-item active">
+      <a class="nav-link" id="contact-tab" data-toggle="tab" href="#mediasearch" role="tab" aria-controls="contact" aria-selected="false">Media Search</a>
+    </li>
+    @else
     <li class="nav-item">
       <a class="nav-link" id="contact-tab" data-toggle="tab" href="#mediasearch" role="tab" aria-controls="contact" aria-selected="false">Media Search</a>
     </li>
+    @endif
   </ul>
   <a href="{{url('logout')}}" class="btn btn-default pull-right" style="margin-right: 1%;margin-top: -3%;">Logout</a>
 </div>
