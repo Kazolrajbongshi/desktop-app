@@ -107,7 +107,7 @@ class HomePageController extends Controller
  //$searchResult1 = $this->ig->people->getInfoById('1474834026');
         $id1 = $this->ig->people->getUserIdForName('icc');
         //$profile1 = $this->ig->people->getInfoById($id1);
-        $searchResult1 = $this->ig->timeline->getUserFeed($id1);
+        $searchResult1 = $this->ig->timeline->getUserFeed($id1,'2087994060823561670_376525195');
         //$searchResult1 = json_decode($searchResult1);
 //        $profile1 = json_decode($profile1);
 
