@@ -19,7 +19,7 @@
     </div>
 </div>
 <div class="jumbotron text-center" style="left: 70%; top: 50%;">
-    <form action="" method="post">
+    <form action="{{url('url-download')}}" method="post">
         {{csrf_field()}}
         <div class="row">
 
@@ -31,11 +31,11 @@
 
                 <button type="submit" class="btn btn-success btn-lg "
                         style="float: right;background-color: #ffffff;color: #000000;border-color: #ccc;border-left: 2px solid #10b3b3;">
-                    Search
+                    Download
                 </button>
                 <div class="first-search-add" style="overflow: hidden; padding-right: 0px;">
-                    <input type="text" name="pictureSearch" class="form-control"
-                           placeholder="Enter Username"
+                    <input type="text" name="copyLink" class="form-control"
+                           placeholder="Enter Copy Link"
                            style="height: 46px;">
                 </div>
 
