@@ -209,6 +209,25 @@ class HomePageController extends Controller
         }
 
     }
+
+    public function csvImageDownload(Request $request){
+        if ($request->has('link')) {
+            $path = $request->input('link');
+        }
+        // echo $path;
+        // exit();
+        $contents = file_get_contents($path);
+        $name = str_random(10).'.'.'jpg';;
+       // Storage::put($name, $contents);
+        $temp = Storage::disk('uploads')->put($name, $contents);
+        //$url = Storage::url($name);
+        //return response()->download(asset('images/'.$name));
+        return response()->download('images/'.$name);
+
+
+        //echo $temp;
+    }
+
     public function two($username,$password,$verificationCode){
         $temp = $this->ig->finishTwoFactorLogin($username, $password, $this->twoFactorIdentifier, $verificationCode);
 
