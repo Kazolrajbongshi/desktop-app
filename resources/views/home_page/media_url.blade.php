@@ -65,7 +65,7 @@
         </div>
     </form>
     <div class="row">           
-        <div class="col-sm-4 col-sm-offset-4" id="parsed_csv_list">
+        <div class="col-sm-12" id="parsed_csv_list" style="margin-top: 2%;">
         </div>
     </div>
 
@@ -99,6 +99,7 @@
     });
     
     function displayHTMLTable(results){
+        /*
         var table = "<table class='table'>";
         var data = results.data;
          
@@ -122,6 +123,22 @@
         }
         table+= "</table>";
         $("#parsed_csv_list").html(table);
+        */
+
+        var value;
+        var data = results.data;
+
+        for(i=0;i<data.length;i++){
+            value+= "<div class='col-sm-3' style='border:1px solid #828e97;width:24%;padding: 10px;margin: 5px;'>";
+            value+= '<img src="'+data[i]+'" style="height:250px;width:250px;border: 1px solid #d6e1e9;padding: 3px;margin-bottom: 5px;">'; 
+            var temp = "{{url('csv-image-download')}}";
+            var temp1 = "/?link="+data[i];
+            var concat = temp + temp1;
+            value+= '<a href="'+concat+'"'+' class="btn btn-info" style="width:100%;">Download</a>';
+            value+= "</div>";                
+        }
+        value+= "</table>";
+        $("#parsed_csv_list").html(value);
     }
   });
 </script>

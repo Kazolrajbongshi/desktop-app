@@ -9,6 +9,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
   <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="{{asset('assets/js/papaparse.min.js')}}"></script>
   <style type="text/css">
 
 
@@ -491,16 +492,17 @@
   @endif
 
       <div class="create_btn_holder">
-          <a href="{{url('media-url')}}">
+          <!-- <a href="{{url('media-url')}}">
               <div class="create_new_template" style="text-decoration: none;">
                   <span><i class="fa fa-plus" aria-hidden="true"></i></span>
                   <span class="new_template">Add Media URL</span>
               </div>
-          </a>
+          </a> -->
+          <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Add Media URL</button>
       </div>
 
 
-        <div class="jumbotron text-center" style="padding-top: 0px;padding-bottom: 5px;margin-bottom: 15px;">
+        <div class="jumbotron text-center" id="media_search_div" style="padding-top: 0px;padding-bottom: 5px;margin-bottom: 15px;">
             <form action="{{url('/picture-search')}}" method="post">
                 {{csrf_field()}}
                 <div class="row">
@@ -564,6 +566,14 @@
   </div>
 </div>
 <!-- Tab end -->
+<div class="jumbotron text-center" style="left: 70%; top: 50%;">
+<div class="row">           
+        <div class="col-sm-12" id="parsed_csv_list" style="margin-top: 2%;">
+        </div>
+    </div>
+
+    <div id="footer"></div>
+</div>
 
 <!-- Preloader start -->
 <div id="Load" class="load" style="display: none;">
@@ -576,7 +586,7 @@
 <!-- Preloader end -->
 
 
-
+<!-- image modal start-->
 <div class="modal fade" id="image-gallery" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -604,6 +614,47 @@
         </div>
     </div>
 </div>
+<!-- image modal end-->
+
+<!-- media url modal start-->
+<div class="modal fade" id="myModal" role="dialog" id="media_url_modal">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content" style="padding: 3%;">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <div class="modal-header">
+          
+          <h4 class="modal-title">Enter your copied image URL in the below field</h4>
+          <form action="{{url('url-download')}}" method="post">
+            {{csrf_field()}}
+            <button type="submit" class="btn btn-success btn-lg" style="float: right;background-color: #ffffff;color: #000000;border-color: #ccc;border-top-left-radius: 0;border-bottom-left-radius: 0;">Download</button>
+                <div class="first-search-add" style="overflow: hidden; padding-right: 0px;">
+                    <input type="text" name="copyLink" class="form-control" placeholder="Enter Copy Link" style="height: 46px;">
+                </div>
+          </form>
+        </div>
+        <div class="modal-body">
+          <h4>Select a csv file that contains list of image URL</h4> 
+          <form action="" method="post" enctype="multipart/form-data">
+            {{csrf_field()}}
+            <button type="submit" class="btn btn-success btn-lg " id="submit-file" data-dismiss="modal"
+                    style="float: right;background-color: #ffffff;color: #000000;border-color: #ccc;border-top-left-radius: 0;border-bottom-left-radius: 0;">Upload
+                  </button>
+            <div class="first-search-add" style="overflow: hidden; padding-right: 0px;">
+                <input type="file" name="multi_image" id="files" class="form-control" accept=".csv" required="" style="height: 46px;">
+            </div>
+          </form>
+        </div>
+        <!-- <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div> -->
+      </div>
+      
+    </div>
+  </div>
+
+<!-- media url modal end-->
 
 <script type="text/javascript">
     $(document).ready(function(){
@@ -659,6 +710,76 @@
 
     });
   </script>
+
+  <script type="text/javascript">
+  $(document).ready(function(){
+    
+    $('#submit-file').on("click",function(e){
+        e.preventDefault();
+        $('#files').parse({
+            config: {
+                delimiter: "auto",
+                complete: displayHTMLTable,
+            },
+            before: function(file, inputElem)
+            {
+                //console.log("Parsing file...", file);
+            },
+            error: function(err, file)
+            {
+                //console.log("ERROR:", err, file);
+            },
+            complete: function()
+            {
+                //console.log("Done with all files");
+            }
+        });
+    });
+    
+    function displayHTMLTable(results){
+        /*
+        var table = "<table class='table'>";
+        var data = results.data;
+         
+        for(i=0;i<data.length;i++){
+            table+= "<tr>";
+            var row = data[i];
+            var cells = row.join(",").split(",");
+             
+            for(j=0;j<cells.length;j++){
+                table+= "<td>";
+                table+= '<img src="'+cells[j]+'" style="float:left;"';
+                table+= "</td>";
+                table+= "<td>";
+                var temp = "{{url('csv-image-download')}}";
+                var temp1 = "/?link="+cells[j];
+                var concat = temp + temp1;
+                table+= '<a href="'+concat+'"'+' class="btn btn-success" style="margin-top: 50%;">Download</a>';
+                table+= "</td>";
+            }
+            table+= "</tr>";
+        }
+        table+= "</table>";
+        $("#parsed_csv_list").html(table);
+        */
+
+        var value="";
+        var data = results.data;
+
+        for(i=0;i<data.length;i++){
+            value+= "<div class='col-sm-3' style='border:1px solid #828e97;width:24%;padding: 10px;margin: 5px;'>";
+            value+= '<img src="'+data[i]+'" style="height:270px;width:300px;border: 1px solid #d6e1e9;padding: 3px;margin-bottom: 5px;">'; 
+            var temp = "{{url('csv-image-download')}}";
+            var temp1 = "/?link="+data[i];
+            var concat = temp + temp1;
+            value+= '<a href="'+concat+'"'+' class="btn btn-info" style="width:100%;">Download</a>';
+            value+= "</div>";                
+        }
+        $("#media_search_div").hide();
+        $("#parsed_csv_list").html(value);
+    }
+  });
+</script>
 
 </body>
 </html>
