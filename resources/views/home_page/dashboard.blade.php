@@ -93,29 +93,29 @@
   <ul class="nav nav-tabs" id="myTab" role="tablist" style="margin-left: 35%;border-bottom: #ffffff;">
     @if(isset($deafult_active))
     <li class="nav-item active" style="border-right: 1px solid #10b3b3;">
-      <a class="nav-link" id="home-tab" data-toggle="tab" href="#defaultsearch" role="tab" aria-controls="home" aria-selected="true">Default Search</a>
+      <a class="nav-link" id="home-tab" data-toggle="tab" href="#defaultsearch" role="tab" aria-controls="home" aria-selected="true">Follow & Follower</a>
     </li>
     @else
     <li class="nav-item" style="border-right: 1px solid #10b3b3;">
-      <a class="nav-link" id="home-tab" data-toggle="tab" href="#defaultsearch" role="tab" aria-controls="home" aria-selected="true">Default Search</a>
+      <a class="nav-link" id="home-tab" data-toggle="tab" href="#defaultsearch" role="tab" aria-controls="home" aria-selected="true">Follow & Follower</a>
     </li>
     @endif
     @if(isset($active))
     <li class="nav-item active" style="border-right: 1px solid #10b3b3;">
-      <a class="nav-link" id="profile-tab" data-toggle="tab" href="#comparesearch" role="tab" aria-controls="profile" aria-selected="false">Comapare Search</a>
+      <a class="nav-link" id="profile-tab" data-toggle="tab" href="#comparesearch" role="tab" aria-controls="profile" aria-selected="false">Comaparison</a>
     </li>
     @else
     <li class="nav-item" style="border-right: 1px solid #10b3b3;">
-      <a class="nav-link" id="profile-tab" data-toggle="tab" href="#comparesearch" role="tab" aria-controls="profile" aria-selected="false">Comapare Search</a>
+      <a class="nav-link" id="profile-tab" data-toggle="tab" href="#comparesearch" role="tab" aria-controls="profile" aria-selected="false">Comaparison</a>
     </li>
     @endif
     @if(isset($media_active))
     <li class="nav-item active">
-      <a class="nav-link" id="contact-tab" data-toggle="tab" href="#mediasearch" role="tab" aria-controls="contact" aria-selected="false">Media Search</a>
+      <a class="nav-link" id="contact-tab" data-toggle="tab" href="#mediasearch" role="tab" aria-controls="contact" aria-selected="false">Media</a>
     </li>
     @else
     <li class="nav-item">
-      <a class="nav-link" id="contact-tab" data-toggle="tab" href="#mediasearch" role="tab" aria-controls="contact" aria-selected="false">Media Search</a>
+      <a class="nav-link" id="contact-tab" data-toggle="tab" href="#mediasearch" role="tab" aria-controls="contact" aria-selected="false">Media</a>
     </li>
     @endif
   </ul>
