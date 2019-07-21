@@ -85,42 +85,62 @@
 <body style="background: #eeeeee;">
 
 <!-- <div class="jumbotron text-center" style="padding-top: 0px;padding-bottom: 5px;margin-bottom: 15px;"> -->
-<div class="text-center" style="padding: 0px;border-bottom: 2px solid #ffffff;">
-  <div class="navbar-header">
-    <a class="navbar-brand logo" href="#"><span>D-Gram</span></a>
-      <!-- <a class="navbar-brand" href="#"><img src="{{asset('assets/img/pdf_logo.PNG')}}"></a> -->
-  </div>
-  <ul class="nav nav-tabs" id="myTab" role="tablist" style="margin-left: 35%;border-bottom: #ffffff;">
-    @if(isset($deafult_active))
-    <li class="nav-item active" style="border-right: 1px solid #10b3b3;">
-      <a class="nav-link" id="home-tab" data-toggle="tab" href="#defaultsearch" role="tab" aria-controls="home" aria-selected="true">Follow & Follower</a>
-    </li>
-    @else
-    <li class="nav-item" style="border-right: 1px solid #10b3b3;">
-      <a class="nav-link" id="home-tab" data-toggle="tab" href="#defaultsearch" role="tab" aria-controls="home" aria-selected="true">Follow & Follower</a>
-    </li>
-    @endif
-    @if(isset($active))
-    <li class="nav-item active" style="border-right: 1px solid #10b3b3;">
-      <a class="nav-link" id="profile-tab" data-toggle="tab" href="#comparesearch" role="tab" aria-controls="profile" aria-selected="false">Comaparison</a>
-    </li>
-    @else
-    <li class="nav-item" style="border-right: 1px solid #10b3b3;">
-      <a class="nav-link" id="profile-tab" data-toggle="tab" href="#comparesearch" role="tab" aria-controls="profile" aria-selected="false">Comaparison</a>
-    </li>
-    @endif
-    @if(isset($media_active))
-    <li class="nav-item active">
-      <a class="nav-link" id="contact-tab" data-toggle="tab" href="#mediasearch" role="tab" aria-controls="contact" aria-selected="false">Media</a>
-    </li>
-    @else
-    <li class="nav-item">
-      <a class="nav-link" id="contact-tab" data-toggle="tab" href="#mediasearch" role="tab" aria-controls="contact" aria-selected="false">Media</a>
-    </li>
-    @endif
-  </ul>
-  <a href="{{url('logout')}}" class="btn btn-default pull-right" style="margin-right: 1%;margin-top: -3%;">Logout</a>
-</div>
+<nav class="navbar navbar-default">
+        <div class="container-fluid">
+
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand logo" href="#"><span>D-Gram</span></a>
+                <!-- <a class="navbar-brand" href="#"><img src="{{asset('assets/img/pdf_logo.PNG')}}"></a> -->
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav" id="myTab" role="tablist" style="margin-left: 35%;border-bottom: #ffffff;">
+                @if(isset($deafult_active))
+                <li class="nav-item active" style="border-right: 1px solid #10b3b3;">
+                    <a class="nav-link" id="home-tab" data-toggle="tab" href="#defaultsearch" role="tab"
+                       aria-controls="home" aria-selected="true">Follow & Follower</a>
+                </li>
+                @else
+                <li class="nav-item" style="border-right: 1px solid #10b3b3;">
+                    <a class="nav-link" id="home-tab" data-toggle="tab" href="#defaultsearch" role="tab"
+                       aria-controls="home" aria-selected="true">Follow & Follower</a>
+                </li>
+                @endif
+                @if(isset($active))
+                <li class="nav-item active" style="border-right: 1px solid #10b3b3;">
+                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#comparesearch" role="tab"
+                       aria-controls="profile" aria-selected="false">Comaparison</a>
+                </li>
+                @else
+                <li class="nav-item" style="border-right: 1px solid #10b3b3;">
+                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#comparesearch" role="tab"
+                       aria-controls="profile" aria-selected="false">Comaparison</a>
+                </li>
+                @endif
+                @if(isset($media_active))
+                <li class="nav-item active">
+                    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#mediasearch" role="tab"
+                       aria-controls="contact" aria-selected="false">Media</a>
+                </li>
+                @else
+                <li class="nav-item">
+                    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#mediasearch" role="tab"
+                       aria-controls="contact" aria-selected="false">Media</a>
+                </li>
+                @endif
+                <a href="{{url('logout')}}"
+                    <button type="button" class="btn btn-default navbar-btn navbar-right"style="margin-right: -95%;">Logout</button>
+                </a>
+
+            </ul>
+            </div>
+        </div>
+    </nav>
 <!-- Tab start -->
 <div class="tab-content">
 
