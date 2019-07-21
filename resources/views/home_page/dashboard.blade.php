@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<<<<<<< HEAD
     <title>Desigram</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -65,6 +66,129 @@
                 transform: rotate(360deg)
             }
         }
+=======
+  <title>Desigram</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="{{asset('assets/css/style.css')}}">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <style type="text/css">
+
+
+.load__none {
+  display: none;
+  color:#fff;
+}
+
+.load__animation{
+  border: 5px solid #06af94;
+  border-top-color: #e50914;
+  border-top-style: groove;
+  height: 100px;
+  width: 100px;
+  border-radius: 100%;
+  position: relative;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+  margin: auto;
+  -webkit-animation: turn 1.5s linear infinite;
+  -o-animation: turn 1.5s linear infinite;
+  animation: turn 1.5s linear infinite;
+}
+
+.load {
+  position: fixed;
+  /*background: url('assets/img/preloader.png') no-repeat 50% fixed / cover;);*/
+  background: black;
+  width: 100%;
+  height: 100vh;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  opacity: 0.8;
+  display: flex;
+  align-items:center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.load__container {
+  position: relative;
+}
+
+@keyframes turn {
+  from {transform: rotate(0deg)}
+  to {transform: rotate(360deg)}
+}
+
+.load__title {
+  color: #fff;
+  font-size: 2rem;
+}
+
+
+@keyframes loadPage {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: .5;
+  }
+  100% {
+    opacity: 1;
+  }
+
+}
+</style>
+</head>
+<body style="background: #eeeeee;">
+
+<!-- <div class="jumbotron text-center" style="padding-top: 0px;padding-bottom: 5px;margin-bottom: 15px;"> -->
+<div class="text-center" style="padding: 0px;border-bottom: 2px solid #ffffff;">
+  <div class="navbar-header">
+    <a class="navbar-brand logo" href="#"><span>D-Gram</span></a>
+      <!-- <a class="navbar-brand" href="#"><img src="{{asset('assets/img/pdf_logo.PNG')}}"></a> -->
+  </div>
+  <ul class="nav nav-tabs" id="myTab" role="tablist" style="margin-left: 35%;border-bottom: #ffffff;">
+    @if(isset($deafult_active))
+    <li class="nav-item active" style="border-right: 1px solid #10b3b3;">
+      <a class="nav-link" id="home-tab" data-toggle="tab" href="#defaultsearch" role="tab" aria-controls="home" aria-selected="true">Default Search</a>
+    </li>
+    @else
+    <li class="nav-item" style="border-right: 1px solid #10b3b3;">
+      <a class="nav-link" id="home-tab" data-toggle="tab" href="#defaultsearch" role="tab" aria-controls="home" aria-selected="true">Default Search</a>
+    </li>
+    @endif
+    @if(isset($active))
+    <li class="nav-item active" style="border-right: 1px solid #10b3b3;">
+      <a class="nav-link" id="profile-tab" data-toggle="tab" href="#comparesearch" role="tab" aria-controls="profile" aria-selected="false">Comapare Search</a>
+    </li>
+    @else
+    <li class="nav-item" style="border-right: 1px solid #10b3b3;">
+      <a class="nav-link" id="profile-tab" data-toggle="tab" href="#comparesearch" role="tab" aria-controls="profile" aria-selected="false">Comapare Search</a>
+    </li>
+    @endif
+    @if(isset($media_active))
+    <li class="nav-item active">
+      <a class="nav-link" id="contact-tab" data-toggle="tab" href="#mediasearch" role="tab" aria-controls="contact" aria-selected="false">Media Search</a>
+    </li>
+    @else
+    <li class="nav-item">
+      <a class="nav-link" id="contact-tab" data-toggle="tab" href="#mediasearch" role="tab" aria-controls="contact" aria-selected="false">Media Search</a>
+    </li>
+    @endif
+  </ul>
+  <a href="{{url('logout')}}" class="btn btn-default pull-right" style="margin-right: 1%;margin-top: -3%;">Logout</a>
+</div>
+<!-- Tab start -->
+<div class="tab-content">
+>>>>>>> parent of 1a9ea5b... ui updated
 
         .load__title {
             color: #fff;

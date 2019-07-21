@@ -4,7 +4,10 @@
 <<<<<<< Updated upstream
     <list default="true" id="5d2b33e3-dddf-4611-bc6a-61bf7c0119f6" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+<<<<<<< HEAD
       <change beforePath="$PROJECT_DIR$/resources/views/home_page/dashboard.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/home_page/dashboard.blade.php" afterDir="false" />
+=======
+>>>>>>> parent of 1a9ea5b... ui updated
     </list>
 =======
     <list default="true" id="5d2b33e3-dddf-4611-bc6a-61bf7c0119f6" name="Default Changelist" comment="" />
@@ -47,6 +50,7 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/resources/views/home_page/dashboard.blade.php">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
 <<<<<<< Updated upstream
             <state relative-caret-position="-726">
               <caret line="141" column="98" lean-forward="true" selection-start-line="141" selection-start-column="98" selection-end-line="141" selection-end-column="98" />
@@ -122,11 +126,16 @@
                 <element signature="n#style#0;n#a#0;n#!!top" expanded="true" />
 >>>>>>> Stashed changes
               </folding>
+=======
+            <state relative-caret-position="118">
+              <caret line="497" column="20" selection-start-line="497" selection-start-column="20" selection-end-line="497" selection-end-column="20" />
+>>>>>>> parent of 1a9ea5b... ui updated
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+<<<<<<< HEAD
         <entry file="file://$PROJECT_DIR$/public/assets/css/style.css">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="266">
@@ -149,6 +158,12 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="561">
               <caret line="33" column="50" selection-start-line="33" selection-start-column="50" selection-end-line="33" selection-end-column="50" />
+=======
+        <entry file="file://$PROJECT_DIR$/resources/views/home_page/media_url.blade.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="187">
+              <caret line="11" column="96" selection-start-line="11" selection-start-column="96" selection-end-line="11" selection-end-column="96" />
+>>>>>>> parent of 1a9ea5b... ui updated
             </state>
           </provider>
         </entry>
@@ -502,23 +517,30 @@
       <workItem from="1562825643219" duration="3864000" />
       <workItem from="1562996453012" duration="301000" />
       <workItem from="1563255739044" duration="599000" />
+<<<<<<< HEAD
       <workItem from="1563343801482" duration="2955000" />
       <workItem from="1563430457040" duration="599000" />
       <workItem from="1563604375622" duration="2411000" />
       <workItem from="1563698817824" duration="11026000" />
+=======
+      <workItem from="1563343801482" duration="618000" />
+>>>>>>> parent of 1a9ea5b... ui updated
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
+<<<<<<< HEAD
 <<<<<<< Updated upstream
     <option name="totallyTimeSpent" value="103882000" />
 =======
     <option name="totallyTimeSpent" value="88748000" />
 >>>>>>> Stashed changes
+=======
+    <option name="totallyTimeSpent" value="87509000" />
+>>>>>>> parent of 1a9ea5b... ui updated
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="true" />
     <layout>
 <<<<<<< Updated upstream
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24659607" />
@@ -539,7 +561,7 @@
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Terminal" order="7" sideWeight="0.49848714" weight="0.3289689" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="7" sideWeight="0.49848714" visible="true" weight="0.3289689" />
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Educational.CheckDetails" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5015129" side_tool="true" weight="0.3289689" />
@@ -719,6 +741,7 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/home_page/media_url.blade.php">
+<<<<<<< HEAD
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="561">
           <caret line="33" column="50" selection-start-line="33" selection-start-column="50" selection-end-line="33" selection-end-column="50" />
@@ -726,12 +749,15 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/routes/web.php">
+=======
+>>>>>>> parent of 1a9ea5b... ui updated
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="39" selection-start-line="39" selection-end-line="39" />
+        <state relative-caret-position="187">
+          <caret line="11" column="96" selection-start-line="11" selection-start-column="96" selection-end-line="11" selection-end-column="96" />
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/public/assets/css/style.css">
       <provider selected="true" editor-type-id="text-editor">
 <<<<<<< Updated upstream
@@ -829,6 +855,19 @@
         <state relative-caret-position="561">
           <caret line="33" column="50" selection-start-line="33" selection-start-column="50" selection-end-line="33" selection-end-column="50" />
 >>>>>>> Stashed changes
+=======
+    <entry file="file://$PROJECT_DIR$/routes/web.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="39" selection-start-line="39" selection-end-line="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/home_page/dashboard.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="118">
+          <caret line="497" column="20" selection-start-line="497" selection-start-column="20" selection-end-line="497" selection-end-column="20" />
+>>>>>>> parent of 1a9ea5b... ui updated
         </state>
       </provider>
     </entry>

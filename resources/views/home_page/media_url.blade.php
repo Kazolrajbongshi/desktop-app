@@ -29,15 +29,15 @@
                 <!-- <div class="first-search-add" style="overflow: hidden; padding-right: .5em;">
                   <input type="text" name="searchUser1" class="form-control" placeholder="Search by instagram user name" style="height: 45px;">
                 </div> -->
-                <h4>Enter Your Copied Image URL in the Below Field</h4>
+                <h4>Enter your copied image URL in the below field</h4> 
 
                 <button type="submit" class="btn btn-success btn-lg "
                         style="float: right;background-color: #ffffff;color: #000000;border-color: #ccc;border-left: 2px solid #10b3b3;">
-                    Submit
+                    Download
                 </button>
                 <div class="first-search-add" style="overflow: hidden; padding-right: 0px;">
                     <input type="text" name="copyLink" class="form-control"
-                           placeholder="Enter Copied Link"
+                           placeholder="Enter Copy Link"
                            style="height: 46px;">
                 </div>
 
