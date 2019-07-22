@@ -1,4 +1,4 @@
-<h3>Follower Following List Details:</h3>
+<h3>Follower List Details:</h3>
 <div class="table-wrapper-scroll-y my-custom-scrollbar">
     <table id="demo" class="countries-tiny table table-hover table-bordered" data-toggle="table">
         <thead>
@@ -85,6 +85,49 @@
     <!-- <button type="submit" class="btn btn-primary"><span style="color: black;">Export as</span>&nbsp;&nbsp;CSV</button> -->
 </div>
 
+
+
+<h3>Following List Details:</h3>
+<div class="table-wrapper-scroll-y my-custom-scrollbar">
+    <table id="following_list_csv" class="countries-tiny table table-hover table-bordered" data-toggle="table">
+        <thead>
+        <tr>
+            <td scope="col"><input type="checkbox" name="" id="inp-chkbox1-following"></td>
+            <th scope="col">Username</th>
+            <th scope="col">Biography</th>
+            <th scope="col">Follower</th>
+            <th scope="col">Following</th>
+            <th scope="col">photo</th>
+            <th scope="col">Post</th>
+            <th scope="col">Is_private</th>
+        </tr>
+        </thead>
+        <tbody>
+        @if(isset($usersInfoFollowing))
+        @foreach($usersInfoFollowing as $userInfo_following)
+        <tr>
+            <td scope="row"><input type="checkbox" name="" class="inpchk1_following"></td>
+            <td>{{$userInfo_following['username']}}</td>
+            <td>{{$userInfo_following['biography']}}</td>
+            <td>{{$userInfo_following['followerCount']}}</td>
+            <td>{{$userInfo_following['followingCount']}}</td>
+            <td><span style="display: none;">{{$userInfo_following['photo']}}</span> <img src="{{$userInfo_following['photo']}}" height="50" width="75"></td>
+            <td>{{$userInfo_following['post']}}</td>
+            @if($userInfo_following['private'] == null)
+            <td>No</td>
+            @else
+            <td>Yes</td>
+            @endif
+        </tr>
+        @endforeach
+        @endif
+        </tbody>
+    </table>
+</div>
+<!-- </div> -->
+<div style="text-align:center;">
+    <a href="#" class="btn btn-primary" id="down_following"><span style="color: black;">Export as</span>&nbsp;&nbsp;CSV</a>
+</div>
 <script src="https://rawgit.com/wenzhixin/bootstrap-table/master/src/bootstrap-table.js"></script>
 <script type="text/javascript" src="{{asset('assets/js/tablefilter.js')}}"></script>
 <script type="text/javascript" src="{{asset('assets/js/style.js')}}"></script>

@@ -88,19 +88,60 @@ class HomePageController extends Controller
 
     public function defaultSearch(Request $request){
 
-        $result1 = $this->ig->login(session('username'), session('password'));
-        $search =   $request->searchUser;
-        // return response()->json(['data'=>$search]);
-        $deafult_active = 'active';
-        if ($search != null){
-            $id = $this->ig->people->getUserIdForName($search);
-            $profile = $this->ig->people->getInfoById($id);
-            $searchResult = $this->ig->timeline->getUserFeed($id);
-            $searchResult = json_decode($searchResult);
-            $profile = json_decode($profile);
-            // return view('home_page.dashboard',compact('searchResult','profile','deafult_active'));
-            return view('home_page.ajax_dashboard',compact('searchResult','profile','deafult_active'));
-        }
+        // $result1 = $this->ig->login(session('username'), session('password'));
+        // $search =   $request->searchUser;
+        // // return response()->json(['data'=>$search]);
+        // $deafult_active = 'active';
+        // if ($search != null){
+        //     $id = $this->ig->people->getUserIdForName($search);
+        //     $profile = $this->ig->people->getInfoById($id);
+        //     $searchResult = $this->ig->timeline->getUserFeed($id);
+        //     $searchResult = json_decode($searchResult);
+        //     $profile = json_decode($profile);
+        //     // return view('home_page.dashboard',compact('searchResult','profile','deafult_active'));
+        //     return view('home_page.ajax_dashboard',compact('searchResult','profile','deafult_active'));
+        // }
+
+           $user_name = $request->searchUser;
+           $usersInfo = array();
+           $result1 = $this->ig->login(session('username'), session('password'));
+           $userid = $this->ig->people->getUserIdForName($user_name);
+           $ranktoken = \InstagramAPI\Signatures::generateUUID();
+           $searchResult1 = $this->ig->people->getFollowers($userid,$ranktoken);
+           $searchResult2 = $this->ig->people->getFollowing($userid,$ranktoken);
+
+           $searchResult1 = json_decode($searchResult1);
+           $searchResult2 = json_decode($searchResult2);
+           try{
+               foreach ($searchResult1->users as $searchResult){
+                   $id = $searchResult->pk;
+                   $userSelfInfo = $this->ig->people->getInfoById($id);
+
+                   $userSelfInfo = json_decode($userSelfInfo);
+
+                   $usersInfo[] = ['username' => $userSelfInfo->user->username,'biography' => $userSelfInfo->user->biography,
+                       'followerCount' => $userSelfInfo->user->follower_count,'followingCount' => $userSelfInfo->user->following_count,
+                       'photo' => $userSelfInfo->user->profile_pic_url,'post' => $userSelfInfo->user->media_count,'private' => $userSelfInfo->user->is_private];
+
+               }
+
+               foreach ($searchResult2->users as $searchResult2){
+                   $id = $searchResult2->pk;
+                   $userSelfInfo2 = $this->ig->people->getInfoById($id);
+
+                   $userSelfInfo2 = json_decode($userSelfInfo2);
+
+                   $usersInfoFollowing[] = ['username' => $userSelfInfo2->user->username,'biography' => $userSelfInfo2->user->biography,
+                       'followerCount' => $userSelfInfo2->user->follower_count,'followingCount' => $userSelfInfo2->user->following_count,
+                       'photo' => $userSelfInfo2->user->profile_pic_url,'post' => $userSelfInfo2->user->media_count,'private' => $userSelfInfo2->user->is_private];
+
+               }
+
+           }catch (\Exception $ex){
+
+           }
+
+           return view('home_page.ajax_follower_following_list_details',compact('usersInfo','usersInfoFollowing'));
 
     }
 
@@ -112,8 +153,11 @@ class HomePageController extends Controller
 //        $ranktoken = \InstagramAPI\Signatures::generateUUID();
  //$searchResult1 = $this->ig->people->getInfoById('1474834026');
         $id1 = $this->ig->people->getUserIdForName('icc');
+        $userid = $this->ig->people->getUserIdForName('kazolrazbongshi');
+        $ranktoken = \InstagramAPI\Signatures::generateUUID();
+        $searchResult1 = $this->ig->people->getFollowing($userid,$ranktoken);
         //$profile1 = $this->ig->people->getInfoById($id1);
-        $searchResult1 = $this->ig->timeline->getUserFeed($id1,'2087994060823561670_376525195');
+        // $searchResult1 = $this->ig->timeline->getUserFeed($id1,'2087994060823561670_376525195');
         //$searchResult1 = json_decode($searchResult1);
 //        $profile1 = json_decode($profile1);
 
