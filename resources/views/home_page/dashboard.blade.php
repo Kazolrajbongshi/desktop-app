@@ -99,7 +99,7 @@
                 <!-- <a class="navbar-brand" href="#"><img src="{{asset('assets/img/pdf_logo.PNG')}}"></a> -->
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav" id="myTab" role="tablist" style="margin-left: 35%;border-bottom: #ffffff;">
+            <ul class="nav navbar-nav" id="myTab" role="tablist" style="border-bottom: #ffffff;    float: none;margin: 0 auto;display: table;table-layout: fixed">
                 @if(isset($deafult_active))
                 <li class="nav-item active" style="border-right: 1px solid #10b3b3;">
                     <a class="nav-link" id="home-tab" data-toggle="tab" href="#defaultsearch" role="tab"
@@ -123,18 +123,29 @@
                 </li>
                 @endif
                 @if(isset($media_active))
-                <li class="nav-item active">
+                <li class="nav-item active" style="border-right: 1px solid #10b3b3;">
                     <a class="nav-link" id="contact-tab" data-toggle="tab" href="#mediasearch" role="tab"
                        aria-controls="contact" aria-selected="false">Media</a>
                 </li>
                 @else
-                <li class="nav-item">
+                <li class="nav-item" style="border-right: 1px solid #10b3b3;">
                     <a class="nav-link" id="contact-tab" data-toggle="tab" href="#mediasearch" role="tab"
                        aria-controls="contact" aria-selected="false">Media</a>
                 </li>
                 @endif
+                @if(isset($Hashtag_active))
+                <li class="nav-item active">
+                    <a class="nav-link" id="hashtag-tab" data-toggle="tab" href="#hashtagsearch" role="tab"
+                       aria-controls="hashtag" aria-selected="false">Hashtag</a>
+                </li>
+                @else
+                <li class="nav-item">
+                    <a class="nav-link" id="hashtag-tab" data-toggle="tab" href="#hashtagsearch" role="tab"
+                       aria-controls="hashtag" aria-selected="false">Hashtag</a>
+                </li>
+                @endif
                 <a href="{{url('logout')}}"
-                    <button type="button" class="btn btn-default navbar-btn navbar-right"style="margin-right: -95%;">Logout</button>
+                    <button type="button" class="btn btn-default navbar-btn navbar-right"style="margin-right: -75%;">Logout</button>
                 </a>
 
             </ul>
@@ -583,6 +594,55 @@
       @endif
     </div>
     <!-- Media search end -->
+
+    <!-- Hashtag Search Start -->
+  @if(isset($hashtag_active))
+  <div class="tab-pane active" id="hashtagsearch" role="tabpanel" aria-labelledby="hashtag-tab">
+  @else
+  <div class="tab-pane" id="hashtagsearch" role="tabpanel" aria-labelledby="hashtag-tab">
+  @endif
+
+      <div class="jumbotron" id="hashtag_search_div" style="padding-top: 0px;padding-bottom: 5px;margin-bottom: 15px;">
+          <form action="javascript:void(0);" method="post">
+              {{csrf_field()}}
+              <meta type="hidden" name="csrf-token" content="{{csrf_token()}}">
+              <div class="row">
+                  <div class="col-sm-4 col-sm-offset-4">
+                      <button type="button" class="btn btn-success btn-lg" id="hashtag_search" 
+                              style="float: right;background-color: #ffffff;color: #000000;border-color: #ccc;border-left: 2px solid #10b3b3;">
+                          Search
+                      </button>
+                      <div class="first-search-add" style="overflow: hidden; padding-right: 0px;">
+                          <input type="text" name="hashtag_value" id="hashtag_value" class="form-control"
+                                 placeholder="Enter hasgtag"
+                                 style="height: 46px;">
+                      </div>
+
+                  </div>
+              </div>
+              <!-- <div style="margin-top: 15px;">
+                <button class="btn btn-success btn-lg">Search</button>
+              </div> -->
+          </form>
+          <div id="no_hashtag" style="text-align: center;">
+          @if(!isset($hashtag_active))
+          <div class="row" style="margin-top: 10%;">
+              <div class="container">
+                <div class="text-center">
+                  <div class="col-sm-6 col-sm-offset-3 no_src_msg">
+                    At the very beginning here it will be shown instruction of this search works. When search find result will be shown; it will be gone. Every time this compare tab will be open this message box will be shown.
+                  </div>
+                </div>
+              </div>
+            </div>
+        @endif
+      </div>
+
+      </div>
+
+    </div>
+    <!-- Hasgtag search end -->
+
   </div>
 </div>
 <!-- Tab end -->
@@ -727,6 +787,39 @@
 
       });
       //Compare search end//
+
+      /* hashtag serach start*/
+ 
+         $("#hashtag_search").click(function(){
+          var hashtag = $('#hashtag_value').val();
+
+          $.ajax({
+           url: "{{url('hashtag-search')}}",
+           type: "post",
+           data: {"_token": "{{ csrf_token() }}","hashtag":hashtag},
+           beforeSend: function(){
+            // Show image container
+            console.log(hashtag);
+            $("#Load").show();
+           },
+           success: function(response){
+            console.log(response.data);
+             if(response.data == 2){
+              $('#no_hashtag').html(response.no_hashtag_err);
+            }
+            else{
+              $('#hashtag_search_div').html(response);
+            }
+           },
+           complete:function(data){
+            // Hide image container
+            $("#Load").hide();
+           }
+          });
+         
+         });
+
+        /* hashtag serach end*/
 
     });
   </script>
