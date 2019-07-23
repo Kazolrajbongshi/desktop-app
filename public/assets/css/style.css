@@ -149,3 +149,139 @@ button.first-search-add-btn,button.second-search-add-btn,button.third-search-rem
 .container.u_main_content {
     padding-top: 68px;
 }
+
+
+
+/* Hashtag search radio button start */
+
+.create_destination .main_content .hashtag_title input {
+    height: 45px;
+    max-width: 350px;
+    border-radius: 20%/0px 100px 100px 0px;
+    z-index: 9;
+}
+.create_destination .input_box span.input-group-text {
+    background: white;
+    border: none;
+    z-index: 1;
+    margin-left: -15px;
+}
+.hashtag_title span.input-group-text {
+    background: #06af94 !important;
+    color: #ffffff;
+    padding: 0 2em;
+    font-size: 1.2em;
+}
+
+.create_destination .radio_list {
+   /* display: flex;
+    justify-content: space-around;
+    flex-wrap: nowrap;
+    max-width: 800px;
+    margin: 2em 0;*/
+
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: nowrap;
+    margin: 2em 0;
+}
+.single_radio input {
+    margin-bottom: 2em;
+    margin-right: 1em;
+}
+
+.checkcontainer {
+    display: block;
+    position: relative;
+    padding-left: 2em;
+    margin-bottom: 1em;
+    cursor: pointer;
+    font-weight: normal;
+    font-size: 1.3em;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    margin-right: 1em;
+    float: left;
+    width: 30%;
+}
+.checkcontainer input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+.radiobtn {
+    position: absolute;
+    top: 5px;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background-color: #06af94;
+    border-radius: 50%;
+}
+.checkcontainer .radiobtn:after {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: white;
+    margin: 0;;
+}
+.radiobtn:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+.checkcontainer input:checked ~ .radiobtn:after {
+    display: block;
+}
+
+ .checkcontainer input[type="radio"]{
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+ .radio-btn{
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: red;
+    border-radius: 50%;
+    position: absolute;
+} 
+.create_destination .form_buttons .p_btn {
+    border-radius: 4px;
+    line-height: 1.4em;
+    background-color: #06af94;
+    border-color: #06af94;
+    color: #fff;
+}
+
+.form_buttons {
+    text-align: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+}
+.form_buttons .p_btn {
+    margin-right: 1em;
+    text-align: center;
+    line-height: 1.8em;
+    border-radius: 20px;
+    padding: 0.4em 2em;
+    background-color: transparent;
+    border: 1px solid #a8c5fd;
+    color: #a8c5fd;
+    cursor: pointer;
+}
+.form_buttons .p_btn:last-child{
+    margin-right: 0;
+}
+/* Hashtag search radio button end */
+
+#flt0_demo,#flt5_demo,#flt0_following_list_csv,#flt5_following_list_csv{
+    display: none;
+}

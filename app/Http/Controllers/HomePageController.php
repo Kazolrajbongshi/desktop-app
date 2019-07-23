@@ -365,6 +365,29 @@ class HomePageController extends Controller
         }
    }
 
+   public function hashtagSearch(Request $request){
+        
+            $hashtag = $request->hashtag;
+            
+            $this->ig->login(session('username'), session('password'));
+            $rank_token= \InstagramAPI\Signatures::generateUUID();
+            $result = $this->ig->hashtag->search($hashtag);
+          
+            $obj = json_decode($result);
+            if($obj->results == null){
+                return response()->json(['no_hashtag_err'=>'No hashtag found','data'=>'2']);
+                
+            }
+            $hashtagName = array();
+            $postCounter = array();
+
+            $results = $obj->results;
+
+            $hashtag_active = 'active';
+            
+            return view('home_page.ajax_hashtag_list',compact('results','hashtag','hashtag_active'));
+    }
+
    public function logout(){
     Session::flush();
     return redirect('/user-login');
