@@ -624,7 +624,7 @@
                 <button class="btn btn-success btn-lg">Search</button>
               </div> -->
           </form>
-          <div id="no_hashtag" style="text-align: center;">
+          <div id="no_hashtag">
           @if(!isset($hashtag_active))
           <div class="row" style="margin-top: 10%;">
               <div class="container">

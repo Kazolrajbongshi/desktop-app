@@ -3,7 +3,7 @@
 
 	<div class="container-fluid">
 	  <div class="row create_destination">            
-	    <div class="col-sm-10 col-sm-offset-1 main_content">
+	    <div class="col-sm-12 main_content">
 
         <form action="javascript:void(0);" method="post">
               {{csrf_field()}}
@@ -27,12 +27,11 @@
               </div> -->
           </form>
 
-			<div id="no_hashtag" style="text-align: center;">
+			<div id="no_hashtag">
 			<!-- <div class='response'></div> -->
-			<form action="{{URL::to('hashtag-list-search-csv')}}" method="post">
-
-
+			<form action="javascript:void(0);" method="post">
 			    {{csrf_field()}}
+          <meta type="hidden" name="csrf-token" content="{{csrf_token()}}">
 			    <div class="radio_list_area">
 			    	@if(isset($results))
 			        <div class="radio_label" style="text-align: center;border-bottom: 1px solid #c9cabd;">
@@ -107,5 +106,41 @@
          });
 
         /* hashtag list serach end*/
+
+        /* hashtag list user details start*/
+ 
+         $("#ajax_hashtag_save").click(function(){
+          var hashtag = $("input[name='hashtag_list']:checked"). val();
+
+          $.ajax({
+           url: "{{url('hashtag-list-details')}}",
+           type: "post",
+           data: {"_token": "{{ csrf_token() }}","hashtag":hashtag},
+           beforeSend: function(){
+            // Show image container
+            console.log(hashtag);
+            $("#Load").show();
+           },
+           success: function(response){
+            console.log(response.data);
+
+            if(response.value == 1){
+              $('#no_hashtag').html(response.msg);
+            }
+            else{
+             
+              $('#no_hashtag').html(response);
+            }
+            
+           },
+           complete:function(data){
+            // Hide image container
+            $("#Load").hide();
+           }
+          });
+         
+         });
+
+        /* hashtag list user details end*/
 
 </script>
