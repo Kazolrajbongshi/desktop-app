@@ -145,6 +145,7 @@ class HomePageController extends Controller
 
     }
 
+
     public function test(){
 
 
@@ -181,26 +182,63 @@ class HomePageController extends Controller
 //
 //        $username = 'mahfuzhur007';
 //        $password = 'rockerboy0168';
-//
-////////////////////////
-//
-//        try {
-//            $loginResponse = $this->ig->login($username, $password);
-//            if ($loginResponse !== null && $loginResponse->isTwoFactorRequired()) {
-//                $this->twoFactorIdentifier = $loginResponse->getTwoFactorInfo()->getTwoFactorIdentifier();
-//                // The "STDIN" lets you paste the code via terminal for testing.
-//                // You should replace this line with the logic you want.
-//                // The verification code will be sent by Instagram via SMS.
-//                $verificationCode = '374650';
-//
-//               $this->two($username,$password,$verificationCode);
-//            }
-//        } catch (\Exception $e) {
-//            echo 'Something went wrong: '.$e->getMessage()."\n";
-//        }
-//        $searchResult1 =$this->ig->people->getSelfInfo();
 
-        return $searchResult1;
+//
+//////        print_r($searchResult1);
+//////        exit();
+////        //$searchResult3->caption->text
+//////        print_r($searchResult1) ;
+////        return $searchResult1;
+////        $url = 'https://instagram.fdac26-1.fna.fbcdn.net/vp/738cf7b8c9f5b9a6517dad72b3b0c250/5DAA9E32/t51.2885-15/e35/54800752_2330402480568290_2482030731750175422_n.jpg?_nc_ht=instagram.fdac26-1.fna.fbcdn.net&se=7&ig_cache_key=MjAxMzMxNDY0MzY4Njg1NTM4NA%3D%3D.2';
+////        $url = 'https://instagram.fdac26-1.fna.fbcdn.net/vp/65537cc766e0c8563e1043f2b8012d2f/5DC70746/t51.2885-15/e35/61911421_527895654412951_8439248423457928837_n.jpg?_nc_ht=instagram.fdac26-1.fna.fbcdn.net&se=7&ig_cache_key=MjA2NDA5NjE4NDk2NDY5Nzc5NA%3D%3D.2';
+//////       // $url = "http://www.google.co.in/intl/en_com/images/srpr/logo1w.png";
+////        $contents = file_get_contents($url);
+////        $name = str_random(10).'.'.'jpg';;
+////       // Storage::put($name, $contents);
+////        $temp = Storage::disk('uploads')->put($name, $contents);
+//        //return $searchResult1;
+//
+////        set_time_limit(0);
+////        date_default_timezone_set('UTC');
+/////////// CONFIG ///////
+////
+////        $username = 'mahfuzhur007';
+////        $password = 'rockerboy0168';
+////
+//////////////////////////
+////
+////        try {
+////            $loginResponse = $this->ig->login($username, $password);
+////            if ($loginResponse !== null && $loginResponse->isTwoFactorRequired()) {
+////                $this->twoFactorIdentifier = $loginResponse->getTwoFactorInfo()->getTwoFactorIdentifier();
+////                // The "STDIN" lets you paste the code via terminal for testing.
+////                // You should replace this line with the logic you want.
+////                // The verification code will be sent by Instagram via SMS.
+////                $verificationCode = '374650';
+////
+////               $this->two($username,$password,$verificationCode);
+////            }
+////        } catch (\Exception $e) {
+////            echo 'Something went wrong: '.$e->getMessage()."\n";
+////        }
+////        $searchResult1 =$this->ig->people->getSelfInfo();
+//
+        //$username = $request->json('username');
+        //dd($username);
+//        $hash = $request->json('token'); //generate token from the control panel
+//        $numbers = $request->json('number'); //Recipient Phone Number multiple number must be separated by comma
+//        $message = $request->json('mgs');
+////        dd($username,$hash,$numbers,$message);
+//        $params = array('app'=>'ws', 'u'=>$username, 'h'=>$hash, 'op'=>'pv', 'unicode'=>'1','to'=>$numbers, 'msg'=>$message);
+//
+//        $ch = curl_init();
+//        curl_setopt($ch, CURLOPT_URL, "http://alphasms.biz/index.php?".http_build_query($params, "", "&"));
+//        curl_setopt($ch, CURLOPT_HTTPHEADER, array("Content-Type:application/json", "Accept:application/json"));
+//        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, TRUE);
+//        curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+//
+//        $response = curl_exec($ch);
+//        curl_close ($ch);
     }
 
     public function pictureSearch(Request $request){
@@ -234,14 +272,26 @@ class HomePageController extends Controller
         try {
             $client = new InstagramDownload($copyLink);
             $url = $client->getDownloadUrl(); // Returns the download URL.
+            
+            if($client->getType() == 'video'){
+                $contents = file_get_contents($url);
+                $name = str_random(10).'.'.'mp4';;
+                // Storage::put($name, $contents);
+                $temp = Storage::disk('uploads')->put($name, $contents);
+                //$url = Storage::url($name);
+                //return response()->download(asset('images/'.$name));
+                return response()->download('images/'.$name);
+            }else{
+                $contents = file_get_contents($url);
+                $name = str_random(10).'.'.'jpg';;
+                // Storage::put($name, $contents);
+                $temp = Storage::disk('uploads')->put($name, $contents);
+                //$url = Storage::url($name);
+                //return response()->download(asset('images/'.$name));
+                return response()->download('images/'.$name);
+            }
             //$type = $client->getType(); // Returns "image" or "video" depending on the media type.
-            $contents = file_get_contents($url);
-            $name = str_random(10).'.'.'jpg';;
-            // Storage::put($name, $contents);
-            $temp = Storage::disk('uploads')->put($name, $contents);
-            //$url = Storage::url($name);
-            //return response()->download(asset('images/'.$name));
-            return response()->download('images/'.$name);
+
         }
         catch (\InvalidArgumentException $exception) {
             /*
@@ -366,17 +416,17 @@ class HomePageController extends Controller
    }
 
    public function hashtagSearch(Request $request){
-        
+
             $hashtag = $request->hashtag;
-            
+
             $this->ig->login(session('username'), session('password'));
             $rank_token= \InstagramAPI\Signatures::generateUUID();
             $result = $this->ig->hashtag->search($hashtag);
-          
+
             $obj = json_decode($result);
             if($obj->results == null){
                 return response()->json(['no_hashtag_err'=>'No hashtag found','data'=>'2']);
-                
+
             }
             $hashtagName = array();
             $postCounter = array();
@@ -384,12 +434,13 @@ class HomePageController extends Controller
             $results = $obj->results;
 
             $hashtag_active = 'active';
-            
+
             return view('home_page.ajax_hashtag_list',compact('results','hashtag','hashtag_active'));
     }
 
    public function logout(){
-    Session::flush();
+//    Session::flush();
+       $this->ig->logout();
     return redirect('/user-login');
    }
 
