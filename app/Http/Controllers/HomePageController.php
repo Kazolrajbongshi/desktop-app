@@ -88,34 +88,101 @@ class HomePageController extends Controller
 
     public function defaultSearch(Request $request){
 
-        $result1 = $this->ig->login(session('username'), session('password'));
-        $search =   $request->searchUser;
-        // return response()->json(['data'=>$search]);
-        $deafult_active = 'active';
-        if ($search != null){
-            $id = $this->ig->people->getUserIdForName($search);
-            $profile = $this->ig->people->getInfoById($id);
-            $searchResult = $this->ig->timeline->getUserFeed($id);
-            $searchResult = json_decode($searchResult);
-            $profile = json_decode($profile);
-            // return view('home_page.dashboard',compact('searchResult','profile','deafult_active'));
-            return view('home_page.ajax_dashboard',compact('searchResult','profile','deafult_active'));
-        }
+        // $result1 = $this->ig->login(session('username'), session('password'));
+        // $search =   $request->searchUser;
+        // // return response()->json(['data'=>$search]);
+        // $deafult_active = 'active';
+        // if ($search != null){
+        //     $id = $this->ig->people->getUserIdForName($search);
+        //     $profile = $this->ig->people->getInfoById($id);
+        //     $searchResult = $this->ig->timeline->getUserFeed($id);
+        //     $searchResult = json_decode($searchResult);
+        //     $profile = json_decode($profile);
+        //     // return view('home_page.dashboard',compact('searchResult','profile','deafult_active'));
+        //     return view('home_page.ajax_dashboard',compact('searchResult','profile','deafult_active'));
+        // }
+
+           $user_name = $request->searchUser;
+           $usersInfo = array();
+           $result1 = $this->ig->login(session('username'), session('password'));
+           $userid = $this->ig->people->getUserIdForName($user_name);
+           $ranktoken = \InstagramAPI\Signatures::generateUUID();
+           $searchResult1 = $this->ig->people->getFollowers($userid,$ranktoken);
+           $searchResult2 = $this->ig->people->getFollowing($userid,$ranktoken);
+
+           $searchResult1 = json_decode($searchResult1);
+           $searchResult2 = json_decode($searchResult2);
+           try{
+               foreach ($searchResult1->users as $searchResult){
+                   $id = $searchResult->pk;
+                   $userSelfInfo = $this->ig->people->getInfoById($id);
+
+                   $userSelfInfo = json_decode($userSelfInfo);
+
+                   $usersInfo[] = ['username' => $userSelfInfo->user->username,'biography' => $userSelfInfo->user->biography,
+                       'followerCount' => $userSelfInfo->user->follower_count,'followingCount' => $userSelfInfo->user->following_count,
+                       'photo' => $userSelfInfo->user->profile_pic_url,'post' => $userSelfInfo->user->media_count,'private' => $userSelfInfo->user->is_private];
+
+               }
+
+               foreach ($searchResult2->users as $searchResult2){
+                   $id = $searchResult2->pk;
+                   $userSelfInfo2 = $this->ig->people->getInfoById($id);
+
+                   $userSelfInfo2 = json_decode($userSelfInfo2);
+
+                   $usersInfoFollowing[] = ['username' => $userSelfInfo2->user->username,'biography' => $userSelfInfo2->user->biography,
+                       'followerCount' => $userSelfInfo2->user->follower_count,'followingCount' => $userSelfInfo2->user->following_count,
+                       'photo' => $userSelfInfo2->user->profile_pic_url,'post' => $userSelfInfo2->user->media_count,'private' => $userSelfInfo2->user->is_private];
+
+               }
+
+           }catch (\Exception $ex){
+
+           }
+
+           return view('home_page.ajax_follower_following_list_details',compact('usersInfo','usersInfoFollowing'));
 
     }
 
-    public function test(Request $request){
+
+    public function test(){
 
 
-//        $result1 = $this->ig->login('webvision100','instagram123456');
-////        $search1 =  'fifa' ;//$request->searchUser;
-////        $ranktoken = \InstagramAPI\Signatures::generateUUID();
-// //$searchResult1 = $this->ig->people->getInfoById('1474834026');
-//        $id1 = $this->ig->people->getUserIdForName('icc');
-//        //$profile1 = $this->ig->people->getInfoById($id1);
-//        $searchResult1 = $this->ig->timeline->getUserFeed($id1,'2087994060823561670_376525195');
-//        //$searchResult1 = json_decode($searchResult1);
-////        $profile1 = json_decode($profile1);
+        $result1 = $this->ig->login('webvision100','instagram123456');
+//        $search1 =  'fifa' ;//$request->searchUser;
+//        $ranktoken = \InstagramAPI\Signatures::generateUUID();
+ //$searchResult1 = $this->ig->people->getInfoById('1474834026');
+        $id1 = $this->ig->people->getUserIdForName('icc');
+        $userid = $this->ig->people->getUserIdForName('kazolrazbongshi');
+        $ranktoken = \InstagramAPI\Signatures::generateUUID();
+        $searchResult1 = $this->ig->people->getFollowing($userid,$ranktoken);
+        //$profile1 = $this->ig->people->getInfoById($id1);
+        // $searchResult1 = $this->ig->timeline->getUserFeed($id1,'2087994060823561670_376525195');
+        //$searchResult1 = json_decode($searchResult1);
+//        $profile1 = json_decode($profile1);
+
+////        print_r($searchResult1);
+////        exit();
+//        //$searchResult3->caption->text
+////        print_r($searchResult1) ;
+//        return $searchResult1;
+//        $url = 'https://instagram.fdac26-1.fna.fbcdn.net/vp/738cf7b8c9f5b9a6517dad72b3b0c250/5DAA9E32/t51.2885-15/e35/54800752_2330402480568290_2482030731750175422_n.jpg?_nc_ht=instagram.fdac26-1.fna.fbcdn.net&se=7&ig_cache_key=MjAxMzMxNDY0MzY4Njg1NTM4NA%3D%3D.2';
+//        $url = 'https://instagram.fdac26-1.fna.fbcdn.net/vp/65537cc766e0c8563e1043f2b8012d2f/5DC70746/t51.2885-15/e35/61911421_527895654412951_8439248423457928837_n.jpg?_nc_ht=instagram.fdac26-1.fna.fbcdn.net&se=7&ig_cache_key=MjA2NDA5NjE4NDk2NDY5Nzc5NA%3D%3D.2';
+////       // $url = "http://www.google.co.in/intl/en_com/images/srpr/logo1w.png";
+//        $contents = file_get_contents($url);
+//        $name = str_random(10).'.'.'jpg';;
+//       // Storage::put($name, $contents);
+//        $temp = Storage::disk('uploads')->put($name, $contents);
+        //return $searchResult1;
+
+//        set_time_limit(0);
+//        date_default_timezone_set('UTC');
+///////// CONFIG ///////
+//
+//        $username = 'mahfuzhur007';
+//        $password = 'rockerboy0168';
+
 //
 //////        print_r($searchResult1);
 //////        exit();
@@ -224,6 +291,25 @@ class HomePageController extends Controller
         }
 
     }
+
+    public function csvImageDownload(Request $request){
+        if ($request->has('link')) {
+            $path = $request->input('link');
+        }
+        // echo $path;
+        // exit();
+        $contents = file_get_contents($path);
+        $name = str_random(10).'.'.'jpg';;
+       // Storage::put($name, $contents);
+        $temp = Storage::disk('uploads')->put($name, $contents);
+        //$url = Storage::url($name);
+        //return response()->download(asset('images/'.$name));
+        return response()->download('images/'.$name);
+
+
+        //echo $temp;
+    }
+
     public function two($username,$password,$verificationCode){
         $temp = $this->ig->finishTwoFactorLogin($username, $password, $this->twoFactorIdentifier, $verificationCode);
 
@@ -316,6 +402,29 @@ class HomePageController extends Controller
             return response()->json(['data'=>'1']);
         }
    }
+
+   public function hashtagSearch(Request $request){
+
+            $hashtag = $request->hashtag;
+
+            $this->ig->login(session('username'), session('password'));
+            $rank_token= \InstagramAPI\Signatures::generateUUID();
+            $result = $this->ig->hashtag->search($hashtag);
+
+            $obj = json_decode($result);
+            if($obj->results == null){
+                return response()->json(['no_hashtag_err'=>'No hashtag found','data'=>'2']);
+
+            }
+            $hashtagName = array();
+            $postCounter = array();
+
+            $results = $obj->results;
+
+            $hashtag_active = 'active';
+
+            return view('home_page.ajax_hashtag_list',compact('results','hashtag','hashtag_active'));
+    }
 
    public function logout(){
 //    Session::flush();
