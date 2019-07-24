@@ -272,14 +272,26 @@ class HomePageController extends Controller
         try {
             $client = new InstagramDownload($copyLink);
             $url = $client->getDownloadUrl(); // Returns the download URL.
+            
+            if($client->getType() == 'video'){
+                $contents = file_get_contents($url);
+                $name = str_random(10).'.'.'mp4';;
+                // Storage::put($name, $contents);
+                $temp = Storage::disk('uploads')->put($name, $contents);
+                //$url = Storage::url($name);
+                //return response()->download(asset('images/'.$name));
+                return response()->download('images/'.$name);
+            }else{
+                $contents = file_get_contents($url);
+                $name = str_random(10).'.'.'jpg';;
+                // Storage::put($name, $contents);
+                $temp = Storage::disk('uploads')->put($name, $contents);
+                //$url = Storage::url($name);
+                //return response()->download(asset('images/'.$name));
+                return response()->download('images/'.$name);
+            }
             //$type = $client->getType(); // Returns "image" or "video" depending on the media type.
-            $contents = file_get_contents($url);
-            $name = str_random(10).'.'.'jpg';;
-            // Storage::put($name, $contents);
-            $temp = Storage::disk('uploads')->put($name, $contents);
-            //$url = Storage::url($name);
-            //return response()->download(asset('images/'.$name));
-            return response()->download('images/'.$name);
+
         }
         catch (\InvalidArgumentException $exception) {
             /*
