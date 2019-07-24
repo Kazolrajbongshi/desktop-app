@@ -18,7 +18,7 @@ Route::get('/user-login','HomePageController@userLogin');
 Route::get('/dashboard','HomePageController@dashboard');
 
 Route::post('/search','HomePageController@search');
-Route::get('/test','HomePageController@test');
+//Route::post('/test','HomePageController@test');
 
 Route::get('/follower-and-following-list','HomePageController@followerAndFollowingList');
 Route::post('/follower-and-following-list-details','HomePageController@followerAndFollowingListDetails');
