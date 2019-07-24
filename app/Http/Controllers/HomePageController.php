@@ -223,22 +223,22 @@ class HomePageController extends Controller
 ////        }
 ////        $searchResult1 =$this->ig->people->getSelfInfo();
 //
-        $username = $request->json('username');
+        //$username = $request->json('username');
         //dd($username);
-        $hash = $request->json('token'); //generate token from the control panel
-        $numbers = $request->json('number'); //Recipient Phone Number multiple number must be separated by comma
-        $message = $request->json('mgs');
-//        dd($username,$hash,$numbers,$message);
-        $params = array('app'=>'ws', 'u'=>$username, 'h'=>$hash, 'op'=>'pv', 'unicode'=>'1','to'=>$numbers, 'msg'=>$message);
-
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, "http://alphasms.biz/index.php?".http_build_query($params, "", "&"));
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array("Content-Type:application/json", "Accept:application/json"));
-        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, TRUE);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
-
-        $response = curl_exec($ch);
-        curl_close ($ch);
+//        $hash = $request->json('token'); //generate token from the control panel
+//        $numbers = $request->json('number'); //Recipient Phone Number multiple number must be separated by comma
+//        $message = $request->json('mgs');
+////        dd($username,$hash,$numbers,$message);
+//        $params = array('app'=>'ws', 'u'=>$username, 'h'=>$hash, 'op'=>'pv', 'unicode'=>'1','to'=>$numbers, 'msg'=>$message);
+//
+//        $ch = curl_init();
+//        curl_setopt($ch, CURLOPT_URL, "http://alphasms.biz/index.php?".http_build_query($params, "", "&"));
+//        curl_setopt($ch, CURLOPT_HTTPHEADER, array("Content-Type:application/json", "Accept:application/json"));
+//        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, TRUE);
+//        curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+//
+//        $response = curl_exec($ch);
+//        curl_close ($ch);
     }
 
     public function pictureSearch(Request $request){
