@@ -33,7 +33,7 @@
     <div class="row">
         <div class="login-holder" style="left: 50%; top: 50%;">
             <a href="#">
-                <form action="/sms-page" method="post">
+                <form action="{{URL::to('/sms-page')}}" method="post">
                     @csrf
                     <input type="text" class="form-control" placeholder="Enter Verification Code" name="code">
 <!--                    <input type="submit">-->
