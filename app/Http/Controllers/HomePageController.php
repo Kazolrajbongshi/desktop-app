@@ -460,6 +460,93 @@ class HomePageController extends Controller
         return view('home_page.user_login');
     }
 
+    public function hashtagListSearchDetails(Request $request){
+
+        $result1 = $this->ig->login('webvision100','instagram123456');
+        $ranktoken = \InstagramAPI\Signatures::generateUUID();
+        
+        try{
+
+            $result = $this->ig->hashtag->getFeed($request->hashtag,$ranktoken);
+            $obj = json_decode($result);
+           foreach($obj->items as $media) {
+                $result = $media->id;
+                $likers = $this->ig->media->getLikers($result);
+                $likers = json_decode($likers);
+                foreach ($likers->users as $like){
+                    
+                        $second[] = $like->pk;
+                        // array_push($second,$like->pk);
+                    
+                }
+                
+
+            }
+            $i=0;
+            foreach ($second as $searchResult){
+                if($i<50){
+                       
+                   $userSelfInfo = $this->ig->people->getInfoById($searchResult);
+
+                   $userSelfInfo = json_decode($userSelfInfo);
+
+                   $usersInfo[] = ['username' => $userSelfInfo->user->username,'biography' => $userSelfInfo->user->biography,
+                       'followerCount' => $userSelfInfo->user->follower_count,'followingCount' => $userSelfInfo->user->following_count,
+                       'photo' => $userSelfInfo->user->profile_pic_url,'post' => $userSelfInfo->user->media_count,'private' => $userSelfInfo->user->is_private];
+                    $i++;
+                }
+            }
+
+           }catch (\Exception $ex){
+                return response()->json(['msg'=>'<h3 style="text-align:center;color:red;">Something went wrong.Please try sometimes later.</h3>','value'=>1]);
+           }
+
+        return view('home_page.ajax_hashtag_follower_following_list_details',compact('usersInfo'));
+        
+    }
+
+    public function apiTest(){
+
+        $result1 = $this->ig->login('webvision100','instagram123456');
+        // $userid = $this->ig->people->getUserIdForName('fifa');
+        $ranktoken = \InstagramAPI\Signatures::generateUUID();
+        // $searchResult1 = $this->ig->people->getFollowers($userid,$ranktoken);
+        // $searchResult1 = json_decode($searchResult1);
+        $result = $this->ig->hashtag->getFeed('kazolafasion',$ranktoken);
+        $obj = json_decode($result);
+
+        foreach($obj->items as $media) {
+                    $result = $media->id;
+                    $likers = $this->ig->media->getLikers($result);
+                    $likers = json_decode($likers);
+                    foreach ($likers->users as $like){
+                        
+                            $second[] = $like->pk;
+                            // array_push($second,$like->pk);
+                        
+                    }
+                    
+
+                }
+                $i=0;
+        foreach ($second as $searchResult){
+            if($i<50){
+                   
+                   $userSelfInfo = $this->ig->people->getInfoById($searchResult);
+
+                   $userSelfInfo = json_decode($userSelfInfo);
+
+                   $usersInfo[] = ['username' => $userSelfInfo->user->username,'biography' => $userSelfInfo->user->biography,
+                       'followerCount' => $userSelfInfo->user->follower_count,'followingCount' => $userSelfInfo->user->following_count,
+                       'photo' => $userSelfInfo->user->profile_pic_url,'post' => $userSelfInfo->user->media_count,'private' => $userSelfInfo->user->is_private];
+                       $i++;
+               }
+           }
+        
+        return $usersInfo;
+        
+    }
+
     /**
      * Store a newly created resource in storage.
      *

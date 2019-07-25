@@ -40,3 +40,4 @@ Route::get('/media-url','HomePageController@media');
 
 Route::get('/csv-image-download', 'HomePageController@csvImageDownload');
 Route::post('/hashtag-search', 'HomePageController@hashtagSearch');
+Route::post('/hashtag-list-details', 'HomePageController@hashtagListSearchDetails');
