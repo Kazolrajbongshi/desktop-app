@@ -32,6 +32,7 @@ class HomePageController extends Controller
     public function dashboard(){
         if(session('username')){
             $deafult_active = 'active';
+            dd(session('username'));
             return view('home_page.dashboard',compact('deafult_active'));
         }else{
             return redirect('/user-login');
@@ -272,7 +273,7 @@ class HomePageController extends Controller
         try {
             $client = new InstagramDownload($copyLink);
             $url = $client->getDownloadUrl(); // Returns the download URL.
-            
+
             if($client->getType() == 'video'){
                 $contents = file_get_contents($url);
                 $name = str_random(10).'.'.'mp4';;
@@ -340,7 +341,7 @@ class HomePageController extends Controller
     public function loginSubmit(Request $request){
         $username = $request->username;
         $password = $request->password;
-        session(['username' => $username,'password' => $password]);
+
         set_time_limit(0);
         date_default_timezone_set('UTC');
         try {
@@ -355,11 +356,14 @@ class HomePageController extends Controller
 //
 //                //$this->two($username,$password,$verificationCode);
 //                $this->ig->finishTwoFactorLogin($username, $password, $this->twoFactorIdentifier, $verificationCode);
+                session(['username' => $username,'password' => $password]);
                 return view('home_page.sms_page');
             }else{
+                session(['username' => $username,'password' => $password]);
                 return redirect('dashboard');
             }
         } catch (\Exception $e) {
+
             echo 'Something went wrong: '.$e->getMessage()."\n";
         }
 
@@ -439,7 +443,7 @@ class HomePageController extends Controller
     }
 
    public function logout(){
-//    Session::flush();
+    Session::flush();
        $this->ig->logout();
     return redirect('/user-login');
    }
