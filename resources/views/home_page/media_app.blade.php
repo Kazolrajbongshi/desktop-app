@@ -165,14 +165,14 @@
                 {{csrf_field()}}
                 <div class="row">
 
-                    <div class="col-sm-4 col-sm-offset-4" style="margin-top: 5%;">
+                    <div class="col-sm-4 col-sm-offset-4">
                         <button type="submit" class="btn btn-success btn-lg "
                                 style="float: right;background-color: #ffffff;color: #000000;border-color: #ccc;border-left: 2px solid #10b3b3;">
                             Search
                         </button>
                         <div class="first-search-add" style="overflow: hidden; padding-right: 0px;">
                             <input type="text" name="pictureSearch" class="form-control"
-                                   placeholder="Enter your copied image URL in the below field"
+                                   placeholder="Enter Your Image or Video URL for Download"
                                    style="height: 46px;">
                         </div>
 
