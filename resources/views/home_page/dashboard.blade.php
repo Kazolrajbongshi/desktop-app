@@ -94,6 +94,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand logo" href="#"><span>D-Gram</span></a>
                 <!-- <a class="navbar-brand" href="#"><img src="{{asset('assets/img/pdf_logo.PNG')}}"></a> -->
@@ -134,18 +135,21 @@
                 </li>
                 @endif
                 @if(isset($Hashtag_active))
-                <li class="nav-item active">
+                <li class="nav-item active" style="border-right: 1px solid #10b3b3;">
                     <a class="nav-link" id="hashtag-tab" data-toggle="tab" href="#hashtagsearch" role="tab"
                        aria-controls="hashtag" aria-selected="false">Hashtag</a>
                 </li>
                 @else
-                <li class="nav-item">
+                <li class="nav-item" style="border-right: 1px solid #10b3b3;">
                     <a class="nav-link" id="hashtag-tab" data-toggle="tab" href="#hashtagsearch" role="tab"
                        aria-controls="hashtag" aria-selected="false">Hashtag</a>
                 </li>
                 @endif
-                <a href="{{url('logout')}}"
-                    <button type="button" class="btn btn-default navbar-btn navbar-right"style="margin-right: -75%;">Logout</button>
+                <a href="{{URL::to('/media-app')}}">
+                <button type="button" class="btn btn-default navbar-btn navbar-right"style="margin-right: 10%;">APP</button>
+                </a>
+                <a href="{{url('logout')}}">
+                    <button type="button" class="btn btn-default navbar-btn navbar-right"style="margin-right: -85%;">Logout</button>
                 </a>
 
             </ul>
@@ -608,7 +612,7 @@
               <meta type="hidden" name="csrf-token" content="{{csrf_token()}}">
               <div class="row">
                   <div class="col-sm-4 col-sm-offset-4">
-                      <button type="button" class="btn btn-success btn-lg" id="hashtag_search" 
+                      <button type="button" class="btn btn-success btn-lg" id="hashtag_search"
                               style="float: right;background-color: #ffffff;color: #000000;border-color: #ccc;border-left: 2px solid #10b3b3;">
                           Search
                       </button>
@@ -647,7 +651,7 @@
 </div>
 <!-- Tab end -->
 <div class="jumbotron text-center" style="left: 70%; top: 50%;">
-<div class="row">           
+<div class="row">
         <div class="col-sm-12" id="parsed_csv_list" style="margin-top: 2%;">
         </div>
     </div>
@@ -699,12 +703,12 @@
 <!-- media url modal start-->
 <div class="modal fade" id="myModal" role="dialog" id="media_url_modal">
     <div class="modal-dialog">
-    
+
       <!-- Modal content-->
       <div class="modal-content" style="padding: 3%;">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
         <div class="modal-header">
-          
+
           <h4 class="modal-title">Enter your copied image URL in the below field</h4>
           <form action="{{url('url-download')}}" method="post">
             {{csrf_field()}}
@@ -715,7 +719,7 @@
           </form>
         </div>
         <div class="modal-body">
-          <h4>Select a csv file that contains list of image URL</h4> 
+          <h4>Select a csv file that contains list of image URL</h4>
           <form action="" method="post" enctype="multipart/form-data">
             {{csrf_field()}}
             <button type="submit" class="btn btn-success btn-lg " id="submit-file" data-dismiss="modal"
@@ -730,7 +734,7 @@
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         </div> -->
       </div>
-      
+
     </div>
   </div>
 
@@ -789,7 +793,7 @@
       //Compare search end//
 
       /* hashtag serach start*/
- 
+
          $("#hashtag_search").click(function(){
           var hashtag = $('#hashtag_value').val();
 
@@ -816,7 +820,7 @@
             $("#Load").hide();
            }
           });
-         
+
          });
 
         /* hashtag serach end*/
@@ -826,7 +830,7 @@
 
   <script type="text/javascript">
   $(document).ready(function(){
-    
+
     $('#submit-file').on("click",function(e){
         e.preventDefault();
         $('#files').parse({
@@ -848,17 +852,17 @@
             }
         });
     });
-    
+
     function displayHTMLTable(results){
         /*
         var table = "<table class='table'>";
         var data = results.data;
-         
+
         for(i=0;i<data.length;i++){
             table+= "<tr>";
             var row = data[i];
             var cells = row.join(",").split(",");
-             
+
             for(j=0;j<cells.length;j++){
                 table+= "<td>";
                 table+= '<img src="'+cells[j]+'" style="float:left;"';
@@ -881,12 +885,12 @@
 
         for(i=0;i<data.length;i++){
             value+= "<div class='col-sm-3' style='border:1px solid #828e97;width:24%;padding: 10px;margin: 5px;'>";
-            value+= '<img src="'+data[i]+'" style="height:270px;width:300px;border: 1px solid #d6e1e9;padding: 3px;margin-bottom: 5px;">'; 
+            value+= '<img src="'+data[i]+'" style="height:270px;width:300px;border: 1px solid #d6e1e9;padding: 3px;margin-bottom: 5px;">';
             var temp = "{{url('csv-image-download')}}";
             var temp1 = "/?link="+data[i];
             var concat = temp + temp1;
             value+= '<a href="'+concat+'"'+' class="btn btn-info" style="width:100%;">Download</a>';
-            value+= "</div>";                
+            value+= "</div>";
         }
         $("#media_search_div").hide();
         $("#parsed_csv_list").html(value);

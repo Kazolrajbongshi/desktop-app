@@ -21,6 +21,24 @@ class HomePageController extends Controller
     {
         return view('home_page.media_url');
     }
+    public function mediaApp()
+    {
+        return view('home_page.media_app');
+    }
+    public function mediaAppImage(Request $request)
+    {
+
+        $result1 = $this->ig->login('dosnix.tech','ilove100%');
+        $search1 = $request->pictureSearch;
+        $id1 = $this->ig->people->getUserIdForName($search1);
+        //$profile1 = $this->ig->people->getInfoById($id1);
+        $searchResult = $this->ig->timeline->getUserFeed($id1);
+        $pictures = json_decode($searchResult);
+//        print_r($pictures->items[0]->image_versions2->candidates[0]->url);
+//        exit();
+
+        return view('home_page.media_app',compact('pictures'));
+    }
     public function __construct()
     {
         Instagram::$allowDangerousWebUsageAtMyOwnRisk = true;
@@ -272,7 +290,7 @@ class HomePageController extends Controller
         try {
             $client = new InstagramDownload($copyLink);
             $url = $client->getDownloadUrl(); // Returns the download URL.
-            
+
             if($client->getType() == 'video'){
                 $contents = file_get_contents($url);
                 $name = str_random(10).'.'.'mp4';;
@@ -464,7 +482,7 @@ class HomePageController extends Controller
 
         $result1 = $this->ig->login('webvision100','instagram123456');
         $ranktoken = \InstagramAPI\Signatures::generateUUID();
-        
+
         try{
 
             $result = $this->ig->hashtag->getFeed($request->hashtag,$ranktoken);
@@ -474,18 +492,18 @@ class HomePageController extends Controller
                 $likers = $this->ig->media->getLikers($result);
                 $likers = json_decode($likers);
                 foreach ($likers->users as $like){
-                    
+
                         $second[] = $like->pk;
                         // array_push($second,$like->pk);
-                    
+
                 }
-                
+
 
             }
             $i=0;
             foreach ($second as $searchResult){
                 if($i<50){
-                       
+
                    $userSelfInfo = $this->ig->people->getInfoById($searchResult);
 
                    $userSelfInfo = json_decode($userSelfInfo);
@@ -502,7 +520,7 @@ class HomePageController extends Controller
            }
 
         return view('home_page.ajax_hashtag_follower_following_list_details',compact('usersInfo'));
-        
+
     }
 
     public function apiTest(){
@@ -520,18 +538,18 @@ class HomePageController extends Controller
                     $likers = $this->ig->media->getLikers($result);
                     $likers = json_decode($likers);
                     foreach ($likers->users as $like){
-                        
+
                             $second[] = $like->pk;
                             // array_push($second,$like->pk);
-                        
+
                     }
-                    
+
 
                 }
                 $i=0;
         foreach ($second as $searchResult){
             if($i<50){
-                   
+
                    $userSelfInfo = $this->ig->people->getInfoById($searchResult);
 
                    $userSelfInfo = json_decode($userSelfInfo);
@@ -542,9 +560,9 @@ class HomePageController extends Controller
                        $i++;
                }
            }
-        
+
         return $usersInfo;
-        
+
     }
 
     /**
