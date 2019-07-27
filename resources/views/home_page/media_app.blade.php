@@ -173,7 +173,7 @@
                         <div class="first-search-add" style="overflow: hidden; padding-right: 0px;">
 
                             <input type="text" name="appImageUrl" class="form-control"
-                                   placeholder="Enter your copied image URL in the below field"
+                                   placeholder="Enter your Image or Video URL for Download"
 
                                    style="height: 46px;">
                         </div>
