@@ -161,18 +161,20 @@
             </form>
         </div>
         <div class="jumbotron text-center" id="media_search_div" style="padding-top: 0px;padding-bottom: 5px;margin-bottom: 15px;">
-            <form action="#" method="post">
+            <form action="{{URL::to('app-url-download')}}" method="post">
                 {{csrf_field()}}
                 <div class="row">
 
                     <div class="col-sm-4 col-sm-offset-4">
                         <button type="submit" class="btn btn-success btn-lg "
                                 style="float: right;background-color: #ffffff;color: #000000;border-color: #ccc;border-left: 2px solid #10b3b3;">
-                            Search
+                            Download
                         </button>
                         <div class="first-search-add" style="overflow: hidden; padding-right: 0px;">
-                            <input type="text" name="pictureSearch" class="form-control"
-                                   placeholder="Enter Your Image or Video URL for Download"
+
+                            <input type="text" name="appImageUrl" class="form-control"
+                                   placeholder="Enter your copied image URL in the below field"
+
                                    style="height: 46px;">
                         </div>
 
