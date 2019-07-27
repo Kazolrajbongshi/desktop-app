@@ -28,7 +28,7 @@ class HomePageController extends Controller
     public function mediaAppImage(Request $request)
     {
 
-        $result1 = $this->ig->login('dosnix.tech','ilove100%');
+        $result1 = $this->ig->login(session('username'), session('password'));
         $search1 = $request->pictureSearch;
         $id1 = $this->ig->people->getUserIdForName($search1);
         //$profile1 = $this->ig->people->getInfoById($id1);
@@ -167,7 +167,7 @@ class HomePageController extends Controller
     public function test(){
 
 
-        $result1 = $this->ig->login('webvision100','instagram123456');
+        $result1 = $this->ig->login(session('username'), session('password'));
 //        $search1 =  'fifa' ;//$request->searchUser;
 //        $ranktoken = \InstagramAPI\Signatures::generateUUID();
  //$searchResult1 = $this->ig->people->getInfoById('1474834026');
@@ -260,7 +260,7 @@ class HomePageController extends Controller
     }
 
     public function pictureSearch(Request $request){
-        $result1 = $this->ig->login('webvision100','instagram123456');
+        $result1 = $this->ig->login(session('username'), session('password'));
         $search1 = $request->pictureSearch;
         $id1 = $this->ig->people->getUserIdForName($search1);
         //$profile1 = $this->ig->people->getInfoById($id1);
@@ -519,7 +519,7 @@ class HomePageController extends Controller
 
     public function hashtagListSearchDetails(Request $request){
 
-        $result1 = $this->ig->login('webvision100','instagram123456');
+        $result1 = $this->ig->login(session('username'), session('password'));
         $ranktoken = \InstagramAPI\Signatures::generateUUID();
 
         try{
@@ -564,7 +564,7 @@ class HomePageController extends Controller
 
     public function apiTest(){
 
-        $result1 = $this->ig->login('webvision100','instagram123456');
+        $result1 = $this->ig->login(session('username'), session('password'));
         // $userid = $this->ig->people->getUserIdForName('fifa');
         $ranktoken = \InstagramAPI\Signatures::generateUUID();
         // $searchResult1 = $this->ig->people->getFollowers($userid,$ranktoken);
