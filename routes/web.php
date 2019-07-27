@@ -30,6 +30,7 @@ Route::get('/login','HomePageController@loginPage');
 Route::post('/loginSubmit','HomePageController@loginSubmit');
 Route::post('/sms-page','HomePageController@smsPage');
 Route::post('/url-download','HomePageController@urlDownload');
+Route::post('/app-url-download','HomePageController@appUrlDownload');
 
 Route::get('/logout','HomePageController@logout');
 

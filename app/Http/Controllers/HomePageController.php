@@ -321,6 +321,45 @@ class HomePageController extends Controller
         }
 
     }
+    public function appImageView(Request $request){
+        $imageUrl = $request->urlImage;
+
+    }
+    public function appUrlDownload(Request $request){
+        $copyLink = $request->appImageUrl;
+        try {
+            $client = new InstagramDownload($copyLink);
+            $url = $client->getDownloadUrl(); // Returns the download URL.
+
+            if($client->getType() == 'video'){
+                $contents = file_get_contents($url);
+                $name = str_random(10).'.'.'mp4';;
+                // Storage::put($name, $contents);
+                $temp = Storage::disk('uploads')->put($name, $contents);
+                //$url = Storage::url($name);
+                //return response()->download(asset('images/'.$name));
+                return response()->download('images/'.$name);
+            }else{
+                $contents = file_get_contents($url);
+                $name = str_random(10).'.'.'jpg';;
+                // Storage::put($name, $contents);
+                $temp = Storage::disk('uploads')->put($name, $contents);
+                //$url = Storage::url($name);
+                //return response()->download(asset('images/'.$name));
+                return response()->download('images/'.$name);
+            }
+            //$type = $client->getType(); // Returns "image" or "video" depending on the media type.
+
+        }
+        catch (\InvalidArgumentException $exception) {
+            /*
+             * \InvalidArgumentException exceptions will be thrown if there is a validation
+             * error in the URL. You might want to break the code flow and report the error
+             * to your form handler at this point.
+             */
+            $error = $exception->getMessage();
+        }
+    }
 
     public function csvImageDownload(Request $request){
         if ($request->has('link')) {
