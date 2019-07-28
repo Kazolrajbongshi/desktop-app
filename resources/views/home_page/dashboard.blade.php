@@ -201,9 +201,33 @@
             <div class="first-search-add" style="overflow: hidden; padding-right: 0px;">
               <input type="text" name="searchUser" class="form-control" id="default_value" placeholder="Enter your search name" style="height: 46px;border-top-right-radius: 0;border-bottom-right-radius: 0;">
             </div>
-            <div class="single_radio radio1">
-              <div class="col-sm-12" style="margin-top: 2%;">
-                <div class="col-sm-6" style="font-size: 2rem;">
+
+            <div class="radio_list_area">
+            
+              <div class="radio_list">
+                  <div class="single_radio radio1">
+                    <div class="col-sm-12" style="margin-top: 2%;"> 
+                      <div class="col-sm-6" style="font-size: 2rem;"> 
+                        <label class="checkcontainer" style="padding-left: 1.5em;font-size: 1em;">Follower
+                          <input type="radio" name="follower_following" value="follower" checked=""><br>
+                          <span class="radiobtn"></span>
+                        </label>
+                      </div>
+                      <div class="col-sm-6" style="font-size: 2rem;">
+                        <label class="checkcontainer" style="padding-left: 1.5em;font-size: 1em;">Following
+                          <input type="radio" name="follower_following" value="following"><br>
+                          <span class="radiobtn"></span>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+
+              </div>
+          </div>
+            <!-- <div class="single_radio radio1">
+              <div class="col-sm-12" style="margin-top: 2%;"> 
+                <div class="col-sm-6" style="font-size: 2rem;"> 
+
                   <input type="radio" name="follower_following" value="follower" checked="">Follower
                 </div>
                 <div class="col-sm-6" style="font-size: 2rem;">
@@ -211,10 +235,14 @@
                 </div>
 
               </div>
+              
+          </div> -->
+
 
           </div>
 
-        </div>
+
+        
       </div>
       <!-- <div style="margin-top: 15px;">
         <button class="btn btn-success btn-lg">Search</button>
@@ -612,7 +640,7 @@
                             @csrf
 
                             @if(isset($picture->video_versions[0]->url))
-                            <video  width="320" height="240" controls>
+                            <video style="display:block; height: 300px; width: 100%;" controls>
                                 <source src="{{$picture->video_versions[0]->url}}" type="video/mp4">
 
                                 Your browser does not support the video tag.
