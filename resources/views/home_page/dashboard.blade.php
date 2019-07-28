@@ -612,7 +612,7 @@
                             @csrf
 
                             @if(isset($picture->video_versions[0]->url))
-                            <video  width="320" height="240" controls>
+                            <video style="display:block; height: 300px; width: 100%;" controls>
                                 <source src="{{$picture->video_versions[0]->url}}" type="video/mp4">
 
                                 Your browser does not support the video tag.
