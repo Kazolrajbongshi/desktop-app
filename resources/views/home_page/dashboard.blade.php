@@ -609,7 +609,8 @@
                     <div class="column">
                         <form action="{{url('picture-download')}}" method="post">
                             @csrf
-                            <img src="@if(isset($picture->image_versions2->candidates[0]->url)){{$picture->image_versions2->candidates[0]->url}}@endif" alt="Snow" style="width: 100%;">
+
+                            <img src="@if(isset($picture->image_versions2->candidates[0]->url)){{$picture->image_versions2->candidates[0]->url}}@endif" alt="Snow"style="display:block; height: 300px; width: 100%;">
                             <br>
                             <input type="hidden" name="imageUrl" value="@if(isset($picture->image_versions2->candidates[0]->url)){{$picture->image_versions2->candidates[0]->url}}@endif">
                             <!--                                <input type="text"style="width: 50%; margin: 0;">-->
