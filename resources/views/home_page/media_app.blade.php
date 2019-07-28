@@ -73,6 +73,18 @@
             border-radius: 5px;
             text-align: center;
         }
+        .column {
+            float: left;
+            width: 33.33%;
+            padding: 5px;
+        }
+
+        /* Clearfix (clear floats) */
+        .row::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
         @media (max-width: 768px) {
             btn1{
                 /*position: absolute;*/
@@ -80,7 +92,10 @@
                 left: 75%;
             }
         }
-
+        @media screen and (max-width: 500px) {
+            .column {
+                width: 100%;
+            }
         @media (min-width: 769px) and (max-width: 992px) {
             btn1{
                 padding:4px 9px;
@@ -182,40 +197,48 @@
             </form>
         </div>
         @if(isset($pictures))
-        <div class="row"">
+        <div class="row">
             <div class="row">
-                @foreach($pictures->items as $picture)
-                <div class="col-md-4 col-md-offset-4">
-                    <form action="{{url('picture-download')}}"method="post">
-                        @csrf
-<!--                    <img src="https://www.instagram.com/p/B0Y-3VDjqikU-j2ZzkDbbODakKXqA7wZpU3uhs0/" class="img-responsive" alt="Cinque Terre" width="304" height="236">-->
-<!--                        <img src="@if(isset($picture->image_versions2->candidates[0]->url)){{$picture->image_versions2->candidates[0]->url}}@endif" alt="Snow"class="img-responsive"width="304" height="236"style="border: 3px solid #ddd; border-radius: 4px;" >-->
-<!---->
-<!--<!--                        <input type="hidden" name="imageUrl" value="{{asset('images/bgEZqrnT03.jpg')}}">-->
-<!--                        <input type="hidden" name="imageUrl" value="@if(isset($picture->image_versions2->candidates[0]->url)){{$picture->image_versions2->candidates[0]->url}}@endif">-->
-                        @if(isset($picture->video_versions[0]->url))
-                        <video  width="320" height="240" controls>
-                            <source src="{{$picture->video_versions[0]->url}}" type="video/mp4" alt="Snow"class="img-responsive"width="304" height="236"style="border: 3px solid #ddd; border-radius: 4px;" >
+                <div class="col-md-2"></div>
 
-                            Your browser does not support the video tag.
-                        </video>
+                <div class="col-md-8">
+                    @foreach($pictures->items as $picture)
+                    <!--                    --><?php
+                    //                    print_r($picture->image_versions2->candidates[0]->url);
+                    //                    exit();
+                    //                    ?>
+                    <div class="column">
+                        <form action="{{url('picture-download')}}" method="post">
+                            @csrf
 
-                        @elseif(isset($picture->image_versions2->candidates[0]->url))
-                        <img src="{{$picture->image_versions2->candidates[0]->url}}" alt="Snow"class="img-responsive"width="304" height="236"style="border: 3px solid #ddd; border-radius: 4px;" >
-                        @endif
+                            @if(isset($picture->video_versions[0]->url))
+                            <video style="display:block; height: 300px; width: 100%;" controls>
+                                <source src="{{$picture->video_versions[0]->url}}" type="video/mp4">
 
+                                Your browser does not support the video tag.
+                            </video>
 
-                        @if(isset($picture->video_versions[0]->url))
-                        <input type="hidden" name="videoUrl" value="{{$picture->id}}">
-                        @elseif(isset($picture->image_versions2->candidates[0]->url))
-                        <input type="hidden" name="imageUrl" value="{{$picture->image_versions2->candidates[0]->url}}">
-                        @endif
-                        <br>
-                    <button type="submit" class="btn1"><i class="fa fa-download"></i></button>
-                        <br>
-                    </form>
+                            @elseif(isset($picture->image_versions2->candidates[0]->url))
+                            <img src="{{$picture->image_versions2->candidates[0]->url}}" alt="Snow"style="display:block; height: 300px; width: 100%;">
+                            @endif
+                            @if(isset($picture->video_versions[0]->url))
+                            <input type="hidden" name="videoUrl" value="{{$picture->id}}">
+                            @elseif(isset($picture->image_versions2->candidates[0]->url))
+                            <input type="hidden" name="imageUrl" value="{{$picture->image_versions2->candidates[0]->url}}">
+                            @endif
+                            <!--                                <input type="text"style="width: 50%; margin: 0;">-->
+<!--                            <button type="submit" class="btn btn-info" style="width:100%;">Download</button>-->
+                            <br>
+                            <button type="submit" class="btn"><i class="fa fa-download"></i></button>
+                            <br>
+                        </form>
+
+                    </div>
+                    @endforeach
+
                 </div>
-                @endforeach
+
+                <div class="col-md-2"></div>
             </div>
         </div>
         @endif
