@@ -206,10 +206,11 @@ button.first-search-add-btn,button.second-search-add-btn,button.third-search-rem
     float: left;
     width: 30%;
 }
-@media (max-width: 496px){
-    .checkcontainer{
-        display: block;
-    }
+@media (min-width: 320px) and (max-width: 480px){
+.checkcontainer{
+    display: block;
+    width: 100%;
+}
 }
 .checkcontainer input {
     position: absolute;
