@@ -580,9 +580,22 @@
                     <div class="column">
                         <form action="{{url('picture-download')}}" method="post">
                             @csrf
-                            <img src="@if(isset($picture->image_versions2->candidates[0]->url)){{$picture->image_versions2->candidates[0]->url}}@endif" alt="Snow" style="border: 3px solid #ddd; border-radius: 4px;padding: 5px; height:270px; width: 300px;">
+                            @if(isset($picture->video_versions[0]->url))
+                            <video  width="320" height="240" controls>
+                                <source src="{{$picture->video_versions[0]->url}}" type="video/mp4">
+
+                                Your browser does not support the video tag.
+                            </video>
+
+                            @elseif(isset($picture->image_versions2->candidates[0]->url))
+                            <img src="{{$picture->image_versions2->candidates[0]->url}}" alt="Snow" style="border: 3px solid #ddd; border-radius: 4px;padding: 5px; height:270px; width: 300px;">
+                            @endif
                             <br>
-                            <input type="hidden" name="imageUrl" value="@if(isset($picture->image_versions2->candidates[0]->url)){{$picture->image_versions2->candidates[0]->url}}@endif">
+                            @if(isset($picture->video_versions[0]->url))
+                            <input type="text" name="videoUrl" value="{{$picture->id}}">
+                            @elseif(isset($picture->image_versions2->candidates[0]->url))
+                            <input type="text" name="imageUrl" value="{{$picture->image_versions2->candidates[0]->url}}">
+                            @endif
                             <!--                                <input type="text"style="width: 50%; margin: 0;">-->
                             <button type="submit" class="btn btn-info" style="width:100%;">Download</button>
                         </form>
