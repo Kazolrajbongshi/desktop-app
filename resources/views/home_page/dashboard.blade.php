@@ -624,9 +624,9 @@
 
 
                             @if(isset($picture->video_versions[0]->url))
-                            <input type="text" name="videoUrl" value="{{$picture->id}}">
+                            <input type="hidden" name="videoUrl" value="{{$picture->id}}">
                             @elseif(isset($picture->image_versions2->candidates[0]->url))
-                            <input type="text" name="imageUrl" value="{{$picture->image_versions2->candidates[0]->url}}">
+                            <input type="hidden" name="imageUrl" value="{{$picture->image_versions2->candidates[0]->url}}">
                             @endif
                             <!--                                <input type="text"style="width: 50%; margin: 0;">-->
                             <button type="submit" class="btn btn-info" style="width:100%;">Download</button>

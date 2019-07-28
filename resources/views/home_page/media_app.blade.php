@@ -189,10 +189,27 @@
                     <form action="{{url('picture-download')}}"method="post">
                         @csrf
 <!--                    <img src="https://www.instagram.com/p/B0Y-3VDjqikU-j2ZzkDbbODakKXqA7wZpU3uhs0/" class="img-responsive" alt="Cinque Terre" width="304" height="236">-->
-                        <img src="@if(isset($picture->image_versions2->candidates[0]->url)){{$picture->image_versions2->candidates[0]->url}}@endif" alt="Snow"class="img-responsive"width="304" height="236"style="border: 3px solid #ddd; border-radius: 4px;" >
+<!--                        <img src="@if(isset($picture->image_versions2->candidates[0]->url)){{$picture->image_versions2->candidates[0]->url}}@endif" alt="Snow"class="img-responsive"width="304" height="236"style="border: 3px solid #ddd; border-radius: 4px;" >-->
+<!---->
+<!--<!--                        <input type="hidden" name="imageUrl" value="{{asset('images/bgEZqrnT03.jpg')}}">-->
+<!--                        <input type="hidden" name="imageUrl" value="@if(isset($picture->image_versions2->candidates[0]->url)){{$picture->image_versions2->candidates[0]->url}}@endif">-->
+                        @if(isset($picture->video_versions[0]->url))
+                        <video  width="320" height="240" controls>
+                            <source src="{{$picture->video_versions[0]->url}}" type="video/mp4" alt="Snow"class="img-responsive"width="304" height="236"style="border: 3px solid #ddd; border-radius: 4px;" >
 
-<!--                        <input type="hidden" name="imageUrl" value="{{asset('images/bgEZqrnT03.jpg')}}">-->
-                        <input type="hidden" name="imageUrl" value="@if(isset($picture->image_versions2->candidates[0]->url)){{$picture->image_versions2->candidates[0]->url}}@endif">
+                            Your browser does not support the video tag.
+                        </video>
+
+                        @elseif(isset($picture->image_versions2->candidates[0]->url))
+                        <img src="{{$picture->image_versions2->candidates[0]->url}}" alt="Snow"class="img-responsive"width="304" height="236"style="border: 3px solid #ddd; border-radius: 4px;" >
+                        @endif
+
+
+                        @if(isset($picture->video_versions[0]->url))
+                        <input type="hidden" name="videoUrl" value="{{$picture->id}}">
+                        @elseif(isset($picture->image_versions2->candidates[0]->url))
+                        <input type="hidden" name="imageUrl" value="{{$picture->image_versions2->candidates[0]->url}}">
+                        @endif
                         <br>
                     <button type="submit" class="btn1"><i class="fa fa-download"></i></button>
                         <br>
