@@ -477,14 +477,11 @@ class HomePageController extends Controller
                 return response()->json(['no_hashtag_err'=>'No hashtag found','data'=>'2']);
 
             }
-            $hashtagName = array();
-            $postCounter = array();
-
             $results = $obj->results;
 
             $hashtag_active = 'active';
 
-            return view('home_page.ajax_hashtag_list',compact('results','hashtag','hashtag_active'));
+            return view('home_page.ajax_hashtag_list',compact('results','hashtag'));
     }
 
    public function logout(){
@@ -531,9 +528,9 @@ class HomePageController extends Controller
 
 
             }
-            $i=0;
+            
             foreach ($second as $searchResult){
-                if($i<50){
+                
 
                    $userSelfInfo = $this->ig->people->getInfoById($searchResult);
 
@@ -542,8 +539,8 @@ class HomePageController extends Controller
                    $usersInfo[] = ['username' => $userSelfInfo->user->username,'biography' => $userSelfInfo->user->biography,
                        'followerCount' => $userSelfInfo->user->follower_count,'followingCount' => $userSelfInfo->user->following_count,
                        'photo' => $userSelfInfo->user->profile_pic_url,'post' => $userSelfInfo->user->media_count,'private' => $userSelfInfo->user->is_private];
-                    $i++;
-                }
+                   
+                
             }
 
            }catch (\Exception $ex){
