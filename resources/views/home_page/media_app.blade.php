@@ -121,7 +121,6 @@
 
 
 </head>
-<body class="login-page">
 <!-- top header -->
 
 <header>

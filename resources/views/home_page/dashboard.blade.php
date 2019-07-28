@@ -80,6 +80,23 @@
   }
 
 }
+.column {
+    float: left;
+    width: 33.33%;
+    padding: 5px;
+}
+
+/* Clearfix (clear floats) */
+.row::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+@media screen and (max-width: 500px) {
+    .column {
+        width: 100%;
+    }
+}
 </style>
 </head>
 <body style="background: #eeeeee;">
@@ -580,7 +597,7 @@
                     <div class="column">
                         <form action="{{url('picture-download')}}" method="post">
                             @csrf
-                            <img src="@if(isset($picture->image_versions2->candidates[0]->url)){{$picture->image_versions2->candidates[0]->url}}@endif" alt="Snow" style="border: 3px solid #ddd; border-radius: 4px;padding: 5px; height:270px; width: 300px;">
+                            <img src="@if(isset($picture->image_versions2->candidates[0]->url)){{$picture->image_versions2->candidates[0]->url}}@endif" alt="Snow"style="display:block; height: 300px; width: 100%;">
                             <br>
                             <input type="hidden" name="imageUrl" value="@if(isset($picture->image_versions2->candidates[0]->url)){{$picture->image_versions2->candidates[0]->url}}@endif">
                             <!--                                <input type="text"style="width: 50%; margin: 0;">-->
