@@ -10,7 +10,8 @@
         "fideloper/proxy": "^4.0",
         "laravel/framework": "5.6.*",
         "laravel/tinker": "^1.0",
-        "mgp25/instagram-php": "^6.0"
+        "mgp25/instagram-php": "^6.0",
+        "raiym/instagram-php-scraper": "^0.8.34",
     },
     "require-dev": {
         "filp/whoops": "^2.0",
