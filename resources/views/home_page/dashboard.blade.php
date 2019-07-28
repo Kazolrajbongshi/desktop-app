@@ -201,6 +201,18 @@
             <div class="first-search-add" style="overflow: hidden; padding-right: 0px;">
               <input type="text" name="searchUser" class="form-control" id="default_value" placeholder="Enter your search name" style="height: 46px;border-top-right-radius: 0;border-bottom-right-radius: 0;">
             </div>
+            <div class="single_radio radio1">
+              <div class="col-sm-12" style="margin-top: 2%;"> 
+                <div class="col-sm-6" style="font-size: 2rem;"> 
+                  <input type="radio" name="follower_following" value="follower" checked="">Follower
+                </div>
+                <div class="col-sm-6" style="font-size: 2rem;"> 
+                  <input type="radio" name="follower_following" value="following">Following
+                </div>
+                
+              </div>
+              
+          </div>
 
         </div>
       </div>
@@ -598,6 +610,7 @@
                     <div class="column">
                         <form action="{{url('picture-download')}}" method="post">
                             @csrf
+
                             <img src="@if(isset($picture->image_versions2->candidates[0]->url)){{$picture->image_versions2->candidates[0]->url}}@endif" alt="Snow"style="display:block; height: 300px; width: 100%;">
                             <br>
                             <input type="hidden" name="imageUrl" value="@if(isset($picture->image_versions2->candidates[0]->url)){{$picture->image_versions2->candidates[0]->url}}@endif">
@@ -764,12 +777,14 @@
       $('#default_search_button').click(function(){
 
         var searchUser = $('#default_value').val();
+        var searchType = $("input[name='follower_following']:checked"). val();
         $.ajax({
           url: "{{url('/default-search')}}",
           type: "post",
-          data: {"_token": "{{ csrf_token() }}","searchUser": searchUser},
+          data: {"_token": "{{ csrf_token() }}","searchUser": searchUser,'searchType': searchType},
           beforeSend: function(){
             console.log(searchUser);
+            console.log(searchType);
             $('#Load').show();
           },
           success: function(response){

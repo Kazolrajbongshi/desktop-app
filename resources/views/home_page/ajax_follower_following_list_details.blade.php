@@ -1,6 +1,6 @@
 <h3>Follower List Details:</h3>
-<div class="table-wrapper-scroll-y my-custom-scrollbar">
-    <table id="demo" class="countries-tiny table table-hover table-bordered" data-toggle="table">
+<div class="table-wrapper-scroll-y my-custom-scrollbar table-responsive-sm">
+    <table id="demo" class="countries-tiny table table-hover table-bordered w-auto" data-toggle="table">
         <thead>
         <tr>
             <td scope="col"><input type="checkbox" name="" id="inp-chkbox1"></td>
@@ -87,7 +87,7 @@
 
 
 
-<h3>Following List Details:</h3>
+<!-- <h3>Following List Details:</h3>
 <div class="table-wrapper-scroll-y my-custom-scrollbar">
     <table id="following_list_csv" class="countries-tiny table table-hover table-bordered" data-toggle="table">
         <thead>
@@ -125,9 +125,9 @@
     </table>
 </div>
 <!-- </div> -->
-<div style="text-align:center;">
+<!-- <div style="text-align:center;">
     <a href="#" class="btn btn-primary" id="down_following"><span style="color: black;">Export as</span>&nbsp;&nbsp;CSV</a>
-</div>
+</div>  -->
 <script src="https://rawgit.com/wenzhixin/bootstrap-table/master/src/bootstrap-table.js"></script>
 <script type="text/javascript" src="{{asset('assets/js/tablefilter.js')}}"></script>
 <script type="text/javascript" src="{{asset('assets/js/style.js')}}"></script>
