@@ -125,11 +125,14 @@ class HomePageController extends Controller
            $result1 = $this->ig->login(session('username'), session('password'));
            $userid = $this->ig->people->getUserIdForName($user_name);
            $ranktoken = \InstagramAPI\Signatures::generateUUID();
-           $searchResult1 = $this->ig->people->getFollowers($userid,$ranktoken);
-           $searchResult2 = $this->ig->people->getFollowing($userid,$ranktoken);
-
-           $searchResult1 = json_decode($searchResult1);
-           $searchResult2 = json_decode($searchResult2);
+           if($request->searchType == 'follower'){
+             $searchResult1 = $this->ig->people->getFollowers($userid,$ranktoken);
+             $searchResult1 = json_decode($searchResult1);
+           }else{
+             $searchResult1 = $this->ig->people->getFollowing($userid,$ranktoken);
+             $searchResult1 = json_decode($searchResult1);
+           }
+                            
            try{
                foreach ($searchResult1->users as $searchResult){
                    $id = $searchResult->pk;
@@ -143,23 +146,12 @@ class HomePageController extends Controller
 
                }
 
-               foreach ($searchResult2->users as $searchResult2){
-                   $id = $searchResult2->pk;
-                   $userSelfInfo2 = $this->ig->people->getInfoById($id);
-
-                   $userSelfInfo2 = json_decode($userSelfInfo2);
-
-                   $usersInfoFollowing[] = ['username' => $userSelfInfo2->user->username,'biography' => $userSelfInfo2->user->biography,
-                       'followerCount' => $userSelfInfo2->user->follower_count,'followingCount' => $userSelfInfo2->user->following_count,
-                       'photo' => $userSelfInfo2->user->profile_pic_url,'post' => $userSelfInfo2->user->media_count,'private' => $userSelfInfo2->user->is_private];
-
-               }
 
            }catch (\Exception $ex){
 
            }
 
-           return view('home_page.ajax_follower_following_list_details',compact('usersInfo','usersInfoFollowing'));
+           return view('home_page.ajax_follower_following_list_details',compact('usersInfo'));
 
     }
 
@@ -498,7 +490,7 @@ class HomePageController extends Controller
    public function logout(){
 //    Session::flush();
        $this->ig->logout();
-    return redirect('/user-login');
+    return redirect('/');
    }
 
 

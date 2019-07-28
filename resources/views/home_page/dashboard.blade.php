@@ -80,6 +80,23 @@
   }
 
 }
+.column {
+    float: left;
+    width: 33.33%;
+    padding: 5px;
+}
+
+/* Clearfix (clear floats) */
+.row::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+@media screen and (max-width: 500px) {
+    .column {
+        width: 100%;
+    }
+}
 </style>
 </head>
 <body style="background: #eeeeee;">
@@ -183,6 +200,18 @@
             <div class="first-search-add" style="overflow: hidden; padding-right: 0px;">
               <input type="text" name="searchUser" class="form-control" id="default_value" placeholder="Enter your search name" style="height: 46px;border-top-right-radius: 0;border-bottom-right-radius: 0;">
             </div>
+            <div class="single_radio radio1">
+              <div class="col-sm-12" style="margin-top: 2%;"> 
+                <div class="col-sm-6" style="font-size: 2rem;"> 
+                  <input type="radio" name="follower_following" value="follower" checked="">Follower
+                </div>
+                <div class="col-sm-6" style="font-size: 2rem;"> 
+                  <input type="radio" name="follower_following" value="following">Following
+                </div>
+                
+              </div>
+              
+          </div>
 
         </div>
       </div>
@@ -580,7 +609,7 @@
                     <div class="column">
                         <form action="{{url('picture-download')}}" method="post">
                             @csrf
-                            <img src="@if(isset($picture->image_versions2->candidates[0]->url)){{$picture->image_versions2->candidates[0]->url}}@endif" alt="Snow" style="border: 3px solid #ddd; border-radius: 4px;padding: 5px; height:270px; width: 300px;">
+                            <img src="@if(isset($picture->image_versions2->candidates[0]->url)){{$picture->image_versions2->candidates[0]->url}}@endif" alt="Snow" style="width: 100%;">
                             <br>
                             <input type="hidden" name="imageUrl" value="@if(isset($picture->image_versions2->candidates[0]->url)){{$picture->image_versions2->candidates[0]->url}}@endif">
                             <!--                                <input type="text"style="width: 50%; margin: 0;">-->
@@ -746,12 +775,14 @@
       $('#default_search_button').click(function(){
 
         var searchUser = $('#default_value').val();
+        var searchType = $("input[name='follower_following']:checked"). val();
         $.ajax({
           url: "{{url('/default-search')}}",
           type: "post",
-          data: {"_token": "{{ csrf_token() }}","searchUser": searchUser},
+          data: {"_token": "{{ csrf_token() }}","searchUser": searchUser,'searchType': searchType},
           beforeSend: function(){
             console.log(searchUser);
+            console.log(searchType);
             $('#Load').show();
           },
           success: function(response){
