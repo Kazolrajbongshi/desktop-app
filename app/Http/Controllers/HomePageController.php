@@ -202,7 +202,7 @@ class HomePageController extends Controller
             //dd($url);
             $contents = file_get_contents($url);
 
-            $name = str_random(10).'.'.'mp4';
+            $name = str_random(10).'.'.'jpg';
             // Storage::put($name, $contents);
             $temp = Storage::disk('uploads')->put($name, $contents);
             //$url = Storage::url($name);
@@ -495,9 +495,9 @@ class HomePageController extends Controller
 
 
             }
-            
+
             foreach ($second as $searchResult){
-                
+
 
                    $userSelfInfo = $this->ig->people->getInfoById($searchResult);
 
@@ -506,8 +506,8 @@ class HomePageController extends Controller
                    $usersInfo[] = ['username' => $userSelfInfo->user->username,'biography' => $userSelfInfo->user->biography,
                        'followerCount' => $userSelfInfo->user->follower_count,'followingCount' => $userSelfInfo->user->following_count,
                        'photo' => $userSelfInfo->user->profile_pic_url,'post' => $userSelfInfo->user->media_count,'private' => $userSelfInfo->user->is_private];
-                   
-                
+
+
             }
 
            }catch (\Exception $ex){
