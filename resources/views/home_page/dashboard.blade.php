@@ -202,16 +202,16 @@
               <input type="text" name="searchUser" class="form-control" id="default_value" placeholder="Enter your search name" style="height: 46px;border-top-right-radius: 0;border-bottom-right-radius: 0;">
             </div>
             <div class="single_radio radio1">
-              <div class="col-sm-12" style="margin-top: 2%;"> 
-                <div class="col-sm-6" style="font-size: 2rem;"> 
+              <div class="col-sm-12" style="margin-top: 2%;">
+                <div class="col-sm-6" style="font-size: 2rem;">
                   <input type="radio" name="follower_following" value="follower" checked="">Follower
                 </div>
-                <div class="col-sm-6" style="font-size: 2rem;"> 
+                <div class="col-sm-6" style="font-size: 2rem;">
                   <input type="radio" name="follower_following" value="following">Following
                 </div>
-                
+
               </div>
-              
+
           </div>
 
         </div>

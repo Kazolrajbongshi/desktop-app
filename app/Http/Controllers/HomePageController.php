@@ -5,11 +5,13 @@ namespace App\Http\Controllers;
 use Faker\Provider\Image;
 use Illuminate\Http\Request;
 use InstagramAPI\Instagram;
+//use mysql_xdevapi\Exception;
 use Storage;
 use Ayesh\InstagramDownload\InstagramDownload;
+use App\Providers\SweetAlertServiceProvider;
 use Session;
-
-
+use Alert;
+use Exception;
 class HomePageController extends Controller
 {
     /**
@@ -132,7 +134,7 @@ class HomePageController extends Controller
              $searchResult1 = $this->ig->people->getFollowing($userid,$ranktoken);
              $searchResult1 = json_decode($searchResult1);
            }
-                            
+
            try{
                foreach ($searchResult1->users as $searchResult){
                    $id = $searchResult->pk;
@@ -252,16 +254,26 @@ class HomePageController extends Controller
     }
 
     public function pictureSearch(Request $request){
+
         $result1 = $this->ig->login(session('username'), session('password'));
-        $search1 = $request->pictureSearch;
-        $id1 = $this->ig->people->getUserIdForName($search1);
-        //$profile1 = $this->ig->people->getInfoById($id1);
-        $searchResult = $this->ig->timeline->getUserFeed($id1);
-        $pictures = json_decode($searchResult);
+        try{
+            $search1 = $request->pictureSearch;
+            $id1 = $this->ig->people->getUserIdForName($search1);
+            //$profile1 = $this->ig->people->getInfoById($id1);
+            $searchResult = $this->ig->timeline->getUserFeed($id1);
+            $pictures = json_decode($searchResult);
 //        print_r($pictures->items[0]->image_versions2->candidates[0]->url);
 //        exit();
-        $media_active = 'active';
-        return view('home_page.dashboard',compact('pictures','media_active'));
+            $media_active = 'active';
+            return view('home_page.dashboard',compact('pictures','media_active'));
+        }
+        catch (Exception $e){
+//            return redirect('home_page.dashboard')->with('error','Email or Password invalid');
+
+            return redirect('/');
+
+        }
+
     }
     public function pictureDownload(Request $request){
         $url = $request->imageUrl;
