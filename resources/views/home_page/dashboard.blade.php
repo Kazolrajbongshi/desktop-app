@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" type="text/css" href="{{asset('assets/css/style.css')}}">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <link rel="stylesheet" media="mediatype and|not|only (expressions)" href="print.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
   <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -79,6 +80,23 @@
     opacity: 1;
   }
 
+}
+.column {
+    float: left;
+    width: 33.33%;
+    padding: 5px;
+}
+
+/* Clearfix (clear floats) */
+.row::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+@media screen and (max-width: 500px) {
+    .column {
+        width: 100%;
+    }
 }
 </style>
 </head>
@@ -183,6 +201,18 @@
             <div class="first-search-add" style="overflow: hidden; padding-right: 0px;">
               <input type="text" name="searchUser" class="form-control" id="default_value" placeholder="Enter your search name" style="height: 46px;border-top-right-radius: 0;border-bottom-right-radius: 0;">
             </div>
+            <div class="single_radio radio1">
+              <div class="col-sm-12" style="margin-top: 2%;">
+                <div class="col-sm-6" style="font-size: 2rem;">
+                  <input type="radio" name="follower_following" value="follower" checked="">Follower
+                </div>
+                <div class="col-sm-6" style="font-size: 2rem;">
+                  <input type="radio" name="follower_following" value="following">Following
+                </div>
+
+              </div>
+
+          </div>
 
         </div>
       </div>
@@ -580,6 +610,7 @@
                     <div class="column">
                         <form action="{{url('picture-download')}}" method="post">
                             @csrf
+
                             @if(isset($picture->video_versions[0]->url))
                             <video  width="320" height="240" controls>
                                 <source src="{{$picture->video_versions[0]->url}}" type="video/mp4">
@@ -588,9 +619,10 @@
                             </video>
 
                             @elseif(isset($picture->image_versions2->candidates[0]->url))
-                            <img src="{{$picture->image_versions2->candidates[0]->url}}" alt="Snow" style="border: 3px solid #ddd; border-radius: 4px;padding: 5px; height:270px; width: 300px;">
+                            <img src="{{$picture->image_versions2->candidates[0]->url}}" alt="Snow"style="display:block; height: 300px; width: 100%;">
                             @endif
-                            <br>
+
+
                             @if(isset($picture->video_versions[0]->url))
                             <input type="text" name="videoUrl" value="{{$picture->id}}">
                             @elseif(isset($picture->image_versions2->candidates[0]->url))
@@ -759,12 +791,14 @@
       $('#default_search_button').click(function(){
 
         var searchUser = $('#default_value').val();
+        var searchType = $("input[name='follower_following']:checked"). val();
         $.ajax({
           url: "{{url('/default-search')}}",
           type: "post",
-          data: {"_token": "{{ csrf_token() }}","searchUser": searchUser},
+          data: {"_token": "{{ csrf_token() }}","searchUser": searchUser,'searchType': searchType},
           beforeSend: function(){
             console.log(searchUser);
+            console.log(searchType);
             $('#Load').show();
           },
           success: function(response){

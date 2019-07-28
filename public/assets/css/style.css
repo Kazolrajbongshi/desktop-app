@@ -10,7 +10,7 @@
 }
 
 .follower_lists{
-	background: #eeeeee; 
+	background: #eeeeee;
 	padding: 5px;
 }
 .follower_upper{
@@ -206,6 +206,12 @@ button.first-search-add-btn,button.second-search-add-btn,button.third-search-rem
     float: left;
     width: 30%;
 }
+@media (min-width: 320px) and (max-width: 480px){
+.checkcontainer{
+    display: block;
+    width: 100%;
+}
+}
 .checkcontainer input {
     position: absolute;
     opacity: 0;
@@ -252,7 +258,7 @@ button.first-search-add-btn,button.second-search-add-btn,button.third-search-rem
     background-color: red;
     border-radius: 50%;
     position: absolute;
-} 
+}
 .create_destination .form_buttons .p_btn {
     border-radius: 4px;
     line-height: 1.4em;

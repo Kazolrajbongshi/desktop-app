@@ -28,7 +28,7 @@ class HomePageController extends Controller
     public function mediaAppImage(Request $request)
     {
 
-        $result1 = $this->ig->login('dosnix.tech','ilove100%');
+        $result1 = $this->ig->login(session('username'), session('password'));
         $search1 = $request->pictureSearch;
         $id1 = $this->ig->people->getUserIdForName($search1);
         //$profile1 = $this->ig->people->getInfoById($id1);
@@ -127,11 +127,14 @@ class HomePageController extends Controller
            $result1 = $this->ig->login(session('username'), session('password'));
            $userid = $this->ig->people->getUserIdForName($user_name);
            $ranktoken = \InstagramAPI\Signatures::generateUUID();
-           $searchResult1 = $this->ig->people->getFollowers($userid,$ranktoken);
-           $searchResult2 = $this->ig->people->getFollowing($userid,$ranktoken);
+           if($request->searchType == 'follower'){
+             $searchResult1 = $this->ig->people->getFollowers($userid,$ranktoken);
+             $searchResult1 = json_decode($searchResult1);
+           }else{
+             $searchResult1 = $this->ig->people->getFollowing($userid,$ranktoken);
+             $searchResult1 = json_decode($searchResult1);
+           }
 
-           $searchResult1 = json_decode($searchResult1);
-           $searchResult2 = json_decode($searchResult2);
            try{
                foreach ($searchResult1->users as $searchResult){
                    $id = $searchResult->pk;
@@ -145,23 +148,12 @@ class HomePageController extends Controller
 
                }
 
-               foreach ($searchResult2->users as $searchResult2){
-                   $id = $searchResult2->pk;
-                   $userSelfInfo2 = $this->ig->people->getInfoById($id);
-
-                   $userSelfInfo2 = json_decode($userSelfInfo2);
-
-                   $usersInfoFollowing[] = ['username' => $userSelfInfo2->user->username,'biography' => $userSelfInfo2->user->biography,
-                       'followerCount' => $userSelfInfo2->user->follower_count,'followingCount' => $userSelfInfo2->user->following_count,
-                       'photo' => $userSelfInfo2->user->profile_pic_url,'post' => $userSelfInfo2->user->media_count,'private' => $userSelfInfo2->user->is_private];
-
-               }
 
            }catch (\Exception $ex){
 
            }
 
-           return view('home_page.ajax_follower_following_list_details',compact('usersInfo','usersInfoFollowing'));
+           return view('home_page.ajax_follower_following_list_details',compact('usersInfo'));
 
     }
 
@@ -169,8 +161,7 @@ class HomePageController extends Controller
     public function test(){
 
 
-        $result1 = $this->ig->login('webvision100','instagram123456');
-        $id1 = $this->ig->people->getUserIdForName('mad__beatz');
+
         //$profile1 = $this->ig->people->getInfoById($id1);
         $searchResult = $this->ig->timeline->getUserFeed($id1);
         $pictures = json_decode($searchResult);
@@ -180,7 +171,7 @@ class HomePageController extends Controller
     }
 
     public function pictureSearch(Request $request){
-        $result1 = $this->ig->login('webvision100','instagram123456');
+        $result1 = $this->ig->login(session('username'), session('password'));
         $search1 = $request->pictureSearch;
         $id1 = $this->ig->people->getUserIdForName($search1);
         //$profile1 = $this->ig->people->getInfoById($id1);
@@ -450,7 +441,7 @@ class HomePageController extends Controller
    public function logout(){
 //    Session::flush();
        $this->ig->logout();
-    return redirect('/user-login');
+    return redirect('/');
    }
 
 
@@ -471,7 +462,7 @@ class HomePageController extends Controller
 
     public function hashtagListSearchDetails(Request $request){
 
-        $result1 = $this->ig->login('webvision100','instagram123456');
+        $result1 = $this->ig->login(session('username'), session('password'));
         $ranktoken = \InstagramAPI\Signatures::generateUUID();
 
         try{
@@ -516,7 +507,7 @@ class HomePageController extends Controller
 
     public function apiTest(){
 
-        $result1 = $this->ig->login('webvision100','instagram123456');
+        $result1 = $this->ig->login(session('username'), session('password'));
         // $userid = $this->ig->people->getUserIdForName('fifa');
         $ranktoken = \InstagramAPI\Signatures::generateUUID();
         // $searchResult1 = $this->ig->people->getFollowers($userid,$ranktoken);
