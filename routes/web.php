@@ -33,6 +33,7 @@ Route::post('/url-download','HomePageController@urlDownload');
 Route::post('/app-url-download','HomePageController@appUrlDownload');
 
 Route::get('/logout','HomePageController@logout');
+Route::get('/test','HomePageController@test');
 
 Route::post('/picture-search','HomePageController@pictureSearch');
 Route::post('/picture-download','HomePageController@pictureDownload');

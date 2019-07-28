@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" type="text/css" href="{{asset('assets/css/style.css')}}">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <link rel="stylesheet" media="mediatype and|not|only (expressions)" href="print.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
   <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -200,24 +201,25 @@
             <div class="first-search-add" style="overflow: hidden; padding-right: 0px;">
               <input type="text" name="searchUser" class="form-control" id="default_value" placeholder="Enter your search name" style="height: 46px;border-top-right-radius: 0;border-bottom-right-radius: 0;">
             </div>
+
             <div class="radio_list_area">
             
               <div class="radio_list">
                   <div class="single_radio radio1">
-                <div class="col-sm-12" style="margin-top: 2%;"> 
-                <div class="col-sm-6" style="font-size: 2rem;"> 
-                    <label class="checkcontainer" style="padding-left: 1.5em;font-size: 1em;">Follower
-                      <input type="radio" name="follower_following" value="follower" checked=""><br>
-                      <span class="radiobtn"></span>
-                    </label>
-                  </div>
-                  <div class="col-sm-6" style="font-size: 2rem;">
-                    <label class="checkcontainer" style="padding-left: 1.5em;font-size: 1em;">Following
-                      <input type="radio" name="follower_following" value="following"><br>
-                      <span class="radiobtn"></span>
-                    </label>
-                  </div>
-                </div>
+                    <div class="col-sm-12" style="margin-top: 2%;"> 
+                      <div class="col-sm-6" style="font-size: 2rem;"> 
+                        <label class="checkcontainer" style="padding-left: 1.5em;font-size: 1em;">Follower
+                          <input type="radio" name="follower_following" value="follower" checked=""><br>
+                          <span class="radiobtn"></span>
+                        </label>
+                      </div>
+                      <div class="col-sm-6" style="font-size: 2rem;">
+                        <label class="checkcontainer" style="padding-left: 1.5em;font-size: 1em;">Following
+                          <input type="radio" name="follower_following" value="following"><br>
+                          <span class="radiobtn"></span>
+                        </label>
+                      </div>
+                    </div>
                   </div>
 
               </div>
@@ -225,17 +227,22 @@
             <!-- <div class="single_radio radio1">
               <div class="col-sm-12" style="margin-top: 2%;"> 
                 <div class="col-sm-6" style="font-size: 2rem;"> 
+
                   <input type="radio" name="follower_following" value="follower" checked="">Follower
                 </div>
-                <div class="col-sm-6" style="font-size: 2rem;"> 
+                <div class="col-sm-6" style="font-size: 2rem;">
                   <input type="radio" name="follower_following" value="following">Following
                 </div>
-                
+
               </div>
               
           </div> -->
 
-        </div>
+
+          </div>
+
+
+        
       </div>
       <!-- <div style="margin-top: 15px;">
         <button class="btn btn-success btn-lg">Search</button>
@@ -632,9 +639,23 @@
                         <form action="{{url('picture-download')}}" method="post">
                             @csrf
 
-                            <img src="@if(isset($picture->image_versions2->candidates[0]->url)){{$picture->image_versions2->candidates[0]->url}}@endif" alt="Snow"style="display:block; height: 300px; width: 100%;">
-                            <br>
-                            <input type="hidden" name="imageUrl" value="@if(isset($picture->image_versions2->candidates[0]->url)){{$picture->image_versions2->candidates[0]->url}}@endif">
+                            @if(isset($picture->video_versions[0]->url))
+                            <video  width="320" height="240" controls>
+                                <source src="{{$picture->video_versions[0]->url}}" type="video/mp4">
+
+                                Your browser does not support the video tag.
+                            </video>
+
+                            @elseif(isset($picture->image_versions2->candidates[0]->url))
+                            <img src="{{$picture->image_versions2->candidates[0]->url}}" alt="Snow"style="display:block; height: 300px; width: 100%;">
+                            @endif
+
+
+                            @if(isset($picture->video_versions[0]->url))
+                            <input type="hidden" name="videoUrl" value="{{$picture->id}}">
+                            @elseif(isset($picture->image_versions2->candidates[0]->url))
+                            <input type="hidden" name="imageUrl" value="{{$picture->image_versions2->candidates[0]->url}}">
+                            @endif
                             <!--                                <input type="text"style="width: 50%; margin: 0;">-->
                             <button type="submit" class="btn btn-info" style="width:100%;">Download</button>
                         </form>
