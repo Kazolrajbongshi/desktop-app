@@ -203,11 +203,11 @@
             </div>
 
             <div class="radio_list_area">
-            
+
               <div class="radio_list">
                   <div class="single_radio radio1">
-                    <div class="col-sm-12" style="margin-top: 2%;"> 
-                      <div class="col-sm-6" style="font-size: 2rem;"> 
+                    <div class="col-sm-12" style="margin-top: 2%;">
+                      <div class="col-sm-6" style="font-size: 2rem;">
                         <label class="checkcontainer" style="padding-left: 1.5em;font-size: 1em;">Follower
                           <input type="radio" name="follower_following" value="follower" checked=""><br>
                           <span class="radiobtn"></span>
@@ -225,8 +225,8 @@
               </div>
           </div>
             <!-- <div class="single_radio radio1">
-              <div class="col-sm-12" style="margin-top: 2%;"> 
-                <div class="col-sm-6" style="font-size: 2rem;"> 
+              <div class="col-sm-12" style="margin-top: 2%;">
+                <div class="col-sm-6" style="font-size: 2rem;">
 
                   <input type="radio" name="follower_following" value="follower" checked="">Follower
                 </div>
@@ -235,14 +235,14 @@
                 </div>
 
               </div>
-              
+
           </div> -->
 
 
           </div>
 
 
-        
+
       </div>
       <!-- <div style="margin-top: 15px;">
         <button class="btn btn-success btn-lg">Search</button>
@@ -612,7 +612,7 @@
                         </button>
                         <div class="first-search-add" style="overflow: hidden; padding-right: 0px;">
                             <input type="text" name="pictureSearch" class="form-control"
-                                   placeholder="Enter Username"
+                                   placeholder="Enter Username" required=""
                                    style="height: 46px;">
                         </div>
 
@@ -691,7 +691,7 @@
                       </button>
                       <div class="first-search-add" style="overflow: hidden; padding-right: 0px;">
                           <input type="text" name="hashtag_value" id="hashtag_value" class="form-control"
-                                 placeholder="Enter hasgtag"
+                                 placeholder="Enter hasgtag" required=""
                                  style="height: 46px;">
                       </div>
 

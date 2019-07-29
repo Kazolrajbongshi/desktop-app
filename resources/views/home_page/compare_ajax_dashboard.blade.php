@@ -6,7 +6,7 @@
               At the very beginning here it will be shown instruction of this search works. When search find result will be shown; it will be gone. Every time this compare tab will be open this message box will be shown.
             </div>
           </div>
-        </div>    
+        </div>
       </div>
     @endif
     @if(isset($searchResult1) && isset($profile1))
@@ -35,10 +35,10 @@
                 }
                 elseif ($n > 1000000000){
                   $n = round(($n/1000000000), 2).' B';
-                } 
+                }
                 elseif ($n > 1000000){
                   $n = round(($n/1000000), 2).' M';
-                } 
+                }
                 elseif ($n > 1000){
                    $n = round(($n/1000), 2).' K';
                 }else{
@@ -58,7 +58,7 @@
 
             <div class="follower_lists">
             <div class="row">
-              
+
               <div class="col-sm-3 col-xs-3">
                 <img src="@if(isset($searchResult1->image_versions2->candidates[0]->url)){{$searchResult1->image_versions2->candidates[0]->url}}@else{{asset('assets/img/no_image.jpg')}}@endif" alt="" height="50" width="75">
               </div>
@@ -66,7 +66,7 @@
                 <p>@if(isset($searchResult1->caption->text)){{str_limit($searchResult1->caption->text, $limit = 70, $end = '..')}}@endif</p>
                 <p> @if(isset($searchResult1->view_count))<i class="fa fa-eye"></i>{{$searchResult1->view_count}}@endif &nbsp;&nbsp;<i class="fa fa-thumbs-up"></i> {{$searchResult1->like_count}} <span class="pull-right"><i class="fa fa-calendar"></i>{{ date("d-m-Y", $searchResult1->taken_at)}}</span></p>
               </div>
-            
+
             </div>
           </div>
           </a>
@@ -103,10 +103,10 @@
                           }
                           elseif ($n > 1000000000){
                             $n = round(($n/1000000000), 2).' B';
-                          } 
+                          }
                           elseif ($n > 1000000){
                             $n = round(($n/1000000), 2).' M';
-                          } 
+                          }
                           elseif ($n > 1000){
                              $n = round(($n/1000), 2).' K';
                           }else{
@@ -171,10 +171,10 @@
                           }
                           elseif ($n > 1000000000){
                             $n = round(($n/1000000000), 2).' B';
-                          } 
+                          }
                           elseif ($n > 1000000){
                             $n = round(($n/1000000), 2).' M';
-                          } 
+                          }
                           elseif ($n > 1000){
                              $n = round(($n/1000), 2).' K';
                           }else{
