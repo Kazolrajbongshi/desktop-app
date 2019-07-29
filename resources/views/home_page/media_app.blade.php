@@ -58,11 +58,18 @@
             margin-left: auto;
             margin-right: auto;
         }
+
+        .column {
+            float: left;
+            width: 33.33%;
+            padding: 5px;
+        }
         .btn1 {
-            position: absolute;
+            /*position: absolute;*/
             /*top: 107%;*/
             left: 80%;
-            transform: translate(-50%, -50%);
+            /*transform: translate(150%, -101%);*/
+            transform: translate(967%, -103%);
             -ms-transform: translate(-50%, -50%);
             background-color: #555;
             color: white;
@@ -73,21 +80,138 @@
             border-radius: 5px;
             text-align: center;
         }
-        @media (max-width: 768px) {
-            btn1{
-                /*position: absolute;*/
-                /*top: 107%;*/
-                left: 75%;
+        /* Clearfix (clear floats) */
+        .row::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+        /*@media screen and (max-width: 768px) {*/
+        /*    btn1{*/
+        /*        !*position: absolute;*!*/
+        /*        !*top: 107%;*!*/
+        /*        width: 100%;*/
+        /*    }*/
+        /*}*/
+        @media screen and (max-width: 500px) {
+            .column {
+                width: 100%;
+            }
+            .btn1{
+                transform: translate(1813%, -108%);
             }
         }
-
-        @media (min-width: 769px) and (max-width: 992px) {
-            btn1{
-                padding:4px 9px;
-                font-size:90%;
-                line-height: 1.2;
+        @media screen and (min-width: 460px) and (max-width: 495px) {
+            .column {
+                width: 100%;
+            }
+            .btn1{
+                transform: translate(1679%, -108%);
             }
         }
+        @media screen and (min-width: 440px) and (max-width: 458px) {
+            .column {
+                width: 100%;
+            }
+            .btn1{
+                transform: translate(1485%, -108%);
+            }
+        }
+        @media screen and (min-width: 425px) and (max-width: 438px) {
+            .column {
+                width: 100%;
+            }
+            .btn1{
+                transform: translate(1562%, -108%);
+            }
+        }
+        @media screen and (min-width: 410px) and (max-width: 424px) {
+            .column {
+                width: 100%;
+            }
+            .btn1{
+                transform: translate(1459%, -108%);
+            }
+        }
+        @media screen and (min-width: 395px) and (max-width: 409px) {
+            .column {
+                width: 100%;
+            }
+            .btn1{
+                transform: translate(1430%, -108%);
+            }
+        }
+        @media screen and (min-width: 375px) and (max-width: 394px) {
+            .column {
+                width: 100%;
+            }
+            .btn1{
+                transform: translate(1362%, -108%);
+            }
+        }
+        @media screen and (min-width: 355px) and (max-width: 374px) {
+            .column {
+                width: 100%;
+            }
+            .btn1{
+                transform: translate(1280%, -108%);
+            }
+        }
+        @media screen and (min-width: 335px) and (max-width: 354px) {
+            .column {
+                width: 100%;
+            }
+            .btn1{
+                transform: translate(1200%, -108%);
+            }
+        }
+        @media screen and (min-width: 315px) and (max-width: 334px) {
+            .column {
+                width: 100%;
+            }
+            .btn1{
+                transform: translate(1130%, -108%);
+            }
+        }
+        @media screen and (min-width: 295px) and (max-width: 314px) {
+            .column {
+                width: 100%;
+            }
+            .btn1{
+                transform: translate(1050%, -108%);
+            }
+        }
+        @media screen and (min-width: 275px) and (max-width: 294px) {
+            .column {
+                width: 100%;
+            }
+            .btn1{
+                transform: translate(980%, -108%);
+            }
+        }
+        @media screen and (min-width: 255px) and (max-width: 274px) {
+            .column {
+                width: 100%;
+            }
+            .btn1{
+                transform: translate(900%, -108%);
+            }
+        }
+        @media screen and (min-width: 235px) and (max-width: 254px) {
+            .column {
+                width: 100%;
+            }
+            .btn1{
+                transform: translate(820%, -108%);
+            }
+        }
+        /*@media (min-width: 769px) and (max-width: 992px) {*/
+        /*    btn1{*/
+        /*        padding:4px 9px;*/
+        /*        font-size:90%;*/
+        /*        line-height: 1.2;*/
+        /*    }*/
+        /*}*/
         .load__container {
             position: relative;
         }
@@ -182,40 +306,48 @@
             </form>
         </div>
         @if(isset($pictures))
-        <div class="row"">
+        <div class="row">
             <div class="row">
-                @foreach($pictures->items as $picture)
-                <div class="col-md-4 col-md-offset-4">
-                    <form action="{{url('picture-download')}}"method="post">
-                        @csrf
-<!--                    <img src="https://www.instagram.com/p/B0Y-3VDjqikU-j2ZzkDbbODakKXqA7wZpU3uhs0/" class="img-responsive" alt="Cinque Terre" width="304" height="236">-->
-<!--                        <img src="@if(isset($picture->image_versions2->candidates[0]->url)){{$picture->image_versions2->candidates[0]->url}}@endif" alt="Snow"class="img-responsive"width="304" height="236"style="border: 3px solid #ddd; border-radius: 4px;" >-->
-<!---->
-<!--<!--                        <input type="hidden" name="imageUrl" value="{{asset('images/bgEZqrnT03.jpg')}}">-->
-<!--                        <input type="hidden" name="imageUrl" value="@if(isset($picture->image_versions2->candidates[0]->url)){{$picture->image_versions2->candidates[0]->url}}@endif">-->
-                        @if(isset($picture->video_versions[0]->url))
-                        <video  width="320" height="240" controls>
-                            <source src="{{$picture->video_versions[0]->url}}" type="video/mp4" alt="Snow"class="img-responsive"width="304" height="236"style="border: 3px solid #ddd; border-radius: 4px;" >
+                <div class="col-md-2"></div>
 
-                            Your browser does not support the video tag.
-                        </video>
+                <div class="col-md-8">
+                    @foreach($pictures->items as $picture)
+                    <!--                    --><?php
+                    //                    print_r($picture->image_versions2->candidates[0]->url);
+                    //                    exit();
+                    //                    ?>
+                    <div class="column">
+                        <form action="{{url('picture-download')}}" method="post">
+                            @csrf
 
-                        @elseif(isset($picture->image_versions2->candidates[0]->url))
-                        <img src="{{$picture->image_versions2->candidates[0]->url}}" alt="Snow"class="img-responsive"width="304" height="236"style="border: 3px solid #ddd; border-radius: 4px;" >
-                        @endif
+                            @if(isset($picture->video_versions[0]->url))
+                            <video style="display:block; height: 300px; width: 100%;" controls>
+                                <source src="{{$picture->video_versions[0]->url}}" type="video/mp4">
 
+                                Your browser does not support the video tag.
+                            </video>
 
-                        @if(isset($picture->video_versions[0]->url))
-                        <input type="hidden" name="videoUrl" value="{{$picture->id}}">
-                        @elseif(isset($picture->image_versions2->candidates[0]->url))
-                        <input type="hidden" name="imageUrl" value="{{$picture->image_versions2->candidates[0]->url}}">
-                        @endif
-                        <br>
-                    <button type="submit" class="btn1"><i class="fa fa-download"></i></button>
-                        <br>
-                    </form>
+                            @elseif(isset($picture->image_versions2->candidates[0]->url))
+                            <img src="{{$picture->image_versions2->candidates[0]->url}}" alt="Snow"style="display:block; height: 300px; width: 100%;">
+                            @endif
+                            @if(isset($picture->video_versions[0]->url))
+                            <input type="hidden" name="videoUrl" value="{{$picture->id}}">
+                            @elseif(isset($picture->image_versions2->candidates[0]->url))
+                            <input type="hidden" name="imageUrl" value="{{$picture->image_versions2->candidates[0]->url}}">
+                            @endif
+                            <!--                                <input type="text"style="width: 50%; margin: 0;">-->
+<!--                            <button type="submit" class="btn btn-info" style="width:100%;">Download</button>-->
+
+                            <button type="submit" class="btn1"><i class="fa fa-download"></i></button>
+
+                        </form>
+
+                    </div>
+                    @endforeach
+
                 </div>
-                @endforeach
+
+                <div class="col-md-2"></div>
             </div>
         </div>
         @endif

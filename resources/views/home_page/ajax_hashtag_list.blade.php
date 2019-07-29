@@ -111,6 +111,11 @@
 
          $("#ajax_hashtag_save").click(function(){
           var hashtag = $("input[name='hashtag_list']:checked"). val();
+          if(hashtag == null){
+            // alert('Please Select a Hashtag from the List');
+            swal("Warning!","Please Select a Hashtag from the List", "warning");
+            return false;
+          }
 
           $.ajax({
            url: "{{url('hashtag-list-details')}}",
@@ -140,17 +145,17 @@
           });
 
          });
-    $("form").submit(function() {
-        var submitme = true;
-        $(':radio').each(function() {
-            nam = $(this).attr('name');
-            if (submitme && !$(':radio[name="'+nam+'"]:checked').length) {
-                alert(' Please Select a Hashtag from the List');
-                submitme = false;
-            }
-        });
-        return submitme;
-    });
+    // $("form").submit(function() {
+    //     var submitme = true;
+    //     $(':radio').each(function() {
+    //         nam = $(this).attr('name');
+    //         if (submitme && !$(':radio[name="'+nam+'"]:checked').length) {
+    //             alert(' Please Select a Hashtag from the List');
+    //             submitme = false;
+    //         }
+    //     });
+    //     return submitme;
+    // });
 
         /* hashtag list user details end*/
 

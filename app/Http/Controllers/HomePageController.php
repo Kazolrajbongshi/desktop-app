@@ -54,7 +54,11 @@ class HomePageController extends Controller
     public function dashboard(){
         if(session('username')){
             $deafult_active = 'active';
-            dd(session('username'));
+
+            // dd(session('username'));
+
+           // dd(session('username'));
+
             return view('home_page.dashboard',compact('deafult_active'));
         }else{
             return redirect('/user-login');
@@ -128,15 +132,21 @@ class HomePageController extends Controller
            $user_name = $request->searchUser;
            $usersInfo = array();
            $result1 = $this->ig->login(session('username'), session('password'));
-           $userid = $this->ig->people->getUserIdForName($user_name);
-           $ranktoken = \InstagramAPI\Signatures::generateUUID();
-           if($request->searchType == 'follower'){
-             $searchResult1 = $this->ig->people->getFollowers($userid,$ranktoken);
-             $searchResult1 = json_decode($searchResult1);
-           }else{
-             $searchResult1 = $this->ig->people->getFollowing($userid,$ranktoken);
-             $searchResult1 = json_decode($searchResult1);
-           }
+           try{
+            $userid = $this->ig->people->getUserIdForName($user_name);
+                $ranktoken = \InstagramAPI\Signatures::generateUUID();
+               if($request->searchType == 'follower'){
+                 $searchResult1 = $this->ig->people->getFollowers($userid,$ranktoken);
+                 $searchResult1 = json_decode($searchResult1);
+               }else{
+                 $searchResult1 = $this->ig->people->getFollowing($userid,$ranktoken);
+                 $searchResult1 = json_decode($searchResult1);
+               }
+            }catch (\Exception $ex){
+                return response()->json(['data'=>1]);
+            }
+           
+           
 
            try{
                foreach ($searchResult1->users as $searchResult){
@@ -153,7 +163,7 @@ class HomePageController extends Controller
 
 
            }catch (\Exception $ex){
-
+                return response()->json(['data'=>2]);
            }
 
            return view('home_page.ajax_follower_following_list_details',compact('usersInfo'));
@@ -164,13 +174,14 @@ class HomePageController extends Controller
     public function test(){
 
 
-
+        $this->ig->login('webvision100', 'instagram123456');
+        $ranktoken = \InstagramAPI\Signatures::generateUUID();
+        $id1 = $this->ig->location->getFeed('276051916293852',$ranktoken);
         //$profile1 = $this->ig->people->getInfoById($id1);
-        $searchResult = $this->ig->timeline->getUserFeed($id1);
-        $pictures = json_decode($searchResult);
-//        print_r($pictures->items[0]->image_versions2->candidates[0]->url);
-//        exit();
-        return $searchResult;
+        //$searchResult = $this->ig->timeline->getUserFeed($id1,'2097974383663128956');
+
+       // $pictures = json_decode($searchResult);
+        return $id1;
     }
 
     public function pictureSearch(Request $request){
@@ -178,14 +189,17 @@ class HomePageController extends Controller
         $result1 = $this->ig->login(session('username'), session('password'));
         try{
             $search1 = $request->pictureSearch;
+            $maxId = $request->maxId;
+            $searchName = $search1;
             $id1 = $this->ig->people->getUserIdForName($search1);
             //$profile1 = $this->ig->people->getInfoById($id1);
-            $searchResult = $this->ig->timeline->getUserFeed($id1);
+
+            $searchResult = $this->ig->timeline->getUserFeed($id1,$maxId);
             $pictures = json_decode($searchResult);
 //        print_r($pictures->items[0]->image_versions2->candidates[0]->url);
 //        exit();
             $media_active = 'active';
-            return view('home_page.dashboard',compact('pictures','media_active'));
+            return view('home_page.dashboard',compact('pictures','media_active','searchName'));
         }
         catch (Exception $e){
 //            return redirect('home_page.dashboard')->with('error','Email or Password invalid');
@@ -196,13 +210,13 @@ class HomePageController extends Controller
 
     }
     public function pictureDownload(Request $request){
-        $result1 = $this->ig->login('webvision100','instagram123456');
+        $result1 = $this->ig->login(session('username'), session('password'));
         if ($request->imageUrl !=null){
             $url = $request->imageUrl;
             //dd($url);
             $contents = file_get_contents($url);
 
-            $name = str_random(10).'.'.'mp4';
+            $name = str_random(10).'.'.'jpg';
             // Storage::put($name, $contents);
             $temp = Storage::disk('uploads')->put($name, $contents);
             //$url = Storage::url($name);
@@ -375,8 +389,8 @@ class HomePageController extends Controller
                 return redirect('dashboard');
             }
         } catch (\Exception $e) {
-
-            echo 'Something went wrong: '.$e->getMessage()."\n";
+            // echo 'Something went wrong: '.$e->getMessage()."\n";
+            return back()->with('user_pass_err','1');
         }
 
     }
@@ -444,18 +458,16 @@ class HomePageController extends Controller
                 return response()->json(['no_hashtag_err'=>'No hashtag found','data'=>'2']);
 
             }
-            $hashtagName = array();
-            $postCounter = array();
-
             $results = $obj->results;
 
             $hashtag_active = 'active';
 
-            return view('home_page.ajax_hashtag_list',compact('results','hashtag','hashtag_active'));
+            return view('home_page.ajax_hashtag_list',compact('results','hashtag'));
     }
 
    public function logout(){
-    Session::flush();
+       $this->ig->login(session('username'), session('password'));
+        Session::flush();
        $this->ig->logout();
     return redirect('/');
    }
@@ -498,9 +510,9 @@ class HomePageController extends Controller
 
 
             }
-            $i=0;
+
             foreach ($second as $searchResult){
-                if($i<50){
+
 
                    $userSelfInfo = $this->ig->people->getInfoById($searchResult);
 
@@ -509,8 +521,8 @@ class HomePageController extends Controller
                    $usersInfo[] = ['username' => $userSelfInfo->user->username,'biography' => $userSelfInfo->user->biography,
                        'followerCount' => $userSelfInfo->user->follower_count,'followingCount' => $userSelfInfo->user->following_count,
                        'photo' => $userSelfInfo->user->profile_pic_url,'post' => $userSelfInfo->user->media_count,'private' => $userSelfInfo->user->is_private];
-                    $i++;
-                }
+
+
             }
 
            }catch (\Exception $ex){
