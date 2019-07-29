@@ -128,15 +128,21 @@ class HomePageController extends Controller
            $user_name = $request->searchUser;
            $usersInfo = array();
            $result1 = $this->ig->login(session('username'), session('password'));
-           $userid = $this->ig->people->getUserIdForName($user_name);
-           $ranktoken = \InstagramAPI\Signatures::generateUUID();
-           if($request->searchType == 'follower'){
-             $searchResult1 = $this->ig->people->getFollowers($userid,$ranktoken);
-             $searchResult1 = json_decode($searchResult1);
-           }else{
-             $searchResult1 = $this->ig->people->getFollowing($userid,$ranktoken);
-             $searchResult1 = json_decode($searchResult1);
-           }
+           try{
+            $userid = $this->ig->people->getUserIdForName($user_name);
+                $ranktoken = \InstagramAPI\Signatures::generateUUID();
+               if($request->searchType == 'follower'){
+                 $searchResult1 = $this->ig->people->getFollowers($userid,$ranktoken);
+                 $searchResult1 = json_decode($searchResult1);
+               }else{
+                 $searchResult1 = $this->ig->people->getFollowing($userid,$ranktoken);
+                 $searchResult1 = json_decode($searchResult1);
+               }
+            }catch (\Exception $ex){
+                return response()->json(['data'=>1]);
+            }
+           
+           
 
            try{
                foreach ($searchResult1->users as $searchResult){
@@ -153,7 +159,7 @@ class HomePageController extends Controller
 
 
            }catch (\Exception $ex){
-
+                return response()->json(['data'=>2]);
            }
 
            return view('home_page.ajax_follower_following_list_details',compact('usersInfo'));
@@ -375,8 +381,8 @@ class HomePageController extends Controller
                 return redirect('dashboard');
             }
         } catch (\Exception $e) {
-
-            echo 'Something went wrong: '.$e->getMessage()."\n";
+            // echo 'Something went wrong: '.$e->getMessage()."\n";
+            return back()->with('user_pass_err','1');
         }
 
     }
