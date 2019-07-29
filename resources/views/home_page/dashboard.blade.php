@@ -11,6 +11,7 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
   <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="{{asset('assets/js/papaparse.min.js')}}"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   <style type="text/css">
 
 
@@ -819,6 +820,10 @@
       $('#default_search_button').click(function(){
 
         var searchUser = $('#default_value').val();
+        if(searchUser.length == 0){
+          swal("Warning!","Please enter input value", "warning");
+          return false;
+        }
         var searchType = $("input[name='follower_following']:checked"). val();
         $.ajax({
           url: "{{url('/default-search')}}",
@@ -831,7 +836,17 @@
           },
           success: function(response){
             console.log(response.data);
-            $('#defaultsearchresult').html(response);
+            if(response.data==1){
+              swal("Error!","Username not found", "error");
+              return false;
+            }
+            else if(response.data==2){
+              swal("Error!","Something went worng", "error");
+              return false;
+            }
+            else{
+              $('#defaultsearchresult').html(response);
+            }
           },
           complete: function(response){
             $('#Load').hide();
