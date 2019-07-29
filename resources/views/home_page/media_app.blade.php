@@ -58,11 +58,18 @@
             margin-left: auto;
             margin-right: auto;
         }
+
+        .column {
+            float: left;
+            width: 33.33%;
+            padding: 5px;
+        }
         .btn1 {
-            position: absolute;
+            /*position: absolute;*/
             /*top: 107%;*/
             left: 80%;
-            transform: translate(-50%, -50%);
+            /*transform: translate(150%, -101%);*/
+            transform: translate(967%, -103%);
             -ms-transform: translate(-50%, -50%);
             background-color: #555;
             color: white;
@@ -73,36 +80,138 @@
             border-radius: 5px;
             text-align: center;
         }
-        .column {
-            float: left;
-            width: 33.33%;
-            padding: 5px;
-        }
-
         /* Clearfix (clear floats) */
         .row::after {
             content: "";
             clear: both;
             display: table;
         }
-        @media (max-width: 768px) {
-            btn1{
-                /*position: absolute;*/
-                /*top: 107%;*/
-                left: 75%;
-            }
-        }
+        /*@media screen and (max-width: 768px) {*/
+        /*    btn1{*/
+        /*        !*position: absolute;*!*/
+        /*        !*top: 107%;*!*/
+        /*        width: 100%;*/
+        /*    }*/
+        /*}*/
         @media screen and (max-width: 500px) {
             .column {
                 width: 100%;
             }
-        @media (min-width: 769px) and (max-width: 992px) {
-            btn1{
-                padding:4px 9px;
-                font-size:90%;
-                line-height: 1.2;
+            .btn1{
+                transform: translate(1813%, -108%);
             }
         }
+        @media screen and (min-width: 460px) and (max-width: 495px) {
+            .column {
+                width: 100%;
+            }
+            .btn1{
+                transform: translate(1679%, -108%);
+            }
+        }
+        @media screen and (min-width: 440px) and (max-width: 458px) {
+            .column {
+                width: 100%;
+            }
+            .btn1{
+                transform: translate(1485%, -108%);
+            }
+        }
+        @media screen and (min-width: 425px) and (max-width: 438px) {
+            .column {
+                width: 100%;
+            }
+            .btn1{
+                transform: translate(1562%, -108%);
+            }
+        }
+        @media screen and (min-width: 410px) and (max-width: 424px) {
+            .column {
+                width: 100%;
+            }
+            .btn1{
+                transform: translate(1459%, -108%);
+            }
+        }
+        @media screen and (min-width: 395px) and (max-width: 409px) {
+            .column {
+                width: 100%;
+            }
+            .btn1{
+                transform: translate(1430%, -108%);
+            }
+        }
+        @media screen and (min-width: 375px) and (max-width: 394px) {
+            .column {
+                width: 100%;
+            }
+            .btn1{
+                transform: translate(1362%, -108%);
+            }
+        }
+        @media screen and (min-width: 355px) and (max-width: 374px) {
+            .column {
+                width: 100%;
+            }
+            .btn1{
+                transform: translate(1280%, -108%);
+            }
+        }
+        @media screen and (min-width: 335px) and (max-width: 354px) {
+            .column {
+                width: 100%;
+            }
+            .btn1{
+                transform: translate(1200%, -108%);
+            }
+        }
+        @media screen and (min-width: 315px) and (max-width: 334px) {
+            .column {
+                width: 100%;
+            }
+            .btn1{
+                transform: translate(1130%, -108%);
+            }
+        }
+        @media screen and (min-width: 295px) and (max-width: 314px) {
+            .column {
+                width: 100%;
+            }
+            .btn1{
+                transform: translate(1050%, -108%);
+            }
+        }
+        @media screen and (min-width: 275px) and (max-width: 294px) {
+            .column {
+                width: 100%;
+            }
+            .btn1{
+                transform: translate(980%, -108%);
+            }
+        }
+        @media screen and (min-width: 255px) and (max-width: 274px) {
+            .column {
+                width: 100%;
+            }
+            .btn1{
+                transform: translate(900%, -108%);
+            }
+        }
+        @media screen and (min-width: 235px) and (max-width: 254px) {
+            .column {
+                width: 100%;
+            }
+            .btn1{
+                transform: translate(820%, -108%);
+            }
+        }
+        /*@media (min-width: 769px) and (max-width: 992px) {*/
+        /*    btn1{*/
+        /*        padding:4px 9px;*/
+        /*        font-size:90%;*/
+        /*        line-height: 1.2;*/
+        /*    }*/
+        /*}*/
         .load__container {
             position: relative;
         }
@@ -228,9 +337,9 @@
                             @endif
                             <!--                                <input type="text"style="width: 50%; margin: 0;">-->
 <!--                            <button type="submit" class="btn btn-info" style="width:100%;">Download</button>-->
-                            <br>
-                            <button type="submit" class="btn"><i class="fa fa-download"></i></button>
-                            <br>
+
+                            <button type="submit" class="btn1"><i class="fa fa-download"></i></button>
+
                         </form>
 
                     </div>
