@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5d2b33e3-dddf-4611-bc6a-61bf7c0119f6" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/HomePageController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/HomePageController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/home_page/ajax_follower_following_list_details.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/home_page/ajax_follower_following_list_details.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/home_page/compare_ajax_dashboard.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/home_page/compare_ajax_dashboard.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/home_page/dashboard.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/home_page/dashboard.blade.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
