@@ -10,6 +10,8 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <!-- font awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    
 
     <title>Login</title>
 </head>
@@ -75,6 +77,12 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <!-- custom js -->
 <script src="{{asset('assets/js/main.js')}}"></script>
-
+@if(session('user_pass_err'))
+<script type="text/javascript">
+    $(document).ready(function(){
+       swal("Error!","Username or password not found", "error");
+   });
+</script>
+@endif
 </body>
 </html>

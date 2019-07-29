@@ -112,7 +112,8 @@
          $("#ajax_hashtag_save").click(function(){
           var hashtag = $("input[name='hashtag_list']:checked"). val();
           if(hashtag == null){
-            alert('Please Select a Hashtag from the List');
+            // alert('Please Select a Hashtag from the List');
+            swal("Warning!","Please Select a Hashtag from the List", "warning");
             return false;
           }
 
