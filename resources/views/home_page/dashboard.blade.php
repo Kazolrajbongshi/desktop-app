@@ -203,11 +203,11 @@
             </div>
 
             <div class="radio_list_area">
-            
+
               <div class="radio_list">
                   <div class="single_radio radio1">
-                    <div class="col-sm-12" style="margin-top: 2%;"> 
-                      <div class="col-sm-6" style="font-size: 2rem;"> 
+                    <div class="col-sm-12" style="margin-top: 2%;">
+                      <div class="col-sm-6" style="font-size: 2rem;">
                         <label class="checkcontainer" style="padding-left: 1.5em;font-size: 1em;">Follower
                           <input type="radio" name="follower_following" value="follower" checked=""><br>
                           <span class="radiobtn"></span>
@@ -225,8 +225,8 @@
               </div>
           </div>
             <!-- <div class="single_radio radio1">
-              <div class="col-sm-12" style="margin-top: 2%;"> 
-                <div class="col-sm-6" style="font-size: 2rem;"> 
+              <div class="col-sm-12" style="margin-top: 2%;">
+                <div class="col-sm-6" style="font-size: 2rem;">
 
                   <input type="radio" name="follower_following" value="follower" checked="">Follower
                 </div>
@@ -235,14 +235,14 @@
                 </div>
 
               </div>
-              
+
           </div> -->
 
 
           </div>
 
 
-        
+
       </div>
       <!-- <div style="margin-top: 15px;">
         <button class="btn btn-success btn-lg">Search</button>
@@ -614,6 +614,7 @@
                             <input type="text" name="pictureSearch" class="form-control"
                                    placeholder="Enter Username"
                                    style="height: 46px;">
+                            <input type="hidden" name="maxId" value="">
                         </div>
 
                     </div>
@@ -667,6 +668,19 @@
 
                 <div class="col-md-2"></div>
             </div>
+            <div class="text-center">
+                <form action="{{url('/picture-search')}}" method="post">
+                    {{csrf_field()}}
+                    <button type="submit" class="btn btn-info btn-lg ">
+                        Next
+                    </button>
+
+                    <input type="hidden" name="pictureSearch" value="{{$searchName}}" class="form-control">
+                    <input type="hidden" name="maxId" value="{{$pictures->next_max_id}}">
+
+                </form>
+            </div>
+
         </div>
       @endif
     </div>

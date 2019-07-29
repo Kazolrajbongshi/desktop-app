@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="60c967fa-d4df-42f0-a42e-c0442897a1fb" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/HomePageController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/HomePageController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/home_page/dashboard.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/home_page/dashboard.blade.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -25,9 +27,10 @@
       <file leaf-file-name="dashboard.blade.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/views/home_page/dashboard.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="20">
-              <caret line="654" column="47" selection-start-line="654" selection-start-column="47" selection-end-line="654" selection-end-column="47" />
+            <state relative-caret-position="350">
+              <caret line="673" column="61" selection-start-line="673" selection-start-column="61" selection-end-line="673" selection-end-column="61" />
               <folding>
+                <element signature="n#style#0;n#button#0;n#div#0;n#div#0;n#form#0;n#div#1;n#div#0;n#div#1;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#a#0;n#!!top" expanded="true" />
@@ -39,11 +42,38 @@
       <file leaf-file-name="HomePageController.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/HomePageController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="455" column="8" selection-start-line="455" selection-start-column="8" selection-end-line="455" selection-end-column="8" />
+            <state relative-caret-position="195">
+              <caret line="168" column="72" selection-start-line="168" selection-start-column="72" selection-end-line="168" selection-end-column="72" />
               <folding>
                 <element signature="n#style#0;n#h3#0;n#!!top" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Timeline.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/vendor/mgp25/instagram-php/src/Request/Timeline.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="229">
+              <caret line="330" column="38" selection-start-line="330" selection-start-column="32" selection-end-line="330" selection-end-column="38" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="People.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/vendor/mgp25/instagram-php/src/Request/People.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="280">
+              <caret line="92" column="20" selection-start-line="92" selection-start-column="20" selection-end-line="92" selection-end-column="20" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Instagram.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/vendor/mgp25/instagram-php/src/Instagram.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="650">
+              <caret line="488" selection-start-line="488" selection-end-line="488" />
             </state>
           </provider>
         </entry>
@@ -95,12 +125,20 @@
       </file>
     </leaf>
   </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>The username you entered doesn't appear to belong to an account</find>
+      <find>Add me</find>
+      <find>test</find>
+    </findStrings>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
+        <option value="$PROJECT_DIR$/resources/views/home_page/dashboard.blade.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/HomePageController.php" />
       </list>
     </option>
@@ -390,15 +428,15 @@
       <workItem from="1564035400914" duration="2483000" />
       <workItem from="1564216389272" duration="10881000" />
       <workItem from="1564291074131" duration="8999000" />
-      <workItem from="1564377139416" duration="1670000" />
+      <workItem from="1564377139416" duration="6591000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="2225000" />
+    <option name="totallyTimeSpent" value="7146000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="3" y="-18" width="1382" height="744" extended-state="1" />
+    <frame x="3" y="-18" width="1382" height="744" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="4" />
@@ -458,6 +496,7 @@
         <state relative-caret-position="11118">
           <caret line="654" column="47" selection-start-line="654" selection-start-column="47" selection-end-line="654" selection-end-column="47" />
           <folding>
+            <element signature="n#style#0;n#button#0;n#div#0;n#div#0;n#form#0;n#div#1;n#div#0;n#div#1;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#a#0;n#!!top" expanded="true" />
@@ -525,6 +564,7 @@
         <state relative-caret-position="10132">
           <caret line="596" column="43" selection-start-line="596" selection-start-column="43" selection-end-line="596" selection-end-column="43" />
           <folding>
+            <element signature="n#style#0;n#button#0;n#div#0;n#div#0;n#form#0;n#div#1;n#div#0;n#div#1;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#a#0;n#!!top" expanded="true" />
@@ -647,13 +687,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/mgp25/instagram-php/src/Instagram.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1587">
-          <caret line="655" column="37" lean-forward="true" selection-start-line="655" selection-start-column="37" selection-end-line="655" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/home_page/media_app.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3791">
@@ -661,11 +694,33 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/mgp25/instagram-php/src/Instagram.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="650">
+          <caret line="488" selection-start-line="488" selection-end-line="488" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/mgp25/instagram-php/src/Request/People.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="280">
+          <caret line="92" column="20" selection-start-line="92" selection-start-column="20" selection-end-line="92" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/mgp25/instagram-php/src/Request/Timeline.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="229">
+          <caret line="330" column="38" selection-start-line="330" selection-start-column="32" selection-end-line="330" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/home_page/dashboard.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="20">
-          <caret line="654" column="47" selection-start-line="654" selection-start-column="47" selection-end-line="654" selection-end-column="47" />
+        <state relative-caret-position="350">
+          <caret line="673" column="61" selection-start-line="673" selection-start-column="61" selection-end-line="673" selection-end-column="61" />
           <folding>
+            <element signature="n#style#0;n#button#0;n#div#0;n#div#0;n#form#0;n#div#1;n#div#0;n#div#1;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#a#0;n#!!top" expanded="true" />
@@ -675,8 +730,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/HomePageController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="455" column="8" selection-start-line="455" selection-start-column="8" selection-end-line="455" selection-end-column="8" />
+        <state relative-caret-position="195">
+          <caret line="168" column="72" selection-start-line="168" selection-start-column="72" selection-end-line="168" selection-end-column="72" />
           <folding>
             <element signature="n#style#0;n#h3#0;n#!!top" expanded="true" />
           </folding>

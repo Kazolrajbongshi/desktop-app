@@ -164,13 +164,14 @@ class HomePageController extends Controller
     public function test(){
 
 
-
+        $this->ig->login('webvision100', 'instagram123456');
+        $ranktoken = \InstagramAPI\Signatures::generateUUID();
+        $id1 = $this->ig->location->getFeed('276051916293852',$ranktoken);
         //$profile1 = $this->ig->people->getInfoById($id1);
-        $searchResult = $this->ig->timeline->getUserFeed($id1);
-        $pictures = json_decode($searchResult);
-//        print_r($pictures->items[0]->image_versions2->candidates[0]->url);
-//        exit();
-        return $searchResult;
+        //$searchResult = $this->ig->timeline->getUserFeed($id1,'2097974383663128956');
+
+       // $pictures = json_decode($searchResult);
+        return $id1;
     }
 
     public function pictureSearch(Request $request){
@@ -178,14 +179,17 @@ class HomePageController extends Controller
         $result1 = $this->ig->login(session('username'), session('password'));
         try{
             $search1 = $request->pictureSearch;
+            $maxId = $request->maxId;
+            $searchName = $search1;
             $id1 = $this->ig->people->getUserIdForName($search1);
             //$profile1 = $this->ig->people->getInfoById($id1);
-            $searchResult = $this->ig->timeline->getUserFeed($id1);
+
+            $searchResult = $this->ig->timeline->getUserFeed($id1,$maxId);
             $pictures = json_decode($searchResult);
 //        print_r($pictures->items[0]->image_versions2->candidates[0]->url);
 //        exit();
             $media_active = 'active';
-            return view('home_page.dashboard',compact('pictures','media_active'));
+            return view('home_page.dashboard',compact('pictures','media_active','searchName'));
         }
         catch (Exception $e){
 //            return redirect('home_page.dashboard')->with('error','Email or Password invalid');
