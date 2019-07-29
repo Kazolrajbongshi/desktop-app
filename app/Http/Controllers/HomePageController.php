@@ -54,7 +54,7 @@ class HomePageController extends Controller
     public function dashboard(){
         if(session('username')){
             $deafult_active = 'active';
-            dd(session('username'));
+           // dd(session('username'));
             return view('home_page.dashboard',compact('deafult_active'));
         }else{
             return redirect('/user-login');
