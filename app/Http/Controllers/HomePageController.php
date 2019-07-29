@@ -54,7 +54,7 @@ class HomePageController extends Controller
     public function dashboard(){
         if(session('username')){
             $deafult_active = 'active';
-            dd(session('username'));
+            // dd(session('username'));
             return view('home_page.dashboard',compact('deafult_active'));
         }else{
             return redirect('/user-login');
@@ -196,7 +196,7 @@ class HomePageController extends Controller
 
     }
     public function pictureDownload(Request $request){
-        $result1 = $this->ig->login('webvision100','instagram123456');
+        $result1 = $this->ig->login(session('username'), session('password'));
         if ($request->imageUrl !=null){
             $url = $request->imageUrl;
             //dd($url);
