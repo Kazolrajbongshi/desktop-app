@@ -452,7 +452,8 @@ class HomePageController extends Controller
     }
 
    public function logout(){
-    Session::flush();
+       $this->ig->login(session('username'), session('password'));
+        Session::flush();
        $this->ig->logout();
     return redirect('/');
    }
