@@ -461,6 +461,27 @@ class HomePageController extends Controller
             return view('home_page.ajax_hashtag_list',compact('results','hashtag'));
     }
 
+    public function locationSearch(Request $request){
+
+            $location = $request->location;
+
+            $this->ig->login(session('username'), session('password'));
+            $rank_token= \InstagramAPI\Signatures::generateUUID();
+            // $result = $this->ig->hashtag->search($location);
+            $result = $this->ig->location->findPlaces($location);
+
+            $obj = json_decode($result);
+            if($obj->items == null){
+                return response()->json(['no_location_err'=>'No location found','data'=>'2']);
+
+            }
+            $results = $obj->items;
+
+            $location_active = 'active';
+
+            return view('home_page.ajax_location_list',compact('results','location'));
+    }
+
    public function logout(){
        $this->ig->login(session('username'), session('password'));
         Session::flush();
@@ -529,14 +550,36 @@ class HomePageController extends Controller
 
     }
 
-    public function apiTest(){
+    public function locationListSearchDetails(Request $request){
 
         $result1 = $this->ig->login(session('username'), session('password'));
+        $ranktoken = \InstagramAPI\Signatures::generateUUID();
+
+        try{
+
+            $result = $this->ig->location->getFeed($request->location,$ranktoken);
+            $obj = json_decode($result);
+            $usersInfo = $obj->sections;
+
+           }catch (\Exception $ex){
+                return response()->json(['msg'=>'<h3 style="text-align:center;color:red;">Something went wrong.Please try sometimes later.</h3>','value'=>1]);
+           }
+
+        return view('home_page.ajax_location_follower_following_list_details',compact('usersInfo'));
+
+    }
+
+    public function apiTest(){
+
+        $result1 = $this->ig->login('webvision100','instagram123456');
         // $userid = $this->ig->people->getUserIdForName('fifa');
         $ranktoken = \InstagramAPI\Signatures::generateUUID();
         // $searchResult1 = $this->ig->people->getFollowers($userid,$ranktoken);
         // $searchResult1 = json_decode($searchResult1);
-        $result = $this->ig->hashtag->getFeed('kazolafasion',$ranktoken);
+        // $result = $this->ig->location->findPlaces('dhaka');
+        $result = $this->ig->location->getFeed('217567072',$ranktoken);
+        // $result = $this->ig->hashtag->search('dhaka');
+        return $result;
         $obj = json_decode($result);
 
         foreach($obj->items as $media) {

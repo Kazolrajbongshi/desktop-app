@@ -46,3 +46,5 @@ Route::post('/hashtag-search', 'HomePageController@hashtagSearch');
 Route::post('/hashtag-list-details', 'HomePageController@hashtagListSearchDetails');
 Route::get('/media-app','HomePageController@mediaApp');
 Route::post('/media-app-image','HomePageController@mediaAppImage');
+Route::post('/location-search', 'HomePageController@locationSearch');
+Route::post('/location-list-details', 'HomePageController@locationListSearchDetails');

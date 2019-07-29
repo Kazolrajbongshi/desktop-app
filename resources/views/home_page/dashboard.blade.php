@@ -164,6 +164,17 @@
                        aria-controls="hashtag" aria-selected="false">Hashtag</a>
                 </li>
                 @endif
+                @if(isset($location_active))
+                <li class="nav-item active" style="border-right: 1px solid #10b3b3;">
+                    <a class="nav-link" id="location-tab" data-toggle="tab" href="#locationsearch" role="tab"
+                       aria-controls="location" aria-selected="false">Lacation</a>
+                </li>
+                @else
+                <li class="nav-item" style="border-right: 1px solid #10b3b3;">
+                    <a class="nav-link" id="location-tab" data-toggle="tab" href="#locationsearch" role="tab"
+                       aria-controls="location" aria-selected="false">Lacation</a>
+                </li>
+                @endif
                 <a href="{{URL::to('/media-app')}}">
                 <button type="button" class="btn btn-default navbar-btn navbar-right"style="margin-right: 10%;">APP</button>
                 </a>
@@ -721,6 +732,54 @@
     </div>
     <!-- Hasgtag search end -->
 
+    <!-- Location Search Start -->
+  @if(isset($location_active))
+  <div class="tab-pane active" id="locationsearch" role="tabpanel" aria-labelledby="location-tab">
+  @else
+  <div class="tab-pane" id="locationsearch" role="tabpanel" aria-labelledby="location-tab">
+  @endif
+
+      <div class="jumbotron" id="location_search_div" style="padding-top: 0px;padding-bottom: 5px;margin-bottom: 15px;">
+          <form action="javascript:void(0);" method="post">
+              {{csrf_field()}}
+              <meta type="hidden" name="csrf-token" content="{{csrf_token()}}">
+              <div class="row">
+                  <div class="col-sm-4 col-sm-offset-4">
+                      <button type="button" class="btn btn-success btn-lg" id="location_search"
+                              style="float: right;background-color: #ffffff;color: #000000;border-color: #ccc;border-left: 2px solid #10b3b3;">
+                          Search
+                      </button>
+                      <div class="first-search-add" style="overflow: hidden; padding-right: 0px;">
+                          <input type="text" name="location_value" id="location_value" class="form-control"
+                                 placeholder="Enter location"
+                                 style="height: 46px;">
+                      </div>
+
+                  </div>
+              </div>
+              <!-- <div style="margin-top: 15px;">
+                <button class="btn btn-success btn-lg">Search</button>
+              </div> -->
+          </form>
+          <div id="no_location">
+          @if(!isset($location_active))
+          <div class="row" style="margin-top: 10%;">
+              <div class="container">
+                <div class="text-center">
+                  <div class="col-sm-6 col-sm-offset-3 no_src_msg">
+                    At the very beginning here it will be shown instruction of this search works. When search find result will be shown; it will be gone. Every time this compare tab will be open this message box will be shown.
+                  </div>
+                </div>
+              </div>
+            </div>
+        @endif
+      </div>
+
+      </div>
+
+    </div>
+    <!-- Location search end -->
+
   </div>
 </div>
 <!-- Tab end -->
@@ -914,6 +973,39 @@
          });
 
         /* hashtag serach end*/
+
+        /* Location serach start*/
+
+         $("#location_search").click(function(){
+          var location = $('#location_value').val();
+
+          $.ajax({
+           url: "{{url('location-search')}}",
+           type: "post",
+           data: {"_token": "{{ csrf_token() }}","location":location},
+           beforeSend: function(){
+            // Show image container
+            console.log(location);
+            $("#Load").show();
+           },
+           success: function(response){
+            console.log(response.data);
+             if(response.data == 2){
+              $('#no_location').html(response.no_location_err);
+            }
+            else{
+              $('#location_search_div').html(response);
+            }
+           },
+           complete:function(data){
+            // Hide image container
+            $("#Load").hide();
+           }
+          });
+
+         });
+
+        /* Location serach end*/
 
     });
   </script>
