@@ -98,6 +98,10 @@
     .column {
         width: 100%;
     }
+    .btn2{
+        transform: translate(-9%, -50%);
+    }
+
 }
 </style>
 </head>
@@ -167,19 +171,19 @@
                 @if(isset($location_active))
                 <li class="nav-item active" style="border-right: 1px solid #10b3b3;">
                     <a class="nav-link" id="location-tab" data-toggle="tab" href="#locationsearch" role="tab"
-                       aria-controls="location" aria-selected="false">Lacation</a>
+                       aria-controls="location" aria-selected="false">Location</a>
                 </li>
                 @else
                 <li class="nav-item" style="border-right: 1px solid #10b3b3;">
                     <a class="nav-link" id="location-tab" data-toggle="tab" href="#locationsearch" role="tab"
-                       aria-controls="location" aria-selected="false">Lacation</a>
+                       aria-controls="location" aria-selected="false">Location</a>
                 </li>
                 @endif
                 <a href="{{URL::to('/media-app')}}">
                 <button type="button" class="btn btn-default navbar-btn navbar-right"style="margin-right: 10%;">APP</button>
                 </a>
                 <a href="{{url('logout')}}">
-                    <button type="button" class="btn btn-default navbar-btn navbar-right"style="margin-right: -85%;">Logout</button>
+                    <button type="button" class="btn btn-default navbar-btn navbar-right"style="margin-right: -67%;">Logout</button>
                 </a>
 
             </ul>
@@ -603,7 +607,7 @@
                   <span class="new_template">Add Media URL</span>
               </div>
           </a> -->
-          <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Add Media URL</button>
+          <button type="button" class="btn2 btn-info btn-lg" data-toggle="modal" data-target="#myModal">Add Media URL</button>
       </div>
 
 

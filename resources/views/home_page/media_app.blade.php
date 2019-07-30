@@ -252,7 +252,9 @@
         <div class="row top_fixed">
             <div class="navbar-header">
                 <a class="navbar-brand logo" href="#"><span>D-Gram</span></a>
-
+                <a href="{{url('logout')}}">
+                    <button type="button" class="btn btn-default navbar-btn navbar-right"style="margin-right: -540%;">Logout</button>
+                </a>
             </div>
         </div>
 

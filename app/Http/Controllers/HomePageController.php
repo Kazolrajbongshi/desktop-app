@@ -188,7 +188,9 @@ class HomePageController extends Controller
                     }
                     // $searchResult1 = json_decode($searchResult1);
                }
+
             try{
+
                foreach ($searchResult1->users as $searchResult){
                    $id = $searchResult->pk;
                    $userSelfInfo = $this->ig->people->getInfoById($id);
@@ -217,12 +219,13 @@ class HomePageController extends Controller
 
         $this->ig->login('webvision100', 'instagram123456');
         $ranktoken = \InstagramAPI\Signatures::generateUUID();
-        $id1 = $this->ig->location->getFeed('276051916293852',$ranktoken);
+        $id1 = $this->ig->people->getUserIdForName('mad__beatz');
         //$profile1 = $this->ig->people->getInfoById($id1);
-        //$searchResult = $this->ig->timeline->getUserFeed($id1,'2097974383663128956');
+
+        $searchResult = $this->ig->timeline->getUserFeed($id1);
 
        // $pictures = json_decode($searchResult);
-        return $id1;
+        return $searchResult;
     }
 
     public function pictureSearch(Request $request){
@@ -230,7 +233,9 @@ class HomePageController extends Controller
         $result1 = $this->ig->login(session('username'), session('password'));
         try{
             $search1 = $request->pictureSearch;
-            $maxId = $request->maxId;
+            if($request->maxId !=null){
+                $maxId = $request->maxId;
+            }
             $searchName = $search1;
             try{
                 $id1 = $this->ig->people->getUserIdForName($search1);
