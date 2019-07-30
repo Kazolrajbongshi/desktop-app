@@ -163,7 +163,7 @@ class HomePageController extends Controller
                 return response()->json(['data'=>1,'msg'=>$ex->getMessage()]);
             }
             $ranktoken = \InstagramAPI\Signatures::generateUUID();
-            
+
                if($request->searchType == 'follower'){
                     try{
                          $searchResult1 = $this->ig->people->getFollowers($userid,$ranktoken);
@@ -182,7 +182,7 @@ class HomePageController extends Controller
                          if(count($searchResult1->users) == 0){
                              return response()->json(['data'=>3,'msg'=>'Account is private']);
                          }
-                         
+
                      }catch(\Exception $ex){
                         return response()->json(['data'=>2,'msg'=>$ex->getMessage()]);
                     }
@@ -203,13 +203,13 @@ class HomePageController extends Controller
 
                }
 
-               
+
 
            }catch (\Exception $ex){
                 return response()->json(['data'=>4,'msg'=>$ex->getMessage()]);
            }
            return view('home_page.ajax_follower_following_list_details',compact('usersInfo'));
-           
+
 
     }
 
@@ -236,6 +236,10 @@ class HomePageController extends Controller
             if($request->maxId !=null){
                 $maxId = $request->maxId;
             }
+            else
+            {
+                $maxId=null;
+            }
             $searchName = $search1;
             try{
                 $id1 = $this->ig->people->getUserIdForName($search1);
@@ -254,7 +258,7 @@ class HomePageController extends Controller
         catch (Exception $e){
 //            return redirect('home_page.dashboard')->with('error','Email or Password invalid');
 
-            return redirect('/');
+            return $e;
 
         }
 
