@@ -238,6 +238,10 @@ class HomePageController extends Controller
             }else{
                 $maxId = null;
             }
+            else
+            {
+                $maxId=null;
+            }
             $searchName = $search1;
             try{
                 $id1 = $this->ig->people->getUserIdForName($search1);
