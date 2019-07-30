@@ -684,7 +684,7 @@
 
                 <div class="col-md-2"></div>
             </div>
-            @if(isset($pictures->next_max_id))
+            @if(isset($pictures->next_max_id ))
             <div class="text-center">
                 <form action="{{url('/picture-search')}}" method="post">
                     {{csrf_field()}}

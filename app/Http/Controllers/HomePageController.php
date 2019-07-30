@@ -235,6 +235,8 @@ class HomePageController extends Controller
             $search1 = $request->pictureSearch;
             if($request->maxId !=null){
                 $maxId = $request->maxId;
+            }else{
+                $maxId = null;
             }
             else
             {
