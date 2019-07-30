@@ -72,16 +72,29 @@ class HomePageController extends Controller
         $search3 =   $request->searchUser3;
         $active = 'active';
         if ($search2 == null && $search3 == null){
-            $id1 = $this->ig->people->getUserIdForName($search1);
-            $profile1 = $this->ig->people->getInfoById($id1);
-            $searchResult1 = $this->ig->timeline->getUserFeed($id1);
-            $searchResult1 = json_decode($searchResult1);
-            $profile1 = json_decode($profile1);
-            return view('home_page.compare_ajax_dashboard',compact('searchResult1','profile1','active'));
+            try{
+                $id1 = $this->ig->people->getUserIdForName($search1);
+            }catch (\Exception $ex){
+                return response()->json(['data'=>1,'msg'=>$ex->getMessage()]);
+            }
+            try{
+                $profile1 = $this->ig->people->getInfoById($id1);
+                $searchResult1 = $this->ig->timeline->getUserFeed($id1);
+                $searchResult1 = json_decode($searchResult1);
+                $profile1 = json_decode($profile1);
+                return view('home_page.compare_ajax_dashboard',compact('searchResult1','profile1','active'));
+            }catch(\Exception $ex) {
+                return response()->json(['data'=>2,'msg'=>$ex->getMessage()]);
+            }
         }
         if($search1 !=null && $search2 !=null && $search3 == null){
-            $id1 = $this->ig->people->getUserIdForName($search1);
-            $id2 = $this->ig->people->getUserIdForName($search2);
+            try{
+                $id1 = $this->ig->people->getUserIdForName($search1);
+                $id2 = $this->ig->people->getUserIdForName($search2);
+            }catch (\Exception $ex){
+                return response()->json(['data'=>1,'msg'=>$ex->getMessage()]);
+            }
+            try{
             $profile1 = $this->ig->people->getInfoById($id1);
             $profile2 = $this->ig->people->getInfoById($id2);
             $searchResult1 = $this->ig->timeline->getUserFeed($id1);
@@ -91,24 +104,35 @@ class HomePageController extends Controller
             $profile1 = json_decode($profile1);
             $profile2 = json_decode($profile2);
             return view('home_page.compare_ajax_dashboard',compact('searchResult1','profile1','searchResult2','profile2','active'));
+            }catch (\Exception $ex){
+                return response()->json(['data'=>2,'msg'=>$ex->getMessage()]);
+            }
         }
         if ($search1 != null && $search2 != null && $search3 != null){
-            $id1 = $this->ig->people->getUserIdForName($search1);
-            $id2 = $this->ig->people->getUserIdForName($search2);
-            $id3 = $this->ig->people->getUserIdForName($search3);
-            $profile1 = $this->ig->people->getInfoById($id1);
-            $profile2 = $this->ig->people->getInfoById($id2);
-            $profile3 = $this->ig->people->getInfoById($id3);
-            $searchResult1 = $this->ig->timeline->getUserFeed($id1);
-            $searchResult2 = $this->ig->timeline->getUserFeed($id2);
-            $searchResult3 = $this->ig->timeline->getUserFeed($id3);
-            $searchResult1 = json_decode($searchResult1);
-            $searchResult2 = json_decode($searchResult2);
-            $searchResult3 = json_decode($searchResult3);
-            $profile1 = json_decode($profile1);
-            $profile2 = json_decode($profile2);
-            $profile3 = json_decode($profile3);
-            return view('home_page.compare_ajax_dashboard',compact('searchResult1','profile1','searchResult2','profile2','searchResult3','profile3','active'));
+            try{
+                $id1 = $this->ig->people->getUserIdForName($search1);
+                $id2 = $this->ig->people->getUserIdForName($search2);
+                $id3 = $this->ig->people->getUserIdForName($search3);
+            }catch (\Exception $ex){
+                return response()->json(['data'=>1,'msg'=>$ex->getMessage()]);
+            }
+            try{
+                $profile1 = $this->ig->people->getInfoById($id1);
+                $profile2 = $this->ig->people->getInfoById($id2);
+                $profile3 = $this->ig->people->getInfoById($id3);
+                $searchResult1 = $this->ig->timeline->getUserFeed($id1);
+                $searchResult2 = $this->ig->timeline->getUserFeed($id2);
+                $searchResult3 = $this->ig->timeline->getUserFeed($id3);
+                $searchResult1 = json_decode($searchResult1);
+                $searchResult2 = json_decode($searchResult2);
+                $searchResult3 = json_decode($searchResult3);
+                $profile1 = json_decode($profile1);
+                $profile2 = json_decode($profile2);
+                $profile3 = json_decode($profile3);
+                return view('home_page.compare_ajax_dashboard',compact('searchResult1','profile1','searchResult2','profile2','searchResult3','profile3','active'));
+            }catch (\Exception $ex){
+                return response()->json(['data'=>2,'msg'=>$ex->getMessage()]);
+            }
         }
         return view('home_page.dashboard');
     }
@@ -134,21 +158,37 @@ class HomePageController extends Controller
            $result1 = $this->ig->login(session('username'), session('password'));
            try{
             $userid = $this->ig->people->getUserIdForName($user_name);
-                $ranktoken = \InstagramAPI\Signatures::generateUUID();
-               if($request->searchType == 'follower'){
-                 $searchResult1 = $this->ig->people->getFollowers($userid,$ranktoken);
-                 $searchResult1 = json_decode($searchResult1);
-               }else{
-                 $searchResult1 = $this->ig->people->getFollowing($userid,$ranktoken);
-                 $searchResult1 = json_decode($searchResult1);
-               }
-            }catch (\Exception $ex){
-                return response()->json(['data'=>1]);
-            }
-           
-           
 
-           try{
+            }catch (\Exception $ex){
+                return response()->json(['data'=>1,'msg'=>$ex->getMessage()]);
+            }
+            $ranktoken = \InstagramAPI\Signatures::generateUUID();
+            
+               if($request->searchType == 'follower'){
+                    try{
+                         $searchResult1 = $this->ig->people->getFollowers($userid,$ranktoken);
+                         $searchResult1 = json_decode($searchResult1);
+                         if(count($searchResult1->users) == 0){
+                             return response()->json(['data'=>3,'msg'=>'Account is private']);
+                         }
+                    }catch(\Exception $ex){
+                        return response()->json(['data'=>2,'msg'=>$ex->getMessage()]);
+                   }
+                   // $searchResult1 = json_decode($searchResult1);
+               }else{
+                    try{
+                         $searchResult1 = $this->ig->people->getFollowing($userid,$ranktoken);
+                         $searchResult1 = json_decode($searchResult1);
+                         if(count($searchResult1->users) == 0){
+                             return response()->json(['data'=>3,'msg'=>'Account is private']);
+                         }
+                         
+                     }catch(\Exception $ex){
+                        return response()->json(['data'=>2,'msg'=>$ex->getMessage()]);
+                    }
+                    // $searchResult1 = json_decode($searchResult1);
+               }
+            try{
                foreach ($searchResult1->users as $searchResult){
                    $id = $searchResult->pk;
                    $userSelfInfo = $this->ig->people->getInfoById($id);
@@ -161,12 +201,13 @@ class HomePageController extends Controller
 
                }
 
+               
 
            }catch (\Exception $ex){
-                return response()->json(['data'=>2]);
+                return response()->json(['data'=>4,'msg'=>$ex->getMessage()]);
            }
-
            return view('home_page.ajax_follower_following_list_details',compact('usersInfo'));
+           
 
     }
 
@@ -191,7 +232,11 @@ class HomePageController extends Controller
             $search1 = $request->pictureSearch;
             $maxId = $request->maxId;
             $searchName = $search1;
-            $id1 = $this->ig->people->getUserIdForName($search1);
+            try{
+                $id1 = $this->ig->people->getUserIdForName($search1);
+            }catch (\Exception $ex){
+                return back()->with('media_search',1);
+            }
             //$profile1 = $this->ig->people->getInfoById($id1);
 
             $searchResult = $this->ig->timeline->getUserFeed($id1,$maxId);
@@ -547,7 +592,8 @@ class HomePageController extends Controller
             }
 
            }catch (\Exception $ex){
-                return response()->json(['msg'=>'<h3 style="text-align:center;color:red;">Something went wrong.Please try sometimes later.</h3>','value'=>1]);
+                // return response()->json(['msg'=>'<h3 style="text-align:center;color:red;">Something went wrong.Please try sometimes later.</h3>','value'=>1]);
+            return response()->json(['data'=>1]);
            }
 
         return view('home_page.ajax_hashtag_follower_following_list_details',compact('usersInfo'));
@@ -566,7 +612,8 @@ class HomePageController extends Controller
             $usersInfo = $obj->sections;
 
            }catch (\Exception $ex){
-                return response()->json(['msg'=>'<h3 style="text-align:center;color:red;">Something went wrong.Please try sometimes later.</h3>','value'=>1]);
+                // return response()->json(['msg'=>'<h3 style="text-align:center;color:red;">Something went wrong.Please try sometimes later.</h3>','value'=>1]);
+            return response()->json(['data'=>1]);
            }
 
         return view('home_page.ajax_location_follower_following_list_details',compact('usersInfo'));

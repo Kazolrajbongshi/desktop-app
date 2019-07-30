@@ -91,7 +91,9 @@
            success: function(response){
             console.log(response.data);
              if(response.data == 2){
-              $('#no_hashtag').html(response.no_hashtag_err);
+              swal("Error","No hashtag found","error");
+              return false;
+              // $('#no_hashtag').html(response.no_hashtag_err);
             }
             else{
               $('#hashtag_search_div').html(response);
@@ -129,8 +131,10 @@
            success: function(response){
             console.log(response.data);
 
-            if(response.value == 1){
-              $('#no_hashtag').html(response.msg);
+            if(response.data == 1){
+              // $('#no_hashtag').html(response.msg);
+              swal("Error!","Something went wrong", "error");
+              return false;
             }
             else{
 
