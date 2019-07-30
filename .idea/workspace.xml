@@ -306,7 +306,7 @@
       <path value="$PROJECT_DIR$/vendor/phpfastcache/phpfastcache" />
     </include_path>
   </component>
-  <component name="ProjectFrameBounds">
+  <component name="ProjectFrameBounds" extendedState="1">
     <option name="x" value="3" />
     <option name="y" value="-18" />
     <option name="width" value="1382" />
