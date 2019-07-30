@@ -288,6 +288,6 @@ button.first-search-add-btn,button.second-search-add-btn,button.third-search-rem
 }
 /* Hashtag search radio button end */
 
-#flt0_demo,#flt5_demo,#flt0_following_list_csv,#flt5_following_list_csv{
+#flt0_demo,#flt1_demo,#flt2_demo,#flt0_following_list_csv,#flt5_following_list_csv{
     display: none;
 }

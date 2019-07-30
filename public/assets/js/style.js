@@ -198,7 +198,8 @@ $('.second-search-remove-btn').click(function(){
     var second_value = $('#searchUser2').val();
 
     if(second_value){
-        alert('Remove the input value');
+        // alert('Remove the input value');
+        swal("Warning","Remove the input value","warning");
     }
     else{
         $('.second-search-add-btn').hide();
@@ -212,7 +213,8 @@ $('.third-search-remove-btn').click(function(){
 
     var third_value = $('#searchUser3').val();
     if(third_value){
-        alert('Remove the input value');
+        // alert('Remove the input value');
+        swal("Warning","Remove the input value","warning");
     }else{
         $('.third-search-remove-btn').hide();
         $('.third-search-add').hide();

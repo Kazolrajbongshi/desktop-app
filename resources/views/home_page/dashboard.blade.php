@@ -98,6 +98,10 @@
     .column {
         width: 100%;
     }
+    .btn2{
+        transform: translate(-9%, -50%);
+    }
+
 }
 </style>
 </head>
@@ -167,19 +171,19 @@
                 @if(isset($location_active))
                 <li class="nav-item active" style="border-right: 1px solid #10b3b3;">
                     <a class="nav-link" id="location-tab" data-toggle="tab" href="#locationsearch" role="tab"
-                       aria-controls="location" aria-selected="false">Lacation</a>
+                       aria-controls="location" aria-selected="false">Location</a>
                 </li>
                 @else
                 <li class="nav-item" style="border-right: 1px solid #10b3b3;">
                     <a class="nav-link" id="location-tab" data-toggle="tab" href="#locationsearch" role="tab"
-                       aria-controls="location" aria-selected="false">Lacation</a>
+                       aria-controls="location" aria-selected="false">Location</a>
                 </li>
                 @endif
                 <a href="{{URL::to('/media-app')}}">
                 <button type="button" class="btn btn-default navbar-btn navbar-right"style="margin-right: 10%;">APP</button>
                 </a>
                 <a href="{{url('logout')}}">
-                    <button type="button" class="btn btn-default navbar-btn navbar-right"style="margin-right: -85%;">Logout</button>
+                    <button type="button" class="btn btn-default navbar-btn navbar-right"style="margin-right: -67%;">Logout</button>
                 </a>
 
             </ul>
@@ -603,7 +607,7 @@
                   <span class="new_template">Add Media URL</span>
               </div>
           </a> -->
-          <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Add Media URL</button>
+          <button type="button" class="btn2 btn-info btn-lg" data-toggle="modal" data-target="#myModal">Add Media URL</button>
       </div>
 
 
@@ -910,16 +914,21 @@
             $('#Load').show();
           },
           success: function(response){
-            console.log(response.data);
+            console.log(response.value);
             if(response.data==1){
-              swal("Error!","Username not found", "error");
+              swal("Error!","Username not found"+response.msg, "error");
+              return false;
+            }else if(response.data==2){
+              swal("Error!","Something went wrong."+response.msg, "error");
+              return false;
+            }else if(response.data==3){
+              swal("Warning!","Account is private.", "warning");
               return false;
             }
-            else if(response.data==2){
-              swal("Error!","Something went worng", "error");
+            else if(response.data==4){
+              swal("Error!","Data cannot fetch"+response.msg, "error");
               return false;
-            }
-            else{
+            }else{
               $('#defaultsearchresult').html(response);
             }
           },
@@ -938,6 +947,10 @@
         var searchUser1 = $('#searchUser1').val();
         var searchUser2 = $('#searchUser2').val();
         var searchUser3 = $('#searchUser3').val();
+        if(searchUser1.length == 0){
+          swal("Warning","Please insert a value",'warning');
+          return false;
+        }
         $.ajax({
           url: "{{url('/search')}}",
           type: "post",
@@ -947,7 +960,15 @@
             $('#Load').show();
           },
           success: function(response){
-            $('#compare_search_result_show').html(response);
+            if(response.data == 1){
+              swal("Error","Username not found."+response.msg,"error");
+              return false;
+            }else if(response.data == 2){
+              swal("Error","Account is private.","error");
+              return false;
+            }else{
+              $('#compare_search_result_show').html(response);
+            }
           },
           complete: function(response){
             $('#Load').hide();
@@ -961,6 +982,10 @@
 
          $("#hashtag_search").click(function(){
           var hashtag = $('#hashtag_value').val();
+          if(hashtag.length == 0){
+            swal("Warning","Please insert a value","warning");
+            return false;
+          }
 
           $.ajax({
            url: "{{url('hashtag-search')}}",
@@ -974,7 +999,9 @@
            success: function(response){
             console.log(response.data);
              if(response.data == 2){
-              $('#no_hashtag').html(response.no_hashtag_err);
+              swal("Error","No hashtag found","error");
+              return false;
+              // $('#no_hashtag').html(response.no_hashtag_err);
             }
             else{
               $('#hashtag_search_div').html(response);
@@ -994,7 +1021,10 @@
 
          $("#location_search").click(function(){
           var location = $('#location_value').val();
-
+          if(location.length == 0){
+            swal("Warning","Please insert a value","warning");
+            return false;
+          }
           $.ajax({
            url: "{{url('location-search')}}",
            type: "post",
@@ -1095,7 +1125,13 @@
     }
   });
 </script>
-
+@if(session('media_search'))
+<script type="text/javascript">
+    $(document).ready(function(){
+       swal("Error!","Username not found", "error");
+   });
+</script>
+@endif
 </body>
 </html>
 <script type="text/javascript" src="{{asset('assets/js/style.js')}}"></script>
