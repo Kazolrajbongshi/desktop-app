@@ -144,6 +144,7 @@
       <path value="$PROJECT_DIR$/vendor/phpfastcache/phpfastcache" />
     </include_path>
   </component>
+  <component name="ProjectId" id="1OlN8BFQ7H4jURXzU6RS7Tgc7t1" />
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
