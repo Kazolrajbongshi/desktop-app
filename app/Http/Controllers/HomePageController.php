@@ -235,10 +235,8 @@ class HomePageController extends Controller
             $search1 = $request->pictureSearch;
             if($request->maxId !=null){
                 $maxId = $request->maxId;
-            }
-            else
-            {
-                $maxId=null;
+            }else{
+                $maxId = null;
             }
             $searchName = $search1;
             try{
@@ -618,8 +616,8 @@ class HomePageController extends Controller
 
             $result = $this->ig->location->getFeed($request->location,$ranktoken);
             $obj = json_decode($result);
-            $usersInfo = $obj->sections;
-
+            $usersInfo = $obj->sections[0]->layout_content->medias;
+                
            }catch (\Exception $ex){
                 // return response()->json(['msg'=>'<h3 style="text-align:center;color:red;">Something went wrong.Please try sometimes later.</h3>','value'=>1]);
             return response()->json(['data'=>1]);
@@ -636,9 +634,16 @@ class HomePageController extends Controller
         $ranktoken = \InstagramAPI\Signatures::generateUUID();
         // $searchResult1 = $this->ig->people->getFollowers($userid,$ranktoken);
         // $searchResult1 = json_decode($searchResult1);
-        // $result = $this->ig->location->findPlaces('dhaka');
-        $result = $this->ig->location->getFeed('217567072',$ranktoken);
+        //  $result = $this->ig->location->findPlaces('dhaka');
+        // return $result;
+        $result = $this->ig->location->getFeed('1032889491',$ranktoken);
         // $result = $this->ig->hashtag->search('dhaka');
+        $obj = json_decode($result);
+        $usersInfo = $obj->sections[0]->layout_content->medias;
+        foreach ($usersInfo as $value) {
+            $data[] = $value->media->taken_at;
+        }
+                return $data;
         return $result;
         $obj = json_decode($result);
 
