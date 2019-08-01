@@ -615,8 +615,18 @@ class HomePageController extends Controller
         try{
 
             $result = $this->ig->location->getFeed($request->location,$ranktoken);
-            $obj = json_decode($result);
-            $usersInfo = $obj->sections[0]->layout_content->medias;
+            //$obj = json_decode($result);
+            //$usersInfo = $obj->sections[0]->layout_content->medias;
+            $usersInfo = json_decode($result);
+
+            foreach ($usersInfo->sections as $picture1) {
+            foreach ($picture1->layout_content as $picture2) {
+                
+                    $usersInfo = $picture2;
+                    
+                
+            }
+        }
                 
            }catch (\Exception $ex){
                 // return response()->json(['msg'=>'<h3 style="text-align:center;color:red;">Something went wrong.Please try sometimes later.</h3>','value'=>1]);
@@ -638,12 +648,17 @@ class HomePageController extends Controller
         // return $result;
         $result = $this->ig->location->getFeed('1032889491',$ranktoken);
         // $result = $this->ig->hashtag->search('dhaka');
-        $obj = json_decode($result);
-        $usersInfo = $obj->sections[0]->layout_content->medias;
-        foreach ($usersInfo as $value) {
-            $data[] = $value->media->taken_at;
+        $usersInfo = json_decode($result);
+        //$usersInfo = $obj->sections[0]->layout_content->medias;
+        foreach ($usersInfo->sections as $picture1) {
+            foreach ($picture1->layout_content as $picture2) {
+                foreach ($picture2 as $picture3) {
+                    echo "<pre>";
+                    print_r($picture3);
+                }
+            }
         }
-                return $data;
+                return $result;
         return $result;
         $obj = json_decode($result);
 
