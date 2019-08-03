@@ -225,9 +225,11 @@ class HomePageController extends Controller
          // $result = $this->ig->location->findPlaces('Maniknogor');
         // return $result;
         $result = $this->ig->location->getFeed('496903063',$ranktoken);
+        //$result = $this->ig->media->getInfo('1890536923124794930_2254879892');
         // $result = $this->ig->hashtag->search('dhaka');
         $usersInfo = json_decode($result);
 //        //$usersInfo = $obj->sections[0]->layout_content->medias;
+        $next_id = $usersInfo->next_max_id;
         foreach ($usersInfo->sections as $picture1) {
             foreach ($picture1->layout_content as $picture2) {
                 foreach ($picture2 as $picture3) {
@@ -236,7 +238,9 @@ class HomePageController extends Controller
 
                         try{
                             //print_r($picture3->media->image_versions2->candidates[0]);
-                             array_push($media_url,$picture3->media->image_versions2->candidates[0]->url);
+                             array_push($media_url,['image_url'=>$picture3->media->image_versions2->candidates[0]->url,'media'=> $picture3->media->id,
+                                 'like' => $picture3->media->like_count,'comment'=> $picture3->media->comment_count]
+                                 );
                         }catch (Exception $ex){
 
                         }
