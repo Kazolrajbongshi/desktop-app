@@ -267,7 +267,6 @@ class HomePageController extends Controller
             }else{
                 $maxId = null;
             }
-
             $searchName = $search1;
             try{
                 $id1 = $this->ig->people->getUserIdForName($search1);
@@ -645,8 +644,18 @@ class HomePageController extends Controller
         try{
 
             $result = $this->ig->location->getFeed($request->location,$ranktoken);
-            $obj = json_decode($result);
-            $usersInfo = $obj->sections;
+            //$obj = json_decode($result);
+            //$usersInfo = $obj->sections[0]->layout_content->medias;
+            $usersInfo = json_decode($result);
+
+            foreach ($usersInfo->sections as $picture1) {
+            foreach ($picture1->layout_content as $picture2) {
+
+                    $usersInfo = $picture2;
+
+
+            }
+        }
 
            }catch (\Exception $ex){
                 // return response()->json(['msg'=>'<h3 style="text-align:center;color:red;">Something went wrong.Please try sometimes later.</h3>','value'=>1]);
@@ -664,9 +673,21 @@ class HomePageController extends Controller
         $ranktoken = \InstagramAPI\Signatures::generateUUID();
         // $searchResult1 = $this->ig->people->getFollowers($userid,$ranktoken);
         // $searchResult1 = json_decode($searchResult1);
-        // $result = $this->ig->location->findPlaces('dhaka');
-        $result = $this->ig->location->getFeed('217567072',$ranktoken);
+        //  $result = $this->ig->location->findPlaces('dhaka');
+        // return $result;
+        $result = $this->ig->location->getFeed('1032889491',$ranktoken);
         // $result = $this->ig->hashtag->search('dhaka');
+        $usersInfo = json_decode($result);
+        //$usersInfo = $obj->sections[0]->layout_content->medias;
+        foreach ($usersInfo->sections as $picture1) {
+            foreach ($picture1->layout_content as $picture2) {
+                foreach ($picture2 as $picture3) {
+                    echo "<pre>";
+                    print_r($picture3);
+                }
+            }
+        }
+                return $result;
         return $result;
         $obj = json_decode($result);
 
