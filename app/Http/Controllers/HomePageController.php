@@ -216,16 +216,45 @@ class HomePageController extends Controller
 
     public function test(){
 
-
-        $this->ig->login('webvision100', 'instagram123456');
+         $media_url = array();
+        $result1 = $this->ig->login('webvision100','instagram123456');
+        // $userid = $this->ig->people->getUserIdForName('fifa');
         $ranktoken = \InstagramAPI\Signatures::generateUUID();
-        $id1 = $this->ig->people->getUserIdForName('mad__beatz');
-        //$profile1 = $this->ig->people->getInfoById($id1);
+        // $searchResult1 = $this->ig->people->getFollowers($userid,$ranktoken);
+        // $searchResult1 = json_decode($searchResult1);
+         // $result = $this->ig->location->findPlaces('Maniknogor');
+        // return $result;
+        $result = $this->ig->location->getFeed('496903063',$ranktoken);
+        // $result = $this->ig->hashtag->search('dhaka');
+        $usersInfo = json_decode($result);
+//        //$usersInfo = $obj->sections[0]->layout_content->medias;
+        foreach ($usersInfo->sections as $picture1) {
+            foreach ($picture1->layout_content as $picture2) {
+                foreach ($picture2 as $picture3) {
 
-        $searchResult = $this->ig->timeline->getUserFeed($id1);
 
-       // $pictures = json_decode($searchResult);
-        return $searchResult;
+
+                        try{
+                            //print_r($picture3->media->image_versions2->candidates[0]);
+                             array_push($media_url,$picture3->media->image_versions2->candidates[0]->url);
+                        }catch (Exception $ex){
+
+                        }
+
+
+
+//                    echo $picture1->media->image_versions2->candidates[0]->url;
+                        //$media_url = array('media' => $picture2->image_versions2->candidates[0]->url);
+
+
+                }
+            }
+        }
+
+
+        //return response()->json($usersInfo->sections[0]->layout_content->medias[0]->media->image_versions2->candidates[0]->url);
+        print_r($media_url);
+        //return response()->json($usersInfo);
     }
 
     public function pictureSearch(Request $request){
@@ -238,10 +267,7 @@ class HomePageController extends Controller
             }else{
                 $maxId = null;
             }
-            else
-            {
-                $maxId=null;
-            }
+
             $searchName = $search1;
             try{
                 $id1 = $this->ig->people->getUserIdForName($search1);
