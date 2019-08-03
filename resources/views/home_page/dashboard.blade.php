@@ -1037,7 +1037,8 @@
            success: function(response){
             console.log(response.data);
              if(response.data == 2){
-              $('#no_location').html(response.no_location_err);
+              // $('#no_location').html(response.no_location_err);
+              swal("Error!","No location found", "error");
             }
             else{
               $('#location_search_div').html(response);
@@ -1129,6 +1130,15 @@
 <script type="text/javascript">
     $(document).ready(function(){
        swal("Error!","Username not found", "error");
+       return false;
+   });
+</script>
+@endif
+@if(session('media_search_private'))
+<script type="text/javascript">
+    $(document).ready(function(){
+       swal("Warning!","Account is private", "warning");
+       return false;
    });
 </script>
 @endif

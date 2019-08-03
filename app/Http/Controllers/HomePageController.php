@@ -224,7 +224,7 @@ class HomePageController extends Controller
         // $searchResult1 = json_decode($searchResult1);
          // $result = $this->ig->location->findPlaces('Maniknogor');
         // return $result;
-        $result = $this->ig->location->getFeed('496903063',$ranktoken);
+        $result = $this->ig->location->getFeed('217567072',$ranktoken);
         //$result = $this->ig->media->getInfo('1890536923124794930_2254879892');
         // $result = $this->ig->hashtag->search('dhaka');
         $usersInfo = json_decode($result);
@@ -278,8 +278,12 @@ class HomePageController extends Controller
                 return back()->with('media_search',1);
             }
             //$profile1 = $this->ig->people->getInfoById($id1);
-
-            $searchResult = $this->ig->timeline->getUserFeed($id1,$maxId);
+            try{
+                $searchResult = $this->ig->timeline->getUserFeed($id1,$maxId);
+            }catch (\Exception $ex){
+                return back()->with('media_search_private',2);
+            }
+            
             $pictures = json_decode($searchResult);
 //        print_r($pictures->items[0]->image_versions2->candidates[0]->url);
 //        exit();
@@ -308,24 +312,24 @@ class HomePageController extends Controller
             //return response()->download(asset('images/'.$name));
             return response()->download('images/'.$name);
         }elseif($request->videoUrl != null){
-            $link = $this->ig->media->getPermalink($request->videoUrl);
-            $update_link = json_decode($link);
+//             $link = $this->ig->media->getPermalink($request->videoUrl);
+//             $update_link = json_decode($link);
 
 
-            $mystring = $update_link->permalink;
+//             $mystring = $update_link->permalink;
 
-            $parts = explode("?",$mystring);
-//break the string up around the "/" character in $mystring
+//             $parts = explode("?",$mystring);
+// //break the string up around the "/" character in $mystring
 
-            $mystring = $parts['0'];
-//grab the first part
+//             $mystring = $parts['0'];
+// //grab the first part
 
-           // echo $mystring;
+//            // echo $mystring;
 
-            $client = new InstagramDownload($mystring);
-            $url = $client->getDownloadUrl(); // Returns the download URL.
+//             $client = new InstagramDownload($mystring);
+//             $url = $client->getDownloadUrl(); // Returns the download URL.
 
-                $contents = file_get_contents($url);
+                $contents = file_get_contents($request->videoUrl);
                 $name = str_random(10).'.'.'mp4';
                 // Storage::put($name, $contents);
                 $temp = Storage::disk('uploads')->put($name, $contents);
@@ -644,29 +648,61 @@ class HomePageController extends Controller
 
         $result1 = $this->ig->login(session('username'), session('password'));
         $ranktoken = \InstagramAPI\Signatures::generateUUID();
+        $location_id = $request->location_list; 
+        // echo $location_id;
+        // exit();
+        if($request->maxId != null){
+                $next_id = $request->maxId;
+        }else{
+            $next_id = null;
+        }
+        $result = $this->ig->location->getFeed($location_id,$ranktoken,$i='ranked',$nextMediaIds = null,
+        $nextPage = null,$next_id);
+        $usersInfo = json_decode($result);
+        $next_id = $usersInfo->next_max_id;
+        // echo $next_id;
+        // exit();
 
         try{
-
-            $result = $this->ig->location->getFeed($request->location,$ranktoken);
-            //$obj = json_decode($result);
-            //$usersInfo = $obj->sections[0]->layout_content->medias;
-            $usersInfo = json_decode($result);
-
-            foreach ($usersInfo->sections as $picture1) {
-            foreach ($picture1->layout_content as $picture2) {
-
-                    $usersInfo = $picture2;
+            $media_url = array();
 
 
-            }
-        }
+                foreach ($usersInfo->sections as $picture1) {
+                    foreach ($picture1->layout_content as $picture2) {
+                        foreach ($picture2 as $picture3) {
+                            try{
+                                //print_r($picture3->media->image_versions2->candidates[0]);
+                                if($picture3->media->media_type == 1){
+                                    array_push($media_url,['image_url'=>$picture3->media->image_versions2->candidates[0]->url,'media'=> $picture3->media->id,
+                                         'like' => $picture3->media->like_count,'comment'=> $picture3->media->comment_count,'type'=>1]
+                                        );
+                                }elseif($picture3->media->media_type == 2){
+                                    array_push($media_url,['image_url'=>$picture3->media->video_versions[0]->url,'media'=> $picture3->media->id,
+                                         'like' => $picture3->media->like_count,'comment'=> $picture3->media->comment_count,'type'=>2]
+                                        );
+                                }
+                                
+                            }catch (Exception $ex){
+
+                            }
+
+    //                    echo $picture1->media->image_versions2->candidates[0]->url;
+                            //$media_url = array('media' => $picture2->image_versions2->candidates[0]->url);
+
+                        }
+                    }
+                }
+
+                // echo "<pre>";
+                // print_r($media_url);
+                // exit();
 
            }catch (\Exception $ex){
                 // return response()->json(['msg'=>'<h3 style="text-align:center;color:red;">Something went wrong.Please try sometimes later.</h3>','value'=>1]);
             return response()->json(['data'=>1]);
            }
 
-        return view('home_page.ajax_location_follower_following_list_details',compact('usersInfo'));
+        return view('home_page.ajax_location_follower_following_list_details',compact('media_url','next_id','location_id'));
 
     }
 
@@ -681,8 +717,8 @@ class HomePageController extends Controller
         // return $result;
         $result = $this->ig->location->getFeed('1032889491',$ranktoken);
         // $result = $this->ig->hashtag->search('dhaka');
-        $usersInfo = json_decode($result);
-        //$usersInfo = $obj->sections[0]->layout_content->medias;
+        // $usersInfo = json_decode($result);
+        return $result;
         foreach ($usersInfo->sections as $picture1) {
             foreach ($picture1->layout_content as $picture2) {
                 foreach ($picture2 as $picture3) {
