@@ -19,6 +19,16 @@ class HomePageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function mediaUrlDownload()
+    {
+        return view('home_page.media_url_download');
+    }
+    public function mediaUrlDisplay(Request $request)
+    {
+        $a=$request->appImageUrl;
+
+        return view('home_page.media_url_display',compact('a'));
+    }
     public function media()
     {
         return view('home_page.media_url');
