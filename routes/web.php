@@ -40,6 +40,8 @@ Route::post('/picture-search','HomePageController@pictureSearch');
 Route::post('/picture-download','HomePageController@pictureDownload');
 
 Route::get('/media-url','HomePageController@media');
+Route::get('/media-url-download','HomePageController@mediaUrlDownload');
+Route::post('/media-url-display','HomePageController@mediaUrlDisplay');
 
 Route::get('/csv-image-download', 'HomePageController@csvImageDownload');
 Route::post('/hashtag-search', 'HomePageController@hashtagSearch');

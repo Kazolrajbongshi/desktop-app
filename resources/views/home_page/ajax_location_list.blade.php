@@ -57,8 +57,8 @@
 			    </div>
 
 			    <div class="form_buttons">
-			        <!-- <button class="btn_cancel p_btn">削除する</button> -->
-			        <button type="submit" id="ajax_location_save" class="btn_done p_btn">Save</button>
+			        <!-- <button type="submit" id="ajax_location_save" class="btn_done p_btn">Save</button> -->
+              <button type="submit" id="ajax_location_save" class="btn_done p_btn">Save</button>
 			    </div>
 			    @endif
 
@@ -78,6 +78,11 @@
 
          $("#location_search").click(function(){
           var location = $('#location_value').val();
+
+          if(location.length == 0){
+            swal("Warning","Please insert a value","warning");
+            return false;
+          }
 
           $.ajax({
            url: "{{url('location-search')}}",
@@ -110,8 +115,8 @@
         /* hashtag list user details start*/
 
          $("#ajax_location_save").click(function(){
-          var location = $("input[name='location_list']:checked"). val();
-          if(location == null){
+          var location_list = $("input[name='location_list']:checked"). val();
+          if(location_list == null){
             // alert('Please Select a Hashtag from the List');
             swal("Warning!","Please Select a Location from the List", "warning");
             return false;
@@ -120,7 +125,7 @@
           $.ajax({
            url: "{{url('location-list-details')}}",
            type: "post",
-           data: {"_token": "{{ csrf_token() }}","location":location},
+           data: {"_token": "{{ csrf_token() }}","location_list":location_list},
            beforeSend: function(){
             // Show image container
             console.log(location);
