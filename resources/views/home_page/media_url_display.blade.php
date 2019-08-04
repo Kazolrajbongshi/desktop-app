@@ -175,9 +175,15 @@
             <div class="row">
 
                 <div class="col-sm-4 col-sm-offset-4">
+                    @if($type == 1)
+                    <img src="{{$url}}">
+                    @elseif($type == 2)
+                    <video width="320" height="240" controls>
+                        <source src="{{$url}}" type="video/mp4">
 
-<img src="{{$a}}">
-
+                        Your browser does not support the video tag.
+                    </video>
+                    @endif
                 </div>
             </div>
         </form>
