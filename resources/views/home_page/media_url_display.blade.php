@@ -111,6 +111,19 @@
             }
 
         }
+        .btn {
+            background-color: #10b3b3;
+            border: none;
+            color: white;
+            /*padding: 12px 30px;*/
+            cursor: pointer;
+            font-size: 20px;
+        }
+
+        /* Darker background on mouse-over */
+        .btn:hover {
+            background-color: lightseagreen;
+        }
 
     </style>
 </head>
@@ -168,27 +181,34 @@
 </nav>
 
 <div class="tab-pane" id="mediasearch" role="tabpanel" aria-labelledby="contact-tab">
-    <div class="jumbotron text-center" id="media_search_div"
-         style="padding-top: 0px;padding-bottom: 5px;margin-bottom: 15px;">
-        <form action="#" method="post">
-            {{csrf_field()}}
-            <div class="row">
 
-                <div class="col-sm-4 col-sm-offset-4">
-                    @if($type == 1)
-                    <img src="{{$url}}">
-                    @elseif($type == 2)
-                    <video width="320" height="240" controls>
-                        <source src="{{$url}}" type="video/mp4">
+    <form action="{{url('picture-download')}}" method="post">
+        {{csrf_field()}}
 
-                        Your browser does not support the video tag.
-                    </video>
-                    @endif
+        <a class="thumbnail" href="#" style="margin-top: 5%;">
+            <div class="follower_lists">
+                <div class="row" >
+                    <div class="col-sm-3">
+                        @if($type == 1)
+                        <img src="{{$url}}" alt="image" height="75" width="125">
+                        <input type="hidden" name="imageUrl" value="{{$url}}">
+                        @elseif($type == 2)
+                        <video height="150" width="150" controls>
+                            <source src="{{$url}}" type="video/mp4">
+                            Your browser does not support the video tag.
+                            <input type="hidden" name="videoUrl" value="{{$url}}">
+                        </video>
+
+                        @endif
+
+                    </div>
+                    <div class="col-sm-9" style="margin-top: 6px;">
+                        <button type="submit" class="btn"><i class="fa fa-download"> Download</i></button>
+                    </div>
                 </div>
             </div>
-        </form>
-    </div>
-</div>
+        </a>
+    </form>
 </div>
 <!-- jquery core -->
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"
