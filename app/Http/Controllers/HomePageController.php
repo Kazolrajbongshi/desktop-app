@@ -25,9 +25,32 @@ class HomePageController extends Controller
     }
     public function mediaUrlDisplay(Request $request)
     {
-        $a=$request->appImageUrl;
+        $copyLink=$request->appImageUrl;
 
-        return view('home_page.media_url_display',compact('a'));
+        try {
+            $client = new InstagramDownload($copyLink);
+            $url = $client->getDownloadUrl(); // Returns the download URL.
+            if($client->getType() == 'image'){
+
+                $type = 1;
+
+            }elseif($client->getType() == 'video'){
+                $type = 2;
+            }
+
+            return view('home_page.media_url_display',compact('url','type'));
+
+        }
+        catch (\InvalidArgumentException $exception) {
+            /*
+             * \InvalidArgumentException exceptions will be thrown if there is a validation
+             * error in the URL. You might want to break the code flow and report the error
+             * to your form handler at this point.
+             */
+            $error = $exception->getMessage();
+        }
+
+
     }
     public function media()
     {
@@ -267,7 +290,7 @@ class HomePageController extends Controller
 
 
         //return response()->json($usersInfo->sections[0]->layout_content->medias[0]->media->image_versions2->candidates[0]->url);
-        print_r($media_url);
+       // print_r($media_url);
         //return response()->json($usersInfo);
     }
 
@@ -276,7 +299,8 @@ class HomePageController extends Controller
         $result1 = $this->ig->login(session('username'), session('password'));
         try{
             $search1 = $request->pictureSearch;
-            if($request->maxId !=null){
+            if($request->maxId !=null)
+            {
                 $maxId = $request->maxId;
             }else{
                 $maxId = null;
@@ -293,7 +317,7 @@ class HomePageController extends Controller
             }catch (\Exception $ex){
                 return back()->with('media_search_private',2);
             }
-            
+
             $pictures = json_decode($searchResult);
 //        print_r($pictures->items[0]->image_versions2->candidates[0]->url);
 //        exit();
@@ -658,7 +682,7 @@ class HomePageController extends Controller
 
         $result1 = $this->ig->login(session('username'), session('password'));
         $ranktoken = \InstagramAPI\Signatures::generateUUID();
-        $location_id = $request->location_list; 
+        $location_id = $request->location_list;
         // echo $location_id;
         // exit();
         if($request->maxId != null){
@@ -691,12 +715,14 @@ class HomePageController extends Controller
                                          'like' => $picture3->media->like_count,'comment'=> $picture3->media->comment_count,'type'=>2]
                                         );
                                 }
+
                                 elseif($picture3->media->media_type == 8){
                                     array_push($media_url,['image_url'=>$picture3->media->carousel_media[0]->image_versions2->candidates[0]->url,'media'=> $picture3->media->id,
                                          'like' => $picture3->media->like_count,'comment'=> $picture3->media->comment_count,'type'=>1]
                                         );
                                 }
                                 
+
                             }catch (Exception $ex){
 
                             }
