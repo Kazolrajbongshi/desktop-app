@@ -224,7 +224,7 @@ class HomePageController extends Controller
         // $searchResult1 = json_decode($searchResult1);
          // $result = $this->ig->location->findPlaces('Maniknogor');
         // return $result;
-        $result = $this->ig->location->getFeed('496903063',$ranktoken);
+        $result = $this->ig->location->getFeed('217567072',$ranktoken);
         //$result = $this->ig->media->getInfo('1890536923124794930_2254879892');
         // $result = $this->ig->hashtag->search('dhaka');
         $usersInfo = json_decode($result);
@@ -257,7 +257,7 @@ class HomePageController extends Controller
 
 
         //return response()->json($usersInfo->sections[0]->layout_content->medias[0]->media->image_versions2->candidates[0]->url);
-        print_r($media_url);
+       // print_r($media_url);
         //return response()->json($usersInfo);
     }
 
@@ -266,7 +266,8 @@ class HomePageController extends Controller
         $result1 = $this->ig->login(session('username'), session('password'));
         try{
             $search1 = $request->pictureSearch;
-            if($request->maxId !=null){
+            if($request->maxId !=null)
+            {
                 $maxId = $request->maxId;
             }else{
                 $maxId = null;
