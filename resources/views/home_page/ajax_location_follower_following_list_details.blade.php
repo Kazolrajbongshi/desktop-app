@@ -68,14 +68,15 @@
             </div>
             @if(isset($next_id))
             <div class="text-center">
-                <form action="{{url('/location-list-details')}}" method="post">
+                <form action="javascript:void(0);" method="post">
                     {{csrf_field()}}
-                    <button type="submit" class="btn btn-info btn-lg ">
+                    <meta type="hidden" name="csrf-token" content="{{csrf_token()}}">
+                    <button type="submit" id="location_pagination" class="btn btn-info btn-lg ">
                         Next
                     </button>
 
-                    <input type="hidden" name="location_list" value="{{$location_id}}" class="form-control">
-                    <input type="hidden" name="maxId" value="{{$next_id}}">
+                    <input type="hidden" name="location_list" id="location_list" value="{{$location_id}}" class="form-control">
+                    <input type="hidden" name="maxId" id="maxId" value="{{$next_id}}">
 
                 </form>
             </div>
@@ -84,3 +85,37 @@
         </div>
       @endif
     </div>
+    <script type="text/javascript">
+        $("#location_pagination").click(function(){
+          var location_list = $("#location_list"). val();
+          var maxId = $("#maxId"). val();
+
+          $.ajax({
+           url: "{{url('location-list-details')}}",
+           type: "post",
+           data: {"_token": "{{ csrf_token() }}","location_list":location_list,"maxId":maxId},
+           beforeSend: function(){
+            // Show image container
+            console.log(location_list);
+            $("#Load").show();
+           },
+           success: function(response){
+            console.log(response.data);
+
+            if(response.value == 1){
+              $('#no_location').html(response.msg);
+            }
+            else{
+
+              $('#no_location').html(response);
+            }
+
+           },
+           complete:function(data){
+            // Hide image container
+            $("#Load").hide();
+           }
+          });
+
+         });
+    </script>

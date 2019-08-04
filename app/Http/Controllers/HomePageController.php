@@ -691,6 +691,11 @@ class HomePageController extends Controller
                                          'like' => $picture3->media->like_count,'comment'=> $picture3->media->comment_count,'type'=>2]
                                         );
                                 }
+                                elseif($picture3->media->media_type == 8){
+                                    array_push($media_url,['image_url'=>$picture3->media->carousel_media[0]->image_versions2->candidates[0]->url,'media'=> $picture3->media->id,
+                                         'like' => $picture3->media->like_count,'comment'=> $picture3->media->comment_count,'type'=>1]
+                                        );
+                                }
                                 
                             }catch (Exception $ex){
 

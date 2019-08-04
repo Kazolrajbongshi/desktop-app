@@ -2,7 +2,9 @@
     <div class="col-md-6">
         <h3>Follower List Details:</h3>
     </div>
+    
     <div class="col-md-6" style="text-align: right;">
+        <a href="#" data-toggle="tooltip" data-placement="bottom" title="Use the filters above each column to filter and limit table data. Advanced searches can be performed by using the following operators:<, <=, >, >=, =, *, !, {, }, ||,&&, [empty], [nonempty], rgx:" style="padding-right: 5px;font-size: 2rem;"><i class="fa fa-question-circle" aria-hidden="true"></i></a>
         <a href="#" class="btn btn-primary" style="background-color:#06af94;" id="down"><span style="color: black;">Export as</span>&nbsp;&nbsp;CSV</a>
     </div>
 
@@ -134,6 +136,12 @@
 <!-- <div style="text-align:center;">
     <a href="#" class="btn btn-primary" id="down_following"><span style="color: black;">Export as</span>&nbsp;&nbsp;CSV</a>
 </div>  -->
+
+<style type="text/css">
+  #demo span>.reset{
+    display: none;
+  }
+</style>
 <script src="https://rawgit.com/wenzhixin/bootstrap-table/master/src/bootstrap-table.js"></script>
 <script type="text/javascript" src="{{asset('assets/js/tablefilter.js')}}"></script>
 <script type="text/javascript" src="{{asset('assets/js/style.js')}}"></script>

@@ -1,5 +1,9 @@
 
-
+//help icon in follow and following list atart//
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();   
+});
+//help icon in follow and following list end//
 
 //follower csv list download start//
 
@@ -263,3 +267,4 @@ var tf = new TableFilter('following_list_csv', filtersConfig);
 tf.init();
 
 // Following list details advanced search end //
+
