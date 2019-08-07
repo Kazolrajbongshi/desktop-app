@@ -248,25 +248,22 @@ class HomePageController extends Controller
 
 
     public function test(){
+        //$recipients = array();
+        $this->ig->login('webvision100', 'instagram123456%');
+        $result = $this->ig->timeline->getUserFeed('8576826038');
+        $recipients =
+            [
+                'users' => [1919093285,1474834026] // must be an [array] of valid UserPK IDs
+            ];
+        $media =
+            [
+                'media_type' => 'photo' // must be an [array] of valid UserPK IDs
+            ];
 
-        $copyLink = 'https://instagram.com/p/B0gqMXlHO2H/';
+//Use an existing thread
 
-            $client = new InstagramDownload($copyLink);
-            $url = $client->getDownloadUrl(); // Returns the download URL.
-
-
-//                $contents = file_get_contents($url);
-//                $name = str_random(10).'.'.'jpg';
-//                // Storage::put($name, $contents);
-//                $temp = Storage::disk('uploads')->put($name, $contents);
-//                //$url = Storage::url($name);
-//                //return response()->download(asset('images/'.$name));
-//                return response()->download('images/'.$name);
-//        \QrCode::size(500)
-//            ->format('png')
-//            ->generate('ItSolutionStuff.com', public_path('images/qrcode.png'));
-
-        return view('qrCode', compact('url'));
+        $result = $this->ig->direct->sendPost($recipients, "1867386121365970540_8576826038",$media);
+       return $result;
 
     }
 

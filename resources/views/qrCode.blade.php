@@ -10,7 +10,7 @@
 
 
 
-    {!! QrCode::size(250)->generate($url); !!}
+    {!! QrCode::generate($url); !!}
 
     <p>example by ItSolutionStuf.com.</p>
 </div>
