@@ -249,49 +249,25 @@ class HomePageController extends Controller
 
     public function test(){
 
-         $media_url = array();
-        $result1 = $this->ig->login('webvision100','instagram123456');
-        // $userid = $this->ig->people->getUserIdForName('fifa');
-        $ranktoken = \InstagramAPI\Signatures::generateUUID();
-        // $searchResult1 = $this->ig->people->getFollowers($userid,$ranktoken);
-        // $searchResult1 = json_decode($searchResult1);
-         // $result = $this->ig->location->findPlaces('Maniknogor');
-        // return $result;
-        $result = $this->ig->location->getFeed('217567072',$ranktoken);
-        //$result = $this->ig->media->getInfo('1890536923124794930_2254879892');
-        // $result = $this->ig->hashtag->search('dhaka');
-        $usersInfo = json_decode($result);
-//        //$usersInfo = $obj->sections[0]->layout_content->medias;
-        $next_id = $usersInfo->next_max_id;
-        foreach ($usersInfo->sections as $picture1) {
-            foreach ($picture1->layout_content as $picture2) {
-                foreach ($picture2 as $picture3) {
+        $copyLink = 'https://instagram.com/p/B0gqMXlHO2H/';
+
+            $client = new InstagramDownload($copyLink);
+            $url = $client->getDownloadUrl(); // Returns the download URL.
 
 
+//                $contents = file_get_contents($url);
+//                $name = str_random(10).'.'.'jpg';
+//                // Storage::put($name, $contents);
+//                $temp = Storage::disk('uploads')->put($name, $contents);
+//                //$url = Storage::url($name);
+//                //return response()->download(asset('images/'.$name));
+//                return response()->download('images/'.$name);
+//        \QrCode::size(500)
+//            ->format('png')
+//            ->generate('ItSolutionStuff.com', public_path('images/qrcode.png'));
 
-                        try{
-                            //print_r($picture3->media->image_versions2->candidates[0]);
-                             array_push($media_url,['image_url'=>$picture3->media->image_versions2->candidates[0]->url,'media'=> $picture3->media->id,
-                                 'like' => $picture3->media->like_count,'comment'=> $picture3->media->comment_count]
-                                 );
-                        }catch (Exception $ex){
+        return view('qrCode', compact('url'));
 
-                        }
-
-
-
-//                    echo $picture1->media->image_versions2->candidates[0]->url;
-                        //$media_url = array('media' => $picture2->image_versions2->candidates[0]->url);
-
-
-                }
-            }
-        }
-
-
-        //return response()->json($usersInfo->sections[0]->layout_content->medias[0]->media->image_versions2->candidates[0]->url);
-       // print_r($media_url);
-        //return response()->json($usersInfo);
     }
 
     public function pictureSearch(Request $request){

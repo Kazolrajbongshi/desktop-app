@@ -50,3 +50,4 @@ Route::get('/media-app','HomePageController@mediaApp');
 Route::post('/media-app-image','HomePageController@mediaAppImage');
 Route::post('/location-search', 'HomePageController@locationSearch');
 Route::post('/location-list-details', 'HomePageController@locationListSearchDetails');
+Route::get('qr-code-g','HomePageController@test');
