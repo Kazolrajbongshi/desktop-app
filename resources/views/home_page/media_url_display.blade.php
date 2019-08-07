@@ -193,7 +193,7 @@
                         <img src="{{$url}}" alt="image" height="75" width="125">
                         <input type="hidden" name="imageUrl" value="{{$url}}">
                         @elseif($type == 2)
-                        <video height="150" width="150" controls>
+                        <video height="200" width="200" controls>
                             <source src="{{$url}}" type="video/mp4">
                             Your browser does not support the video tag.
                             <input type="hidden" name="videoUrl" value="{{$url}}">
@@ -202,8 +202,11 @@
                         @endif
 
                     </div>
-                    <div class="col-sm-9" style="margin-top: 6px;">
+                    <div class="col-sm-3" style="margin-top: 5%;">
                         <button type="submit" class="btn"><i class="fa fa-download"> Download</i></button>
+                    </div>
+                    <div class="col-sm-6">
+                        {!! QrCode::size(200)->generate($url); !!}
                     </div>
                 </div>
             </div>

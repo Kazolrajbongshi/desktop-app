@@ -185,8 +185,8 @@
                     </div>
                     <br>
                     <button type="submit" class="btn btn-success btn-lg "
-                            style="float:center; background-color: #ffffff;color: #000000;border-color: #ccc;">
-                        Submit
+                            style="float:center; background-color: #10b3b3;color: #000000;border-color: #ccc;padding: 8px 25px;">
+                        Start
                     </button>
 
                 </div>
