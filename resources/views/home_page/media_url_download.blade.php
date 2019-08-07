@@ -179,7 +179,7 @@
                     <div class="first-search-add" style="overflow: hidden; padding-right: 0px; margin-top: 20%;">
 
                         <input type="text" name="appImageUrl" class="form-control"
-                               placeholder="Enter your Image or Video URL"
+                               placeholder="Paste Your IG Image or Video Link Here"
 
                                style="height: 46px;  padding: 10px;border-radius: 10px; border: solid 1px orange; color: slategrey;">
                     </div>
