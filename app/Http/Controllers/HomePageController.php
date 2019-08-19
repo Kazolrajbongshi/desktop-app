@@ -249,22 +249,39 @@ class HomePageController extends Controller
 
     public function test(){
         //$recipients = array();
-        $this->ig->login('webvision100', 'instagram123456%');
-        $result = $this->ig->timeline->getUserFeed('8576826038');
-        $recipients =
-            [
-                'users' => [1919093285,1474834026] // must be an [array] of valid UserPK IDs
-            ];
-        $media =
-            [
-                'media_type' => 'photo' // must be an [array] of valid UserPK IDs
-            ];
+        $this->ig->login('webvision100', 'instagram123456');
 
-//Use an existing thread
 
-        $result = $this->ig->direct->sendPost($recipients, "1867386121365970540_8576826038",$media);
-       return $result;
+        $media_result = $this->ig->media->getInfo('2111615845977120103_1474834026');
+        $media_result = json_decode($media_result);
 
+        $follower_result = $this->ig->people->getInfoByName('asifahmmed');
+        $follower_result = json_decode($follower_result);
+        $follower_count = $follower_result->user->follower_count;
+        $comment = $media_result->items[0]->comment_count;
+        $like = $media_result->items[0]->like_count;
+        $ratio = (($comment + $like)/ $follower_count)*100;
+        //echo $ratio;
+
+
+
+
+       //return response()->json($this->ig->timeline->getUserFeed('1474834026')) ;
+        return response()->json($ratio);
+
+    }
+    public function engagementRatio(Request $request){
+        $this->ig->login('webvision100', 'instagram123456');
+        $media_result = $this->ig->media->getInfo('1867386121365970540_8576826038');
+        $media_result = json_decode($media_result);
+
+        $follower_result = $this->ig->people->getInfoByName('asifahmmed');
+        $follower_result = json_decode($follower_result);
+        $follower_count = $follower_result->user->follower_count;
+        $comment = $media_result->items[0]->comment_count;
+        $like = $media_result->items[0]->like_count;
+        $ratio = (($comment + $like)/ $follower_count)*100;
+        echo $ratio;
     }
 
     public function pictureSearch(Request $request){

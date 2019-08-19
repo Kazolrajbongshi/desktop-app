@@ -49,6 +49,7 @@
           </div>
         </a>
       </form>
+
             <?php
             $counter = 0;
             ?>
