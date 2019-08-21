@@ -1,3 +1,4 @@
+
 @if(!isset($searchResult1))
       <div class="row" style="margin-top: 10%;">
         <div class="container">
@@ -9,13 +10,18 @@
         </div>
       </div>
     @endif
+
     @if(isset($searchResult1) && isset($profile1))
 
     <div class="container" style="background: white;padding: 1em;">
       <div class="row">
       @if(isset($searchResult1) && isset($profile1))
         <div class="col-sm-4">
-
+            <form action="avg-eng-ratio" method="post">
+                {{csrf_field()}}
+                <input type="hidden" name="id" value="{{$profile1->user->pk}}">
+                <button>submit</button>
+            </form>
           <form action="javascript:void(0);" method="post">
                 {{csrf_field()}}
                 <meta type="hidden" name="csrf-token" content="{{csrf_token()}}">
@@ -24,6 +30,7 @@
           <input type="hidden" name="compare_search_follow_1" id="compare_search_follow_1" value="{{$profile1->user->pk}}">
           <div class="follower_upper">
             <p><i class="fa fa-instagram"></i>&nbsp;{{$profile1->user->username}}</p>
+
             <?php
                $n = (0+str_replace(",", "", $profile1->user->follower_count));
 
@@ -49,10 +56,18 @@
           </div>
         </a>
       </form>
+
             <?php
             $counter = 0;
             ?>
+
             @foreach($searchResult1->items as $searchResult1)
+            <form action="{{URL::to('engagement-ratio')}}" method="post">
+                {{csrf_field()}}
+                <input type="hidden" name="name" value="{{$profile1->user->username}}">
+                <input type="hidden" name="media" value="{{$searchResult1->id}}">
+                <button>submit</button>
+            </form>
 
         <a class="thumbnail" href="#" data-image-id="" data-toggle="modal" data-title="@if(isset($searchResult1->caption->text)){{$searchResult1->caption->text}}@endif" data-caption="Like : {{$searchResult1->like_count}}  @if(isset($searchResult1->view_count))Views : {{$searchResult1->view_count}}@endif" data-image="@if(isset($searchResult1->image_versions2->candidates[0]->url)){{$searchResult1->image_versions2->candidates[0]->url}}@else{{asset('assets/img/no_image.jpg')}}@endif" data-target="#image-gallery">
 
@@ -65,6 +80,7 @@
               <div class="col-sm-9 col-xs-9">
                 <p>@if(isset($searchResult1->caption->text)){{str_limit($searchResult1->caption->text, $limit = 70, $end = '')}}@endif<span style="font-weight: bold;color: #19c5bd;">...</span></p>
                 <p> @if(isset($searchResult1->view_count))<i class="fa fa-eye"></i>{{$searchResult1->view_count}}@endif &nbsp;&nbsp;<i class="fa fa-thumbs-up"></i> {{$searchResult1->like_count}} <span class="pull-right"><i class="fa fa-calendar"></i>{{ date("d-m-Y", $searchResult1->taken_at)}}</span></p>
+                  <p> </p>
               </div>
 
             </div>
@@ -90,6 +106,7 @@
 
               <a href="javascript:void(0);" class="compare_search_follow_list_2">
           <input type="hidden" name="compare_search_follow_2" id="compare_search_follow_2" value="{{$profile2->user->pk}}">
+
                   <div class="follower_upper">
                       <p><i class="fa fa-instagram"></i>&nbsp;{{$profile2->user->username}}</p>
                       <?php
@@ -157,7 +174,8 @@
                 <meta type="hidden" name="csrf-token" content="{{csrf_token()}}">
 
               <a href="javascript:void(0);" class="compare_search_follow_list_3">
-          <input type="hidden" name="compare_search_follow_3" id="compare_search_follow_3" value="{{$profile3->user->pk}}">
+                  <input type="hidden" name="compare_search_follow_3" id="compare_search_follow_3" value="{{$profile3->user->pk}}">
+
                   <div class="follower_upper">
                       <p><i class="fa fa-instagram"></i>&nbsp;{{$profile3->user->username}}</p>
                       <?php

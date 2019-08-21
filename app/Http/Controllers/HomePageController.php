@@ -113,11 +113,17 @@ class HomePageController extends Controller
             try{
                 $profile1 = $this->ig->people->getInfoById($id1);
                 $searchResult1 = $this->ig->timeline->getUserFeed($id1);
+
                 $searchResult1 = json_decode($searchResult1);
+
                 $profile1 = json_decode($profile1);
-                return view('home_page.compare_ajax_dashboard',compact('searchResult1','profile1','active'));
+
+                   return view('home_page.compare_ajax_dashboard',compact('searchResult1','profile1','active'));
+
             }catch(\Exception $ex) {
-                return response()->json(['data'=>2,'msg'=>$ex->getMessage()]);
+                echo $ex;
+
+//                return response()->json(['data'=>2,'msg'=>$ex->getMessage()]);
             }
         }
         if($search1 !=null && $search2 !=null && $search3 == null){
@@ -136,7 +142,10 @@ class HomePageController extends Controller
             $searchResult2 = json_decode($searchResult2);
             $profile1 = json_decode($profile1);
             $profile2 = json_decode($profile2);
-            return view('home_page.compare_ajax_dashboard',compact('searchResult1','profile1','searchResult2','profile2','active'));
+
+                    return view('home_page.compare_ajax_dashboard',compact('searchResult1','profile1','searchResult2','profile2','active'));
+
+
             }catch (\Exception $ex){
                 return response()->json(['data'=>2,'msg'=>$ex->getMessage()]);
             }
@@ -168,6 +177,37 @@ class HomePageController extends Controller
             }
         }
         return view('home_page.dashboard');
+    }
+
+    public function avgEngagementRatio(Request $request){
+        $result1 = $this->ig->login(session('username'), session('password'));
+         $id1 = $request->id;
+        try{
+            $media_finder = $this->ig->timeline->getUserFeed($id1);
+            $media_finder = json_decode($media_finder);
+            $counter = 0;
+
+            foreach ($media_finder->items as $media_finder){
+                $media_id = $media_finder->id;
+                $media_result = $this->ig->media->getInfo($media_id);
+                $media_result = json_decode($media_result);
+
+                $total_likes_comments = $media_result->items[0]->comment_count + $like = $media_result->items[0]->like_count;
+
+                if ($counter >= 10){
+                    break;
+                }else{
+                    continue;
+                }
+                $counter++;
+
+            }
+        }catch(\Exception $ex) {
+            echo $ex;
+
+//                return response()->json(['data'=>2,'msg'=>$ex->getMessage()]);
+        }
+        return $total_likes_comments;
     }
 
     public function defaultSearch(Request $request){
@@ -248,26 +288,43 @@ class HomePageController extends Controller
 
 
     public function test(){
-
-        $copyLink = 'https://instagram.com/p/B0gqMXlHO2H/';
-
-            $client = new InstagramDownload($copyLink);
-            $url = $client->getDownloadUrl(); // Returns the download URL.
+        //$recipients = array();
+        $this->ig->login('webvision100', 'instagram123456');
 
 
-//                $contents = file_get_contents($url);
-//                $name = str_random(10).'.'.'jpg';
-//                // Storage::put($name, $contents);
-//                $temp = Storage::disk('uploads')->put($name, $contents);
-//                //$url = Storage::url($name);
-//                //return response()->download(asset('images/'.$name));
-//                return response()->download('images/'.$name);
-//        \QrCode::size(500)
-//            ->format('png')
-//            ->generate('ItSolutionStuff.com', public_path('images/qrcode.png'));
+        //$media_result = $this->ig->media->getInfo('2111615845977120103_1474834026');
+        $searchResult1 = $this->ig->timeline->getUserFeed('1474834026');
+       // $media_result = json_decode($media_result);
 
-        return view('qrCode', compact('url'));
+        $follower_result = $this->ig->people->getInfoByName('asifahmmed');
+//        $follower_result = json_decode($follower_result);
+//        $follower_count = $follower_result->user->follower_count;
+//        $comment = $media_result->items[0]->comment_count;
+//        $like = $media_result->items[0]->like_count;
+//        $ratio = (($comment + $like)/ $follower_count)*100;
+        //echo $ratio;
 
+
+
+
+       //return response()->json($this->ig->timeline->getUserFeed('1474834026')) ;
+        return response()->json($searchResult1);
+
+    }
+    public function engagementRatio(Request $request){
+        $this->ig->login('webvision100', 'instagram123456');
+        $name = $request->name;
+        $media = $request->media;
+        $media_result = $this->ig->media->getInfo($media);
+        $media_result = json_decode($media_result);
+
+        $follower_result = $this->ig->people->getInfoByName($name);
+        $follower_result = json_decode($follower_result);
+        $follower_count = $follower_result->user->follower_count;
+        $comment = $media_result->items[0]->comment_count;
+        $like = $media_result->items[0]->like_count;
+        $ratio = (($comment + $like)/ $follower_count)*100;
+        return $ratio;
     }
 
     public function pictureSearch(Request $request){
